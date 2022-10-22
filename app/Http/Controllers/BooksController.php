@@ -13,7 +13,8 @@ class BooksController extends Controller
      */
     public function index()
     {
-        //
+        $title = "Danh muc sach";
+        return view('books.index')->with('title', $title);
     }
 
     /**
