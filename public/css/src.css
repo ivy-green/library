@@ -1,0 +1,31 @@
+:root {
+    --clr-btn-dark: rgb(67, 67, 67);
+    --clr-btn-submit: rgb(67, 67, 67);
+    --clr-btn-primary: rgb(67, 67, 67);
+
+    --clr-btn-hover: rgb(213, 213, 213);
+    --clr-txt-btn-hover: rgb(81, 81, 81);
+
+    --clr-txt-btn-primary: rgb(212, 212, 212); 
+    --clr-txt-second: rgb(44, 44, 44);
+    --clr-txt-primary: rgb(241, 241, 241);
+
+    --clr-shadow: var(--clr-btn-hover);
+}
+
+.txt-primary {
+    color: var(--clr-txt-primary) !important;
+}
+
+a {
+    text-decoration: none;
+    color: var(--clr-txt-second) !important;
+}
+
+h1 {
+    font-size: 2.25rem !important;
+}
+
+h3 {
+    font-size: 1.575rem !important;
+}

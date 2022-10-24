@@ -1,14 +1,18 @@
 <?php
 
-use App\Http\Controllers\BooksController;
+
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
-use Illuminate\Foundation\Application;
 
+use App\Http\Controllers\BooksController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AccountController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,17 +26,39 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', function () {
-    return view('pages.index');
+    return Inertia::render('home', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+});
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return Inertia::render('Dashboard');
+    })->name('dashboard');
 });
 
 Auth::routes();
 
-Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('book', BooksController::class)->missing(function (Request $request) {
+    return Redirect::route('books.index');
+});
+
+Auth::routes();
+
+Route::resource('account', AccountController::class)->missing(function (Request $request) {
+    return Redirect::route('accounts.index');
+});
 
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::resource('book', BooksController::class)->missing(function (Request $request){
-    return Redirect::route('books.index');
-});

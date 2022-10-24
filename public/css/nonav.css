@@ -1,0 +1,97 @@
+.rule-table {
+    border: solid 3px rgb(103, 103, 103);
+    padding: 50px 30px;
+    border-radius: 10px;
+    transition: all 0.3s;
+    box-shadow: 6px 6px 0px rgb(135, 134, 134);
+}
+
+.rule-list * {
+    transition: all 0.3s;
+}
+
+.rule-list > li {
+    /* background-color: rgb(244, 137, 137); */
+    margin: 10px 0;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
+.rule-list .advance {
+    color: white;
+    background-color: rgb(0, 106, 0) !important;
+}
+
+.rule-list .warning {
+    color: white;
+    background-color: rgb(254, 78, 78) !important;
+
+}
+
+.rule-table h3{
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 25px !important;
+    text-transform: uppercase;
+}
+
+.rule-table:hover{
+    box-shadow: none;
+    transform: translate(1px, 1px);
+}
+
+/* form */
+.form .card {
+    background-color: rgb(246, 246, 246);
+    transition: all 0.3s;
+    box-shadow: 6px 6px 0px rgb(196, 196, 196);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+}
+
+form input {
+    width: 80%;
+    padding: 15px 20px !important;
+    border-radius: 20px !important;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    background-color: rgb(225, 225, 225) !important;
+}
+
+form .input-wrapper input:focus {
+    width: 100%;
+}
+
+form .f-check {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border-radius: 20px;
+    /* background-color: rgb(246, 246, 246) !important;
+    border: solid 0.2px gray !important; */
+}
+
+form .f-check[type="checkbox"] {
+    border-radius: 0.25rem;
+}
+
+form .f-label {
+    
+}
+
+.login-title {
+    font-size: 22px !important;
+    margin-bottom: 10px;
+}

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Book;
+use Illuminate\Support\Facades\DB;
 
 class BooksController extends Controller
 {
@@ -13,8 +15,8 @@ class BooksController extends Controller
      */
     public function index()
     {
-        $title = "Danh muc sach";
-        return view('books.index')->with('title', $title);
+        $books = DB::select('select * from books');
+        return view('books.index')->with('books', $books);
     }
 
     /**
@@ -24,7 +26,7 @@ class BooksController extends Controller
      */
     public function create()
     {
-        //
+        return view('books.create');
     }
 
     /**
@@ -35,7 +37,11 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'tensach' => 'required',
+            'ngaynhap' => 'required',
+            'trigia' => 'required'
+        ]);
     }
 
     /**
