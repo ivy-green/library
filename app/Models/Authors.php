@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Authors extends Model
 {
-    protected $table = "tacgia"; 
+    protected $table = "authors"; 
     use HasFactory;
 }

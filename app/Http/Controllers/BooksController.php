@@ -15,7 +15,7 @@ class BooksController extends Controller
      */
     public function index()
     {
-        $books = DB::select('select * from books');
+        $books = DB::select('select * from book');
         return view('books.index')->with('books', $books);
     }
 
@@ -40,8 +40,27 @@ class BooksController extends Controller
         $this->validate($request, [
             'tensach' => 'required',
             'ngaynhap' => 'required',
-            'trigia' => 'required'
+            'trigia' => 'required',
+            'anhbia' => 'required'
         ]);
+        
+        $book = new Book;
+        $book->tensach = $request->input('tensach');
+        $book->ngaynhap = $request->input('ngaynhap');
+        $book->trigia = $request->input('trigia');
+        if($request->hasFile('anhbia')){
+            $file = $request->file('anhbia');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time().".".$extension;
+            //luu anh trong muc uploads
+            $file->move('uploads/books/', $filename);
+            //gan gia tri
+            $book->anhbia = $filename;
+        }else{
+        }
+        $book->save();
+
+        return redirect('/book')->with('success', 'Đã thêm thành công');
     }
 
     /**
@@ -52,7 +71,8 @@ class BooksController extends Controller
      */
     public function show($id)
     {
-        //
+        $book = Book::find($id);
+        return view('books.show')->with('book', $book);
     }
 
     /**
@@ -63,7 +83,8 @@ class BooksController extends Controller
      */
     public function edit($id)
     {
-        //
+        $book = Book::find($id);
+        return view('books.edit')->with('book', $book);
     }
 
     /**
@@ -75,7 +96,29 @@ class BooksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'tensach' => 'required',
+            'ngaynhap' => 'required',
+            'trigia' => 'required',
+            'anhbia' => 'required|image|mimes:png,jpg,jpeg|max:2048',
+        ]);
+
+        $book = Book::find($id);
+        $book->tensach = $request->input('tensach');
+        $book->ngaynhap = $request->input('ngaynhap');
+        $book->trigia = $request->input('trigia');
+        if($request->hasFile('anhbia')){
+            $file = $request->file('anhbia');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time().".".$extension;
+            //luu anh trong muc uploads
+            $file->move('uploads/books/', $filename);
+            //gan gia tri
+            $book->anhbia = $filename;
+        }
+        $book->save();
+
+        return redirect('/book')->with('success', 'Đã chỉnh sửa thành công');
     }
 
     /**
@@ -86,6 +129,8 @@ class BooksController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $book = Book::find($id);
+        $book->delete();
+        return redirect('/book')->with('success', 'Đã xóa thành công');;
     }
 }

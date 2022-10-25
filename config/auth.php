@@ -40,6 +40,26 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'users',
+        ],
+        'user' => [
+            'driver' => 'session',
+            'provider' => 'user',
+        ],
+        'user-api' => [
+            'driver' => 'token',
+            'provider' => 'user',
+        ],
+        'book' => [
+            'driver' => 'session',
+            'provider' => 'book',
+        ],
+        'book-api' => [
+            'driver' => 'token',
+            'provider' => 'book',
+        ],
     ],
 
     /*
@@ -63,6 +83,10 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'books' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Book::class,
         ],
 
         // 'users' => [

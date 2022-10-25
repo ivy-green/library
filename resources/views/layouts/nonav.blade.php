@@ -42,7 +42,7 @@
 <body>
     <div class="container">
         <div class="row py-5 pr-5 pl-12">
-            <div class="col">
+            <div id="rule" class="col show">
                 <div class="justify-content-center rule-table">
                     <h3>Nội quy thư viện</h3>
                     <ul class="list-unstyled commponents rule-list">

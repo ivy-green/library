@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Book extends Model
 {
-    protected $table = "sach";
+    protected $table = "book";
+    protected $fillable = [
+        'tensach',
+        'ngaynhap',
+        'trigia',
+        'anhbia'
+    ];
     use HasFactory;
 }

@@ -20,3 +20,11 @@ $(document).ready(function () {
         $('#navbarSupportedContent').toggleClass('show');
     });
 });
+
+$(window).on('resize', function(){
+    if($(window).width() > 1024){
+        $('#rule').addClass('show');
+    }else {
+        $('#rule').removeClass('show');
+    }
+});

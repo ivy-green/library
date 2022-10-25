@@ -40,11 +40,15 @@
     transform: translate(1px, 1px);
 }
 
+#rule:not(.show) {
+    display: none;
+}
+
 /* form */
 .form .card {
     background-color: rgb(246, 246, 246);
     transition: all 0.3s;
-    box-shadow: 6px 6px 0px rgb(196, 196, 196);
+    box-shadow: var(--shadow-form);
 }
 
 form {
@@ -90,6 +94,8 @@ form .f-check[type="checkbox"] {
 form .f-label {
     
 }
+
+
 
 .login-title {
     font-size: 22px !important;
