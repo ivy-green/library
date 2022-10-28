@@ -17,13 +17,21 @@ class UserTableSeeder extends Seeder
     {
         $data = [
             [
-                'name' => 'thaomy',
+                'ten' => 'thaomy',
                 'email' => 'thaomy@gmail.com',
+                'gioitinh' => 1,
+                'ngaysinh' => '2002-07-31',
+                'dienthoai' => '0777338809',
+                'diachi' => '123 QL22 Hoc Mon',
                 'password' => bcrypt('12345678'),
             ],
             [
-                'name' => 'thaomy2',
+                'ten' => 't_my02',
                 'email' => 'mythao@gmail.com',
+                'gioitinh' => 1,
+                'ngaysinh' => '2002-08-14',
+                'dienthoai' => '0891129922',
+                'diachi' => '3 QL20 Long An',
                 'password' => bcrypt('12345678'),
             ]
         ];

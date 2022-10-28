@@ -40,7 +40,7 @@ a[data-toggle="collapse"] {
     display: block;
     position: absolute;
     top: 50%;
-    right: 20px;
+    right: 0px;
     transform: translateY(-50%)
 }
 
@@ -94,17 +94,23 @@ a, a:hover, a:focus {
 }
 
 #sidebar {
-    background: var(--clr-bg-sidenav);
+    /* background: var(--clr-bg-sidenav); */
+    background-color: var(--clr-bg-sidenav);
     color: #ffff;
 }
 
 #sidebar .sidebar-header {
+    background-color: var(--clr-navitem-active);
+}
+
+#sidebar .sidebar-header-sub {
     padding: 20px;
     background: var(--clr-bg-sidenav-header);
 }
 
 #sidebar ul.components {
-    padding: 20px 0;
+    /* padding: 20px 0; */
+    background: var(--clr-bg-sidenav);
     cursor: pointer;
 }
 
@@ -114,31 +120,75 @@ a, a:hover, a:focus {
 }
 
 #sidebar ul li {
+    width: 100%;
+    background: var(--clr-bg-sidenav);
     transition: all 0.3s;
 }
 
 #sidebar ul li a{
-    height: 50px;
+    display: block;
+    height: 100%;
     width: 100%;
-    color: var(--clr-txt-primary) !important;
+    color: var(--clr-txt-primary);
     font-size: 16px;
-    display: table;
+    padding: 13px 30px;
+
     transition: all 0.3s;
 }
 
-#sidebar ul li:hover a {
+#sidebar div.active-before {
+    border-radius: 0 0 30px 0; 
+}
+
+#sidebar li.active-before a {
+    background-color: var(--clr-bg-sidenav);
+    border-radius: 0 0 20px 0;
+}
+
+#sidebar li.active-after,
+#sidebar li.active-before {
+    background-color: var(--clr-navitem-active);
+}
+
+#sidebar li.active-after a {
+    background-color: var(--clr-bg-sidenav);
+    border-radius: 0 20px 0 0;
+}
+
+#sidebar ul li.active-main {
+    height: 65px;
+    background-color: var(--clr-bg-sidenav);
+}
+
+#sidebar ul li.active-main a {
+    width: calc(100% - 10px);
+    margin-left: 10px;
+
+    background-color: var(--clr-navitem-active);
+    border-radius: 30px 0 0 30px;
+    box-shadow: inset 5px -3px 0px rgb(73, 69, 96);
+    padding-top: 20px;
+    padding-bottom: 20px; 
     color: var(--clr-bg-sidenav) !important;
 }
 
-#sidebar ul li:hover {
-    background-color: #fff;
-    color: black;
+#sidebar ul.nav-list > li:not(.active-main) {
+    /* padding-top: 5px;
+    padding-bottom: 5px; */
 }
 
-#sidebar ul li a {
-    padding: 10px;
-    display: table-cell;
-    vertical-align: middle;
+#sidebar ul.nav-list > li:not(.active-main):not(.dropdown-item) > a:hover  {
+    background-color: var(--clr-txt-primary);
+    color: var(--clr-bg-sidenav);
+}
+
+#sidebar li.active{
+
+}
+
+#homeSubmenu li a.subMenuItem{
+    color: var(--clr-txt-primary) !important;
+    background-color: inherit !important;
 }
 
 #content nav {
@@ -148,6 +198,33 @@ a, a:hover, a:focus {
 
 #navbarSupportedContent li {
     color: black;
+}
+
+#navbarSupportedContent .nav-item a#navbarDropdown:hover {
+
+}
+
+/* nav */
+
+.nav {
+    margin-left: 15px;
+}
+
+li.nav-item {
+    padding: 5px 10px 10px 10px;
+}
+
+li.nav-item a {
+    padding: 10px 20px;
+    border-radius: 20px;
+    /* box-shadow: 3px 5px 0px var(--clr-bg-sidenav-hover); */
+}
+
+li.nav-item a:not(#navbarDropdown):hover {
+    background-color: var(--clr-bg-sidenav);
+    color: var(--clr-txt-primary);
+    transform: translate(5px, -5px);
+    /* box-shadow: none; */
 }
 
 /* table */
@@ -200,10 +277,10 @@ tr .btn {
 }
 
 /* book info */
-#book-info .book-content {
+#book-info .book-content,
+#user-info .user-content {
     width: 70%;
     padding: 10px 30px;
-    border: solid 3px black;
     border-radius: 10px;
 }
 
@@ -219,11 +296,31 @@ tr .btn {
 /* form main */
 
 .form-main {
-    border: var(--border-form);
     border-radius: 10px;
     padding: 15px 20px;
     max-width: 950px;
+}
+
+.form-main textarea {
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+.form-border {
+    border: var(--border-form);
     box-shadow: var(--shadow-form);
+    transform: var(--transition);
+}
+
+.form-hover:hover {
+    box-shadow: none;
+    transform: translate(1px, 1px);
+}
+
+div.form-control {
+    border: solid 1px var(--clr-valid);
+    padding: 9px 20px;
+    background-color: #fff;
 }
 
 .form-main .form-control {
@@ -231,8 +328,25 @@ tr .btn {
     margin: 5px;
 }
 
+.form-group {
+    margin: 6px 0;
+}
+
 .form-main .submit {
     width: 100px;
     height: 40px;
     padding: 5px;
+}
+
+/* breadcumb bar */
+
+.breadcrumb-item:not(.active) a {
+    padding: 5px 10px;
+    transition: ease-in 0.3s;
+}
+
+.breadcrumb-item:not(.active) a:hover {
+    color: var(--clr-txt-primary);
+    background-color: var(--clr-bg-sidenav);
+    border-radius: 10px;
 }

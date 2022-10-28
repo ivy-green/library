@@ -4,7 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Book;
+use App\Models\Category;
+use App\Models\Authors;
+
+
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
 class BooksController extends Controller
 {
@@ -15,7 +20,7 @@ class BooksController extends Controller
      */
     public function index()
     {
-        $books = DB::select('select * from book');
+        $books = Book::all();
         return view('books.index')->with('books', $books);
     }
 
@@ -26,7 +31,11 @@ class BooksController extends Controller
      */
     public function create()
     {
-        return view('books.create');
+        $authors = Authors::all();
+        $categories = Category::all();
+        return view('books.create')
+            ->with('categories', $categories)
+            ->with('authors', $authors);
     }
 
     /**
@@ -39,15 +48,18 @@ class BooksController extends Controller
     {
         $this->validate($request, [
             'tensach' => 'required',
-            'ngaynhap' => 'required',
             'trigia' => 'required',
-            'anhbia' => 'required'
+            'soluong' => 'required',
+            'anhbia' => 'required',
         ]);
         
         $book = new Book;
         $book->tensach = $request->input('tensach');
-        $book->ngaynhap = $request->input('ngaynhap');
         $book->trigia = $request->input('trigia');
+        $book->soluong = $request->input('soluong');
+        $book->matheloai = $request->get('categoryid');
+        $book->matacgia = $request->get('authorid');
+
         if($request->hasFile('anhbia')){
             $file = $request->file('anhbia');
             $extension = $file->getClientOriginalExtension();
@@ -60,7 +72,7 @@ class BooksController extends Controller
         }
         $book->save();
 
-        return redirect('/book')->with('success', 'Đã thêm thành công');
+        return redirect('/books')->with('success', 'Đã thêm thành công');
     }
 
     /**
@@ -96,16 +108,16 @@ class BooksController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $currentTime = Carbon::now();
+
         $this->validate($request, [
             'tensach' => 'required',
-            'ngaynhap' => 'required',
             'trigia' => 'required',
             'anhbia' => 'required|image|mimes:png,jpg,jpeg|max:2048',
         ]);
 
         $book = Book::find($id);
         $book->tensach = $request->input('tensach');
-        $book->ngaynhap = $request->input('ngaynhap');
         $book->trigia = $request->input('trigia');
         if($request->hasFile('anhbia')){
             $file = $request->file('anhbia');
@@ -116,9 +128,11 @@ class BooksController extends Controller
             //gan gia tri
             $book->anhbia = $filename;
         }
+        $book->update_at = $currentTime;
+
         $book->save();
 
-        return redirect('/book')->with('success', 'Đã chỉnh sửa thành công');
+        return redirect('/books')->with('success', 'Đã chỉnh sửa thành công');
     }
 
     /**
@@ -131,6 +145,6 @@ class BooksController extends Controller
     {
         $book = Book::find($id);
         $book->delete();
-        return redirect('/book')->with('success', 'Đã xóa thành công');;
+        return redirect('/books')->with('success', 'Đã xóa thành công');
     }
 }

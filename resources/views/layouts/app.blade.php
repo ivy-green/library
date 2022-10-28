@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Thư viện - Thủ thư') }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -35,7 +35,7 @@
     @push('css')
         <link rel="stylesheet" href="path to your css">
     @endpush
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">   
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
@@ -45,43 +45,64 @@
         <!-- Sidebar -->
         <nav id="sidebar">
             <div class="sidebar-header">
-                <h3>Library</h3>
+                <div class="sidebar-header-sub">
+                    <h3>Thư viện</h3>
+                </div>
             </div>
     
-            <ul class="list-unstyled components">
-                <li class="active">
-                    <a class="txt-primary" href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">{{ __('Quản lý tài khoản') }}</a>
+            <ul class="nav-list list-unstyled components">
+                <li class="">
+                    {{-- <a class="txt-primary openSubNav" href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">{{ __('Quản lý tài khoản') }}</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu" aria-labelledby="openSubNav">
+                        <li>
+                            <a class="subMenuItem" href="#">Thêm tài khoản</a>
+                        </li>
+                    </ul> --}}
+                    <a class="txt-primary openSubNav" href="/user" class="dropdown-toggle">{{ __('Quản lý độc giả') }}</a>
                     <ul class="collapse list-unstyled" id="homeSubmenu">
                         <li>
-                            <a class="txt-primary" href="#">Home 1</a>
+                            <a class="subMenuItem" href="/user/create">Thêm tài khoản</a>
+                        </li>
+                    </ul>
+                </li>   
+                <li class="">
+                    <a class="txt-primary openSubNav" href="/exchange">{{ __('Quản lý mượn-trả sách') }}</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a class="subMenuItem" href="#">Đăng ký mượn sách</a>
                         </li>
                         <li>
-                            <a class="txt-primary" href="#">Home 2</a>
+                            <a class="subMenuItem" href="#">Mượn sách</a>
                         </li>
                         <li>
-                            <a class="txt-primary" href="#">Home 3</a>
+                            <a class="subMenuItem" href="#">Trả sách</a>
+                        </li>
+                        <li>
+                            <a class="subMenuItem" href="#">Báo cáo</a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a class="txt-primary" href="/about">{{ __('Thông báo') }}</a>
+                    <a  class="txt-primary openSubNav" href="/books">{{ __('Quản lý sách') }}</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a class="subMenuItem" href="/books/create">Thêm sách mới</a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
-                    <a class="txt-primary" href="/book">{{ __('Quản lý sách') }}</a>
-                </li>
-                <li>
-                    <a class="txt-primary" href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">{{ __('Pages') }}</a>
+                    <a class="txt-primary openSubNav" href="/violations" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">{{ __('Quản lý vi phạm') }}</a>
                     <ul class="collapse list-unstyled" id="pageSubmenu">
                         <li>
-                            <a class="txt-primary" href="#">Page 1</a>
+                            <a class="subMenuItem" href="#">Page 1</a>
                         </li>
                         <li>
-                            <a class="txt-primary" href="#">Page 2</a>
+                            <a class="subMenuItem" href="#">Page 2</a>
                         </li>
                         <li>
-                            <a class="txt-primary" href="#">Page 3</a>
+                            <a class="subMenuItem" href="#">Page 3</a>
                         </li>
-                    </ul>
+                    </ul>`
                 </li>
             </ul>
     
@@ -94,6 +115,21 @@
                         <i class="fas fa-align-left"></i>
                         <span>Danh mục</span>
                     </button>
+
+                    <ul class="nav justify-content-center">
+                        <li class="nav-item">
+                          <a class=" active" href="#">Trang chủ</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="" href="#">Quy định thư viện</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="" href="#">Thông báo</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="" href="#">Liên hệ</a>
+                        </li>
+                      </ul>
                     
                     <button
                     id="btn_navbarSupportedContent"
@@ -121,7 +157,7 @@
                             @else
                                 <li class="nav-item dropdown">
                                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        {{ Auth::user()->name }}
+                                        {{ Auth::user()->ten }}
                                     </a>
     
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">

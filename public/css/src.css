@@ -8,21 +8,24 @@
 
     --clr-txt-btn-primary: rgb(212, 212, 212); 
     --clr-txt-second: rgb(44, 44, 44);
-    --clr-txt-primary: rgb(241, 241, 241);
+    --clr-txt-primary: #f5f6fa;
 
     --clr-shadow: var(--clr-btn-hover);
     --clr-valid: #c2c2ff;
     --clr-danger: #ffc2c2;
 
-    --clr-bg-sidenav: #8892b3;
+    --clr-bg-sidenav: #717d8b;
+    --clr-bg-sidenav-hover: #a1aac7;
     --clr-bg-sidenav-header: var(--clr-bg-sidenav);
-
+    --clr-navitem-active: #f8fafc;
 
     --font-content: 16px;
     --font-title: 22px;
     --font-h1: 2.25rem;
     --font-h3: 1.575rem;
     --font-h2: calc(1.305rem + 0.66vw);
+
+    --transition: all 0.3s;
 
     --shadow-form: 6px 6px 0px rgb(196, 196, 196);
     --border-form: solid 3px var(--clr-btn-dark);
@@ -33,10 +36,10 @@
 }
 
 .txt-primary {
-    color: var(--clr-txt-primary) !important;
+    color: var(--clr-txt-primary);
 }
 
-a:not(.btn_a) {
+.btn a:not(.btn_a) {
     text-decoration: none;
     color: var(--clr-txt-second) !important;
 }
@@ -97,4 +100,9 @@ ul ul a {
 .btn-danger {
     color: var(--clr-btn-dark);
     background-color: var(--clr-danger) !important;
+}
+
+textarea {
+    background-color: #fff;
+    border: solid 0.2px var(--clr-btn-dark);
 }

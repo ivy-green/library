@@ -16,9 +16,13 @@ return new class extends Migration
         Schema::create('book', function (Blueprint $table) {
             $table->id('id');
             $table->string('tensach');
-            $table->date('ngaynhap');
             $table->float('trigia');
             $table->string('anhbia');
+            $table->integer('soluong');
+
+            $table->foreignId('matacgia')->nullable()->constrained('authors')->onDelete('set null');
+            $table->foreignId('matheloai')->nullable()->constrained('categories')->onDelete('set null');
+
             $table->timestamps();
         });
     }

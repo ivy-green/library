@@ -10,9 +10,9 @@ class Book extends Model
     protected $table = "book";
     protected $fillable = [
         'tensach',
-        'ngaynhap',
         'trigia',
-        'anhbia'
+        'anhbia',
+        'soluong',
     ];
     use HasFactory;
 }

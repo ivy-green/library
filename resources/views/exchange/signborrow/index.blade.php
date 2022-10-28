@@ -2,55 +2,57 @@
 
 @section('content')
     @include('inc.message')
+    <a href="/exchange" class="">Trở lại</a>
     <div class="d-flex flex-row justify-content-between">
-        <h1 class="mb-4">Danh mục độc giả</h1>
+        <h1 class="mb-4">Danh mục đăng ký mượn sách</h1>
         <button class="btn btn-default btn_size">
-            <a href="./book/create">Thêm độc giả</a>
+            <a href="./signbook/create">Thêm</a>
         </button>
     </div>
-    <div class="table-wrapper">
+    <div class="table-wrapper form-border form-hover">
         <table class="table">
             <thead>
               <tr>
-                <th scope="col">Mã độc giả</th>
-                <th scope="col">Tên độc giả</th>
-                <th scope="col">Ngày đăng ký</th>
+                <th scope="col">Mã sách</th>
+                <th scope="col">Tên sách</th>
+                <th scope="col">Ngày nhập</th>
                 <th scope="col">Trị giá</th>
-                <th scope="col">Thao tác</th>
+                <th scope="col">Số lượng</th>
+                {{-- <th scope="col">Thao tác</th> --}}
               </tr>
             </thead>
             <tbody>
-                @if(count($books) > 1)
-                    @foreach($books as $book)
+                {{-- @if(count($books) > 0)
+                    @foreach($books as $book) --}}
                     <tr>
                             <td> 
-                                <a href="./book/{{$book->id}}"> {{$book->id}}</a>
+                                {{-- <a href="./book/{{$book->id}}"> {{$book->id}}</a> --}}
                             </td>
                             <td>
-                                <a href="./book/{{$book->id}}"> {{$book->tensach}}</a>
-                                {{-- <small>Written on {{$book->created_at}}</small> --}}
+                                {{-- <a href="./book/{{$book->id}}"> {{$book->tensach}}</a> --}}
                             </td>
                             <td>
-                                <a href="./book/{{$book->id}}"> {{$book->ngaynhap}}</a>
-                                {{-- <small>Written on {{$book->created_at}}</small> --}}
+                                {{-- <a href="./book/{{$book->id}}"> {{$book->ngaynhap}}</a> --}}
                             </td>
                             <td>
-                                <a href="./book/{{$book->id}}"> {{$book->trigia}}</a>
-                                {{-- <small>Written on {{$book->created_at}}</small> --}}
+                                {{-- <a href="./book/{{$book->id}}"> {{$book->trigia}}</a> --}}
                             </td>
                             <td>
+                                {{-- <a href="./book/{{$book->id}}"> {{$book->soluong}}</a> --}}
+                            </td>
+                            {{-- <td>
                                 <button class="btn btn-default">
                                     <a class="btn_a" href="./book/{{$book->id}}">Chỉnh sửa</a>
                                 </button>
                                 <button class="btn btn-danger">
                                     <a class="btn_a" href="./book/{{$book->id}}">Xóa</a>
                                 </button>
-                            </td>
+                            </td> --}}
                     </tr>
-                    @endforeach
+                    {{-- @endforeach
                 @else
                     <div class="">Không có sách nào</div>
-                @endif
+                @endif --}}
             </tbody>
           </table>
     </div>

@@ -19,17 +19,20 @@ class BooksTableSeeder extends Seeder
             [
                 'tensach'=> 'Moi Ngay Mot Niem Vui',
                 'ngaynhap' => '2002-09-02',
-                'trigia' => '100000'
+                'trigia' => '100000',
+                'matheloai' => 1
             ],
             [
                 'tensach'=> 'Mot Ngay Code Ma Khong Co Bug',
                 'ngaynhap' => '2022-010-02',
-                'trigia' => '120000'
+                'trigia' => '120000',
+                'matheloai' => 3
             ],
             [
                 'tensach'=> 'Cuoi Di Bug Se Tu Fix',
                 'ngaynhap' => '2020-10-22',
-                'trigia' => '120000'
+                'trigia' => '120000',
+                'matheloai' => 3
             ],
 
         ];
