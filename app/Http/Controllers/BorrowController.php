@@ -16,7 +16,7 @@ class BorrowController extends Controller
     {
         // $books = BorrowForm::all();
         // return view('exchange.borrow.index')->with('books', $books);
-        return view('exchange.borrow.index');
+        return view('management.librarian.exchange.borrow.index');
 
     }
 
@@ -27,7 +27,7 @@ class BorrowController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**

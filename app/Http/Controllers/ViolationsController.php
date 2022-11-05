@@ -15,7 +15,7 @@ class ViolationsController extends Controller
     public function index()
     {
         $violations = Violation::all();
-        return view('violations.index')->with('violations', $violations);
+        return view('management.librarian.violations.index')->with('violations', $violations);
     }
 
     /**
@@ -25,7 +25,7 @@ class ViolationsController extends Controller
      */
     public function create()
     {
-        return view('violations.create');
+        return view('management.librarian.violations.create');
     }
 
     /**
@@ -47,7 +47,7 @@ class ViolationsController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('management.librarian.violations.show');
     }
 
     /**
@@ -58,7 +58,7 @@ class ViolationsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('management.librarian.violations.edit');
     }
 
     /**

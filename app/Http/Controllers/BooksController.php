@@ -21,7 +21,12 @@ class BooksController extends Controller
     public function index()
     {
         $books = Book::all();
-        return view('books.index')->with('books', $books);
+        $authors = Authors::all();
+        $categories = Category::all();
+        return view('management.librarian.books.index')
+            ->with('books', $books)
+            ->with('categories', $categories)
+            ->with('authors', $authors);
     }
 
     /**
@@ -33,7 +38,7 @@ class BooksController extends Controller
     {
         $authors = Authors::all();
         $categories = Category::all();
-        return view('books.create')
+        return view('management.librarian.books.create')
             ->with('categories', $categories)
             ->with('authors', $authors);
     }
@@ -46,6 +51,8 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
+        $currentTime = Carbon::now();
+
         $this->validate($request, [
             'tensach' => 'required',
             'trigia' => 'required',
@@ -59,6 +66,7 @@ class BooksController extends Controller
         $book->soluong = $request->input('soluong');
         $book->matheloai = $request->get('categoryid');
         $book->matacgia = $request->get('authorid');
+        $book->created_at = $currentTime;
 
         if($request->hasFile('anhbia')){
             $file = $request->file('anhbia');
@@ -84,7 +92,12 @@ class BooksController extends Controller
     public function show($id)
     {
         $book = Book::find($id);
-        return view('books.show')->with('book', $book);
+        $authors = Authors::find($id);
+        $categories = Category::find($id);
+        return view('management.librarian.books.show')
+            ->with('book', $book)
+            ->with('categories', $categories)
+            ->with('authors', $authors);
     }
 
     /**
@@ -96,7 +109,12 @@ class BooksController extends Controller
     public function edit($id)
     {
         $book = Book::find($id);
-        return view('books.edit')->with('book', $book);
+        $authors = Authors::all();
+        $categories = Category::all();
+        return view('management.librarian.books.edit')
+            ->with('book', $book)
+            ->with('categories', $categories)
+            ->with('authors', $authors);
     }
 
     /**
@@ -113,7 +131,7 @@ class BooksController extends Controller
         $this->validate($request, [
             'tensach' => 'required',
             'trigia' => 'required',
-            'anhbia' => 'required|image|mimes:png,jpg,jpeg|max:2048',
+            'anhbia' => 'optional|image|mimes:png,jpg,jpeg|max:2048',
         ]);
 
         $book = Book::find($id);

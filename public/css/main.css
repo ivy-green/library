@@ -1,5 +1,45 @@
 @import './src.css';
 
+/* colors */
+.ic::before {
+    font-family: "Font Awesome 5 Free";
+    display: inline-block;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    transition: all 0.3s;
+}
+.ic_book::before {
+    font-weight: 900; 
+    content: "\f02d";
+    font-size: 40px;
+    color: var(--clr-bg-sidenav);
+    
+  }
+
+.ic_user::before {
+    font-weight: 900; 
+    content: "\f0c0";
+    font-size: 40px;
+    color: var(--clr-bg-sidenav);
+}
+
+.card i {
+    font-weight: 900; 
+    font-size: 40px;
+    color: var(--clr-bg-sidenav);
+    margin: 12px 0px;
+    transition: all 0.3s;
+}
+
+.card:hover i,
+.card:hover .ic::before {
+    color: var(--clr-valid);
+}
+
+/* sidebar */
+
 .wrapper{
     display: flex;
     width: 100%;
@@ -191,11 +231,6 @@ a, a:hover, a:focus {
     background-color: inherit !important;
 }
 
-#content nav {
-    margin-bottom: 20px;
-    /* box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px; */
-}
-
 #navbarSupportedContent li {
     color: black;
 }
@@ -225,6 +260,40 @@ li.nav-item a:not(#navbarDropdown):hover {
     color: var(--clr-txt-primary);
     transform: translate(5px, -5px);
     /* box-shadow: none; */
+}
+
+/* search */
+#search {
+    display: inline-block;
+}
+
+#search #search-input {
+    background-color: transparent;
+    border: none;   
+    width: 40rem; 
+    padding-left: 15px;
+}
+
+#search #search-input:focus,
+#search #search-choice {
+    border: none;
+    ring-color: none !important;
+    box-shadow: none !important;
+    border-style: none !important;
+    border-color: none !important;
+    background-color: transparent;
+}
+
+#search #search-choice {
+    height: 100%;
+    color: var(--clr-btn-dark);
+}
+
+#search #search-btn {
+    height: 100%;
+    width: 96.2px;
+    color: var(--clr-txt-primary);
+    background-color: var(--clr-btn-dark);
 }
 
 /* table */
@@ -278,10 +347,15 @@ tr .btn {
 
 /* book info */
 #book-info .book-content,
-#user-info .user-content {
+#user-info .user-content,
+#info .content {
     width: 70%;
     padding: 10px 30px;
     border-radius: 10px;
+}
+
+#info > div {
+    height: 23rem;
 }
 
 .book-image{
@@ -312,10 +386,12 @@ tr .btn {
     transform: var(--transition);
 }
 
-.form-hover:hover {
+.form-hover:hover{
     box-shadow: none;
     transform: translate(1px, 1px);
 }
+
+#search #search-btn:hover 
 
 div.form-control {
     border: solid 1px var(--clr-valid);

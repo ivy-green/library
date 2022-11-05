@@ -17,6 +17,7 @@ use App\Http\Controllers\GiveBackController;
 use App\Http\Controllers\AuthorsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ViolationsController;
+use App\Http\Controllers\PagesController;
 
 
 /*
@@ -49,12 +50,14 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Auth::routes();
+// Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/', [App\Http\Controllers\PagesController::class, 'home'])->name('home');
+
+Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
 Route::resource('/books', BooksController::class)->missing(function (Request $request) {
-    return Redirect::route('books.index');
+    return Redirect::route('management.librarian.books.index');
 });
 
 // Route::get('/books/authors', [AuthorsController::class, 'index'])->name('authors');
@@ -67,50 +70,43 @@ Route::resource('/books', BooksController::class)->missing(function (Request $re
 // Route::get('')
 
 
-Auth::routes();
-
-// Route::resource('/user', UserController::class)->missing(function (Request $request) {
-//     return Redirect::route('user.index');
-// });
-
-Route::get('/user', [UserController::class, 'index'])->name('user');
-Route::get('/user/{id}', [UserController::class, 'show'])->name('user.show');
-Route::get('/user/{id}/create', [UserController::class, 'create'])->name('user.create');
-Route::delete('/user', [UserController::class, 'destroy'])->name('user.destroy');
+Route::resource('/user', UserController::class)->missing(function (Request $request) {
+    return Redirect::route('management.user.index');
+});
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [PagesController::class, 'home'])->name('home');
+Route::get('/contact', [PagesController::class, 'contact'])->name('contact');
 
 Auth::routes();
 
 Route::get('/exchange', function(){
-    return view('exchange.index');
+    return view('management.librarian.exchange.index');
 });
 Route::resource('/exchange/giveback', GiveBackController::class)->missing(function (Request $request) {
-    return Redirect::route('giveback.index');
+    return Redirect::route('management.librarian.giveback.index');
 });
 Route::resource('/exchange/borrow', BorrowController::class)->missing(function (Request $request) {
-    return Redirect::route('borrow.index');
+    return Redirect::route('management.librarian.borrow.index');
 });
 Route::resource('/exchange/signborrow', SignBorrowController::class)->missing(function (Request $request) {
-    return Redirect::route('signborrow.index');
+    return Redirect::route('management.librarian.signborrow.index');
 });
 
 Auth::routes();
 
 Route::resource('/authors', AuthorsController::class)->missing(function (Request $request) {
-    return Redirect::route('authors.index');
+    return Redirect::route('management.librarian.authors.index');
 });
 
 Route::resource('/categories', CategoriesController::class)->missing(function (Request $request) {
-    return Redirect::route('categories.index');
+    return Redirect::route('management.librarian.categories.index');
 });
 
 Route::resource('/violations', ViolationsController::class)->missing(function (Request $request) {
-    return Redirect::route('violations.index');
+    return Redirect::route('management.librarian.violations.index');
 });
-
 
 Route::get('/personal/edit', function(){
     return view('personal.edit');

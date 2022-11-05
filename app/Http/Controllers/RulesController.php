@@ -15,7 +15,7 @@ class RulesController extends Controller
     public function index()
     {
         $rules = Rule::all();
-        return view('rules.index')->with("rules", $rules);
+        return view('management.librarian.rules.index')->with("rules", $rules);
     }
 
     /**
@@ -25,7 +25,7 @@ class RulesController extends Controller
      */
     public function create()
     {
-        return view('rules.create');
+        return view('management.librarian.rules.create');
     }
 
     /**
@@ -47,7 +47,7 @@ class RulesController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('management.librarian.rules.show');
     }
 
     /**
@@ -58,7 +58,7 @@ class RulesController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('management.librarian.rules.edit');
     }
 
     /**

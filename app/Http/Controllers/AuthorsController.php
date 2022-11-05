@@ -15,7 +15,7 @@ class AuthorsController extends Controller
     public function index()
     {
         $authors = Authors::all();
-        return view('authors.index')->with('authors', $authors);
+        return view('management.librarian.authors.index')->with('authors', $authors);
     }
 
     /**
@@ -25,7 +25,7 @@ class AuthorsController extends Controller
      */
     public function create()
     {
-        return view('authors.create');
+        return view('management.librarian.authors.create');
     }
 
     /**
@@ -61,7 +61,7 @@ class AuthorsController extends Controller
         // }
         $author->save();
 
-        return redirect('/authors')->with('success', 'Đã thêm thành công');
+        return redirect('management/librarian/authors')->with('success', 'Đã thêm thành công');
     }
 
     /**
@@ -72,8 +72,8 @@ class AuthorsController extends Controller
      */
     public function show($id)
     {
-        $authors = Authors::find($id);
-        return view('authors.show')->with('authors', $authors);
+        $author = Authors::find($id);
+        return view('management.librarian.authors.show')->with('author', $author);
     }
 
     /**
@@ -84,8 +84,8 @@ class AuthorsController extends Controller
      */
     public function edit($id)
     {
-        $authors = Authors::find($id);
-        return view('authors.edit')->with('authors', $authors);
+        $author = Authors::find($id);
+        return view('management.librarian.authors.edit')->with('author', $author);
     }
 
     /**
@@ -97,7 +97,30 @@ class AuthorsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'tentacgia' => 'required',
+            'ngaysinh' => 'required',
+            'gioitinh' => 'required',
+        ]);
+        
+        $author = Authors::find($id);
+        $author->tentacgia = $request->input('tentacgia');
+        $author->ngaysinh = $request->input('ngaysinh');
+        $author->gioitinh = $request->input('gioitinh');
+
+        // if($request->hasFile('anhbia')){
+        //     $file = $request->file('anhbia');
+        //     $extension = $file->getClientOriginalExtension();
+        //     $filename = time().".".$extension;
+        //     //luu anh trong muc uploads
+        //     $file->move('uploads/authors/', $filename);
+        //     //gan gia tri
+        //     $author->anhbia = $filename;
+        // }else{
+        // }
+        $author->save();
+
+        return redirect('management/librarian/authors')->with('success', 'Đã thêm thành công');
     }
 
     /**
@@ -108,6 +131,8 @@ class AuthorsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $author = Authors::find($id);
+        $author->delete();
+        return redirect('management/librarian/authors')->with('success', 'Đã xóa thành công');
     }
 }

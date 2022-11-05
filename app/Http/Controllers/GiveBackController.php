@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\GiveBack;
 
 class GiveBackController extends Controller
 {
@@ -13,7 +14,7 @@ class GiveBackController extends Controller
      */
     public function index()
     {
-        return view('exchange.giveback.index');
+        return view('management.librarian.exchange.giveback.index');
     }
 
     /**
@@ -23,7 +24,8 @@ class GiveBackController extends Controller
      */
     public function create()
     {
-        //
+
+        return view('management.librarian.exchange.giveback.create');
     }
 
     /**
@@ -45,7 +47,8 @@ class GiveBackController extends Controller
      */
     public function show($id)
     {
-        //
+        $giveback = GiveBack::find($id);
+        return view('management.librarian.exchange.giveback.show');
     }
 
     /**

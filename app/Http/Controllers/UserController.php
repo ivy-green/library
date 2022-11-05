@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use App\Models\Access;
 
 class UserController extends Controller
 {
@@ -16,8 +17,9 @@ class UserController extends Controller
      */
     public function index()
     {
+        $accesses = Access::all();
         $users = User::all();
-        return view('user.index')->with('users', $users);
+        return view('management.user.index', compact('users', 'accesses'));
     }
 
     /**
@@ -27,7 +29,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.create');
+        $accesses = Access::all();
+        return view('management.user.create')->with('accesses', $accesses);
     }
 
     /**
@@ -58,6 +61,12 @@ class UserController extends Controller
         $user->diachi = $request->input('diachi');
         $user->password = bcrypt('123456789');
 
+        if($request->get('accessid') != null) {
+            $user->maquyen = $request->get('accessid');
+        } else {
+            $user->maquyen = 3; 
+        }
+
         if($request->hasFile('anhdaidien')){
             $file = $request->file('anhdaidien');
             $extension = $file->getClientOriginalExtension();
@@ -83,7 +92,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        return view('user.show')->with('user', $user);
+        return view('management.user.show')->with('user', $user);
     }
 
     /**
@@ -95,7 +104,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('user.edit')->with('user', $user);
+        return view('management.user.edit')->with('user', $user);
     }
 
     /**
@@ -117,7 +126,7 @@ class UserController extends Controller
             'diachi' => 'required',
         ]);
         
-        $user = new User;
+        $user = User::find($id);
         $user->ten = $request->input('ten');
         $user->gioitinh = $request->input('gioitinh');
         $user->ngaysinh = $request->input('ngaysinh');
@@ -137,7 +146,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect('/user')->with('success', 'Đã thêm thành công');
+        return redirect('/user')->with('success', 'Đã chỉnh sửa thành công');
     }
 
     /**

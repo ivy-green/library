@@ -44,68 +44,52 @@
     <div id="app" class="wrapper">
         <!-- Sidebar -->
         <nav id="sidebar">
-            <div class="sidebar-header">
-                <div class="sidebar-header-sub">
-                    <h3>Thư viện</h3>
+            <div id="curr-user" class="flex flex-row mx-3 my-3">
+                <div class="user-img h-14 w-14 rounded-full bg-white overflow-hidden
+                 border border-spacing-2 border-black">
+                    <img src="{{ asset('uploads/users/default.jpg') }}" class="" alt="">
+                </div>
+                <div class="user-info flex flex-col ml-3 mt-2">
+                    <div class="name">Tên: 
+                        @if( is_null(Auth::user()->ten))
+                            {{ __('Chưa đăng nhập') }}
+                        @else
+                            {{ Auth::user()->ten }}
+                        @endif
+                    </div>
+                    <div class="id text-xs  ">ID: 
+                        @if( is_null(Auth::user()->ten))
+                            {{ __('') }}
+                        @else
+                            {{ Auth::user()->id }}
+                        @endif
+                    </div>
+                </div>
+                <div class="edit-user ml-auto mt-2">
+                    <i class="fa-solid fa-pen"></i>
                 </div>
             </div>
-    
-            <ul class="nav-list list-unstyled components">
-                <li class="">
-                    {{-- <a class="txt-primary openSubNav" href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">{{ __('Quản lý tài khoản') }}</a>
-                    <ul class="collapse list-unstyled" id="homeSubmenu" aria-labelledby="openSubNav">
-                        <li>
-                            <a class="subMenuItem" href="#">Thêm tài khoản</a>
-                        </li>
-                    </ul> --}}
-                    <a class="txt-primary openSubNav" href="/user" class="dropdown-toggle">{{ __('Quản lý độc giả') }}</a>
-                    <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li>
-                            <a class="subMenuItem" href="/user/create">Thêm tài khoản</a>
-                        </li>
-                    </ul>
-                </li>   
-                <li class="">
-                    <a class="txt-primary openSubNav" href="/exchange">{{ __('Quản lý mượn-trả sách') }}</a>
-                    <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li>
-                            <a class="subMenuItem" href="#">Đăng ký mượn sách</a>
-                        </li>
-                        <li>
-                            <a class="subMenuItem" href="#">Mượn sách</a>
-                        </li>
-                        <li>
-                            <a class="subMenuItem" href="#">Trả sách</a>
-                        </li>
-                        <li>
-                            <a class="subMenuItem" href="#">Báo cáo</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a  class="txt-primary openSubNav" href="/books">{{ __('Quản lý sách') }}</a>
-                    <ul class="collapse list-unstyled" id="homeSubmenu">
-                        <li>
-                            <a class="subMenuItem" href="/books/create">Thêm sách mới</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a class="txt-primary openSubNav" href="/violations" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">{{ __('Quản lý vi phạm') }}</a>
-                    <ul class="collapse list-unstyled" id="pageSubmenu">
-                        <li>
-                            <a class="subMenuItem" href="#">Page 1</a>
-                        </li>
-                        <li>
-                            <a class="subMenuItem" href="#">Page 2</a>
-                        </li>
-                        <li>
-                            <a class="subMenuItem" href="#">Page 3</a>
-                        </li>
-                    </ul>`
-                </li>
-            </ul>
-    
+            <div class="sidebar-header">
+                <div class="sidebar-header-sub ">
+                    <h3>
+                        {{-- return Quyen Truy Cap (chuc vu) --}}
+                        <?php 
+                            $user = auth()->user();
+                            $accesses = $user->accesses->tenquyen;
+                            
+                            echo $accesses;
+                            ?>
+                    </h3>
+                </div>
+            </div>
+            {{-- side nav tùy vào Role của User --}}
+            @if(Auth::user()->maquyen == 1)
+                @include('layouts.admin');
+            @elseif(Auth::user()->maquyen == 2)
+                @include('layouts.librarian');
+            @elseif(Auth::user()->maquyen == 3)
+                @include('layouts.reader');
+            @endif
         </nav>
 
         <main class="py-4 active" id="content">
@@ -118,7 +102,7 @@
 
                     <ul class="nav justify-content-center">
                         <li class="nav-item">
-                          <a class=" active" href="#">Trang chủ</a>
+                          <a class=" active" href="/home">Trang chủ</a>
                         </li>
                         <li class="nav-item">
                           <a class="" href="#">Quy định thư viện</a>
@@ -164,7 +148,7 @@
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
+                                            {{ __('Đăng xuất') }}
                                         </a>
     
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -175,15 +159,17 @@
                             @endguest
                         </ul>
                     </div>
-                    
                 </div>
             </nav>
+            @include('layouts.search')
             <div>
                 @yield('content')
             </div>
         </main>
     </div>
     <script type="text/javascript"  src="{{ asset('js/app.js') }}"></script>
-
+    {{-- chart --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 </html>

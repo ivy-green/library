@@ -15,7 +15,7 @@ class CategoriesController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('categories.index')->with('categories', $categories);
+        return view('management.librarian.categories.index')->with('categories', $categories);
     }
 
     /**
@@ -26,7 +26,7 @@ class CategoriesController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('categories.create')->with('categories', $categories);
+        return view('management.librarian.categories.create')->with('categories', $categories);
     }
 
     /**
@@ -37,7 +37,19 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'tentheloai' => 'required',
+            'mota' => 'required',
+        ]);
+        
+        $category = new Category;
+        $category->tentheloai = $request->input('tentheloai');
+        $category->mota = $request->input('mota');
+        $category->soluongsach = 0;
+
+        $category->save();
+
+        return redirect('management/librarian/categories')->with('success', 'Đã thêm thành công');
     }
 
     /**
@@ -48,8 +60,8 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        $categories = Category::find($id);
-        return view('categories.index')->with('categories', $categories);
+        $category = Category::find($id);
+        return view('management.librarian.categories.index')->with('category', $category);
     }
 
     /**
@@ -60,7 +72,7 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('management.librarian.categories.edit');
     }
 
     /**

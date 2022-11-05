@@ -57,6 +57,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Đăng nhập') }}
                                 </button>
+                                <button class="btn btn-default ml-2"><a href="/register" class="signin">
+                                    {{ __('Đăng ký') }}
+                                </a></button>
 
                                 @if (Route::has('password.request'))
                                     <a class="btn-link ml-5" href="{{ route('password.request') }}">

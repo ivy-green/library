@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\SignBook;
 
 class SignBorrowController extends Controller
 {
@@ -13,7 +14,7 @@ class SignBorrowController extends Controller
      */
     public function index()
     {
-        return view('exchange.signborrow.index');
+        return view('management.librarian.exchange.signborrow.index');
     }
 
     /**
@@ -45,7 +46,7 @@ class SignBorrowController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('management.librarian.exchange.signborrow.show');
     }
 
     /**
@@ -56,7 +57,7 @@ class SignBorrowController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('management.librarian.exchange.signborrow.edit');
     }
 
     /**

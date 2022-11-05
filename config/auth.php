@@ -60,6 +60,14 @@ return [
             'driver' => 'token',
             'provider' => 'book',
         ],
+        'accesses' => [
+            'driver' => 'session',
+            'provider' => 'accesses',
+        ],
+        'accesses-api' => [
+            'driver' => 'token',
+            'provider' => 'accesses',
+        ],
     ],
 
     /*
@@ -87,6 +95,10 @@ return [
         'books' => [
             'driver' => 'eloquent',
             'model' => App\Models\Book::class,
+        ],
+        'accesses' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Access::class,
         ],
 
         // 'users' => [

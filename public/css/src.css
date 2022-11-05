@@ -9,9 +9,10 @@
     --clr-txt-btn-primary: rgb(212, 212, 212); 
     --clr-txt-second: rgb(44, 44, 44);
     --clr-txt-primary: #f5f6fa;
+    --clr-txt-btn-valid: #d2eef3;
 
     --clr-shadow: var(--clr-btn-hover);
-    --clr-valid: #c2c2ff;
+    --clr-valid: #6ebbc4;
     --clr-danger: #ffc2c2;
 
     --clr-bg-sidenav: #717d8b;
@@ -24,6 +25,8 @@
     --font-h1: 2.25rem;
     --font-h3: 1.575rem;
     --font-h2: calc(1.305rem + 0.66vw);
+    --font-h4: 1.35rem;
+    --font-h5: 1.125rem;
 
     --transition: all 0.3s;
 
@@ -41,7 +44,9 @@
 
 .btn a:not(.btn_a) {
     text-decoration: none;
-    color: var(--clr-txt-second) !important;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--clr-txt-btn-valid) !important;
 }
 
 h1 {
@@ -54,6 +59,14 @@ h2 {
 
 h3 {
     font-size: var(--font-h3) !important;
+}
+
+h4 {
+    font-size: var(--font-h4) !important;
+}
+
+h5 {
+    font-size: var(--font-h5) !important;
 }
 
 .navbar-collapse {
@@ -103,6 +116,9 @@ ul ul a {
 }
 
 textarea {
+    width: 100%;
+    height: 200px;
     background-color: #fff;
+    border-radius: 10px !important;
     border: solid 0.2px var(--clr-btn-dark);
 }

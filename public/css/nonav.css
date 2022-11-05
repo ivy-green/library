@@ -8,6 +8,7 @@
 
 .rule-list * {
     transition: all 0.3s;
+    --clr-txt: rgb(46, 44, 44);
 }
 
 .rule-list > li {
@@ -18,13 +19,13 @@
 }
 
 .rule-list .advance {
-    color: white;
-    background-color: rgb(0, 106, 0) !important;
+    color: var(--clr-txt);
+    background-color: rgb(183, 255, 183) !important;
 }
 
 .rule-list .warning {
-    color: white;
-    background-color: rgb(254, 78, 78) !important;
+    color: var(--clr-txt);
+    background-color: rgb(255, 195, 138) !important;
 
 }
 

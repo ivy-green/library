@@ -10,6 +10,8 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Models\Access;
+
 class User extends Authenticatable
 {
     use HasApiTokens;
@@ -66,4 +68,8 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function accesses() {
+        return $this->belongsTo(Access::class, 'maquyen');
+    }
 }
