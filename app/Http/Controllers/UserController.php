@@ -91,7 +91,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         return view('management.user.show')->with('user', $user);
     }
 
@@ -103,7 +103,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         return view('management.user.edit')->with('user', $user);
     }
 
@@ -126,7 +126,7 @@ class UserController extends Controller
             'diachi' => 'required',
         ]);
         
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $user->ten = $request->input('ten');
         $user->gioitinh = $request->input('gioitinh');
         $user->ngaysinh = $request->input('ngaysinh');
@@ -157,7 +157,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $user->delete();
         return redirect('/user')->with('success', 'Đã xóa thành công');
     }

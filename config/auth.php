@@ -46,25 +46,25 @@ return [
         ],
         'user' => [
             'driver' => 'session',
-            'provider' => 'user',
+            'provider' => 'users',
         ],
         'user-api' => [
             'driver' => 'token',
-            'provider' => 'user',
+            'provider' => 'users',
         ],
         'book' => [
             'driver' => 'session',
-            'provider' => 'book',
+            'provider' => 'books',
         ],
         'book-api' => [
             'driver' => 'token',
-            'provider' => 'book',
+            'provider' => 'books',
         ],
-        'accesses' => [
+        'access' => [
             'driver' => 'session',
             'provider' => 'accesses',
         ],
-        'accesses-api' => [
+        'access-api' => [
             'driver' => 'token',
             'provider' => 'accesses',
         ],

@@ -28,12 +28,14 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
+        'custom_id',
         'ten',
         'email',
         'gioitinh',
         'ngaysinh',
         'dienthoai',
         'diachi',
+        'maquyen',
         'password',
         'create_at',
         'update_at',
@@ -70,6 +72,6 @@ class User extends Authenticatable
     ];
 
     public function accesses() {
-        return $this->belongsTo(Access::class, 'maquyen');
+        return $this->belongsTo(Access::class, 'id');
     }
 }

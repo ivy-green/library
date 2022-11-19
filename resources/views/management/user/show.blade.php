@@ -3,7 +3,7 @@
 @section('content')
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/books">Quản lý độc giả</a></li>
+      <li class="breadcrumb-item"><a href="/user">Quản lý độc giả</a></li>
       <li class="breadcrumb-item active" aria-current="page">
         <a href="#">Thông tin độc giả</a>
       </li>

@@ -1,6 +1,7 @@
 @extends('layouts.nonav')
 
 @section('nonav-content')
+@include('inc.message')
 <div id="login-form" class="container form">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -54,10 +55,10 @@
 
                         <div class="row mb-0">
                             <div class="d-flex flex-row align-items-center">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary text-nowrap text-capitalize">
                                     {{ __('Đăng nhập') }}
                                 </button>
-                                <button class="btn btn-default ml-2"><a href="/register" class="signin">
+                                <button class="btn btn-default ml-2 text-nowrap"><a href="/register" class="signin text-capitalize">
                                     {{ __('Đăng ký') }}
                                 </a></button>
 

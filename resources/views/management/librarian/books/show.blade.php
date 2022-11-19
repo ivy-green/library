@@ -35,15 +35,30 @@
     <div class="operation d-flex flex-row mt-3">
         <div class="update mr-3"><a href="../books/{{$book->id}}/edit" class="btn btn-default">Chỉnh sửa</a></div>
         <div class="delete">
+            <script>
+                function confirmDelete(){
+                    var x = confirm("Are you sure you want to delete?");
+                    // $(.delete).append("@include('layouts.confirmDelete')");
+
+                    if (x)
+                        return true;
+                    else
+                        return false;
+                }
+            </script>
             {{-- Gọi method destroy cho cái nút --}}
             {!!Form::open([
                 'action' => ['App\Http\Controllers\BooksController@destroy', $book->id],
                 'method' => 'book',
-                'class' => 'pull-right'])!!}
+                'class' => 'pull-right',
+                'onsubmit' => 'return confirmDelete()'
+                ])!!}
+                
             {{-- Gọi method DELETE (ẩn) --}}
             {{form::hidden('_method', 'DELETE')}}
             {{-- Tạo button Xóa --}}
-            {{form::submit('Xóa', ['class' => 'btn btn-danger'])}}
+            {{form::button('<i class="fa-solid fa-trash mr-2"></i> Xóa',
+                 array('type' => 'submit', 'class' => 'btn btn-danger'), )}}
             {{form::close();}}
         </div>
     </div>

@@ -6,6 +6,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
+use Carbon\Carbon;
+
 class BooksTableSeeder extends Seeder
 {
     /**
@@ -18,21 +20,50 @@ class BooksTableSeeder extends Seeder
         $data = [
             [
                 'tensach'=> 'Moi Ngay Mot Niem Vui',
-                'ngaynhap' => '2002-09-02',
                 'trigia' => '100000',
-                'matheloai' => 1
+                'matheloai' => 1,
+                'matacgia' => 1,
+                'soluong' => 2,
+                'anhbia' => 'default.png',
+                'created_at' => '2002-09-06',
+            ],
+            [
+                'tensach'=> 'Moi Ngay Mot Niem Buon',
+                'trigia' => '30000',
+                'matheloai' => 1,
+                'matacgia' => 1,
+                'soluong' => 2,
+                'anhbia' => 'default.png',
+                'created_at' => '2002-09-05',
+            ],
+            [
+                'tensach'=> 'Cang Ngay Cang Buon',
+                'trigia' => '123000',
+                'matheloai' => 1,
+                'matacgia' => 1,
+                'soluong' => 2,
+                'anhbia' => 'default.png',
+                'created_at' => '2002-09-05',
             ],
             [
                 'tensach'=> 'Mot Ngay Code Ma Khong Co Bug',
-                'ngaynhap' => '2022-010-02',
-                'trigia' => '120000',
-                'matheloai' => 3
+                'trigia' => '120040',
+                'matheloai' => 3,
+                'matacgia' => 1,
+                'soluong' => 2,
+                'anhbia' => 'default.png',
+                'created_at' => '2022-10-06',
             ],
             [
                 'tensach'=> 'Cuoi Di Bug Se Tu Fix',
-                'ngaynhap' => '2020-10-22',
-                'trigia' => '120000',
-                'matheloai' => 3
+                'trigia' => '120020',
+                'matheloai' => 3,
+                'matacgia' => 1,
+                'soluong' => 2,
+                'anhbia' => 'default.png',
+                'created_at' => Carbon::now()
+                                    ->subDays(rand(2,20))
+                                    ->format('Y-m-d H:i:s'),
             ],
 
         ];

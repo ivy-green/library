@@ -4,7 +4,7 @@
         
     </li>   
     <li class="">
-        <a class="txt-primary openSubNav" href="/exchange">{{ __('Quản lý quyền truy cập') }}</a>
+        <a class="txt-primary openSubNav" href="/accesses">{{ __('Quản lý quyền truy cập') }}</a>
         
     </li>
     <li>
@@ -12,7 +12,7 @@
         
     </li>   
     <li>
-        <a class="txt-primary openSubNav" href="/violations">{{ __('Quản lý quy định') }}</a>
+        <a class="txt-primary openSubNav" href="/rules">{{ __('Quản lý quy định') }}</a>
         
     </li>   
 </ul>

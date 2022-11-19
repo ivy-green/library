@@ -7,12 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Authors extends Model
 {
-    protected $table = "authors"; 
+    protected $table = "tacgia"; 
     use HasFactory;
     protected $fillable = [
         'tentacgia',
         'ngaysinh',
         'gioitinh',
-        'soluongsach',
     ];
 }

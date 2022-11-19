@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 use Illuminate\Support\Facades\Auth;        
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -31,9 +32,31 @@ class LoginController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
 
-    public function logout(Request $request) {
+    public function getLogout() {
         Auth::logout();
-        return redirect('/login');
+        return redirect()->route('getLogin');
+      }
+
+      public function getLogin(){
+        if(Auth::check()) {
+            return redirect(RouteServiceProvider::HOME);
+        } else {
+            return view('auth.login');
+        }
+        // return redirect(RouteServiceProvider::HOME)->with('success', 'Đã đăng nhập thành công');
+      }
+
+      public function postLogin(Request $request){
+        $login = [
+            'email' => $request -> email,
+            'password' => Hash::make($request -> password),
+        ];
+
+        if(Auth::attempt($login)) {
+            return redirect('/home');
+        } else {
+            return redirect()->back()->with('error', 'Email hoặc mật khẩu không hợp lệ');
+        }
       }
 
     /**
@@ -44,5 +67,9 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function email(){
+        return 'email';
     }
 }

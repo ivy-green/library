@@ -85,6 +85,11 @@ ul ul a {
     border-color: transparent !important;
 }
 
+.btn a {
+    height: 100%;
+    width: 100%;
+}
+
 .btn.btn_size {
     height: 50px;
 }
@@ -118,7 +123,7 @@ ul ul a {
 textarea {
     width: 100%;
     height: 200px;
-    background-color: #fff;
+    background-color: #fff !important;
     border-radius: 10px !important;
-    border: solid 0.2px var(--clr-btn-dark);
+    border: solid 0.5px var(--clr-btn-dark) !important;
 }

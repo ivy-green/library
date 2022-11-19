@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\BookTitle;
+use App\Models\BookHead;
 use App\Models\Book;
 use App\Models\Category;
 use App\Models\Authors;
 
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File; 
+
 use Carbon\Carbon;
 
 class BooksController extends Controller
@@ -21,12 +25,11 @@ class BooksController extends Controller
     public function index()
     {
         $books = Book::all();
+        $bookheads = BookHead::all();
+        $booktitles = BookTitle::all();
         $authors = Authors::all();
         $categories = Category::all();
-        return view('management.librarian.books.index')
-            ->with('books', $books)
-            ->with('categories', $categories)
-            ->with('authors', $authors);
+        return view('management.librarian.books.index', compact('books', 'categories', 'authors', 'booktitles', 'bookheads'));
     }
 
     /**
@@ -57,27 +60,40 @@ class BooksController extends Controller
             'tensach' => 'required',
             'trigia' => 'required',
             'soluong' => 'required',
-            'anhbia' => 'required',
         ]);
-        
-        $book = new Book;
-        $book->tensach = $request->input('tensach');
-        $book->trigia = $request->input('trigia');
-        $book->soluong = $request->input('soluong');
-        $book->matheloai = $request->get('categoryid');
-        $book->matacgia = $request->get('authorid');
-        $book->created_at = $currentTime;
 
-        if($request->hasFile('anhbia')){
-            $file = $request->file('anhbia');
-            $extension = $file->getClientOriginalExtension();
-            $filename = time().".".$extension;
-            //luu anh trong muc uploads
-            $file->move('uploads/books/', $filename);
-            //gan gia tri
-            $book->anhbia = $filename;
-        }else{
+        $book = Book::where(
+            [
+                ['tensach', '=', $request->input('tensach')], 
+                ['matheloai', '=', $request->get('categoryid')],
+                ['matacgia', '=', $request->get('authorid')], 
+            ])->first();
+        // check if exists
+        if($book != null) {
+            $book->soluong += $request->input('soluong');
+        } else {
+            $book = new Book;
+            $book->tensach = $request->input('tensach');
+            $book->trigia = $request->input('trigia');
+            $book->soluong = $request->input('soluong');
+            $book->matheloai = $request->get('categoryid');
+            $book->matacgia = $request->get('authorid');
+            $book->created_at = $currentTime;
+    
+            if($request->hasFile('anhbia')){
+                $file = $request->file('anhbia');
+                $extension = $file->getClientOriginalExtension();
+                $filename = time().".".$extension;
+                //luu anh trong muc uploads
+                $file->move('uploads/books/', $filename);
+                //gan gia tri
+                $book->anhbia = $filename;
+            } else {
+                $book->anhbia = 'default.png';
+            }
+
         }
+
         $book->save();
 
         return redirect('/books')->with('success', 'Đã thêm thành công');
@@ -156,12 +172,13 @@ class BooksController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $id 
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         $book = Book::find($id);
+        File::delete(public_path('uploads/books/' . $book->anhbia));
         $book->delete();
         return redirect('/books')->with('success', 'Đã xóa thành công');
     }

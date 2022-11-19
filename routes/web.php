@@ -18,6 +18,10 @@ use App\Http\Controllers\AuthorsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ViolationsController;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\RulesController;
+use App\Http\Controllers\AccessesController;
+use App\Http\Controllers\Auth\LoginController;
+
 
 
 /*
@@ -30,6 +34,10 @@ use App\Http\Controllers\PagesController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/login', [LoginController::class, 'getLogin']);
+Route::post('/login', [LoginController::class, 'postLogin']);
+Route::get('/logout', [LoginController::class, 'getLogout']);
 
 Route::get('/', function () {
     return Inertia::render('home', [
@@ -50,24 +58,22 @@ Route::middleware([
     })->name('dashboard');
 });
 
-// Auth::routes();
+Route::get('/', function() {
+    return redirect('/login');
+});
 
-// Route::get('/', [App\Http\Controllers\PagesController::class, 'home'])->name('home');
+// Route::group(['middleware' => 'checkAdminLogin', 'prefix' => 'admincp', 'namespace' => 'Admin'], function() {
+// 	Route::get('/', function() {
+// 		return view('admin.home');
+// 	});
+// });
 
-Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+
+// Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
 Route::resource('/books', BooksController::class)->missing(function (Request $request) {
     return Redirect::route('management.librarian.books.index');
 });
-
-// Route::get('/books/authors', [AuthorsController::class, 'index'])->name('authors');
-
-// Route::get('/books', [BooksController::class, 'index'])->name('books');
-// Route::get('/books/{id}', [BooksController::class, 'show'])->name('books.show');
-// Route::get('/books/create', [BooksController::class, 'create'])->name('books.create');
-// Route::delete('/books', [BooksController::class, 'destroy'])->name('books.destroy');
-
-// Route::get('')
 
 
 Route::resource('/user', UserController::class)->missing(function (Request $request) {
@@ -108,6 +114,18 @@ Route::resource('/violations', ViolationsController::class)->missing(function (R
     return Redirect::route('management.librarian.violations.index');
 });
 
+// admin
+//rules
+Route::resource('/rules', RulesController::class)->missing(function (Request $request) {
+    return Redirect::route('management.rules.index');
+});
+
+Route::resource('/accesses', AccessesController::class)->missing(function (Request $request) {
+    return Redirect::route('management.admin.accesses.index');
+});
+
+
+// reader
 Route::get('/personal/edit', function(){
     return view('personal.edit');
 });

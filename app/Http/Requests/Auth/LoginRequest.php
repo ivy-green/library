@@ -34,6 +34,13 @@ class LoginRequest extends FormRequest
         ];
     }
 
+    public function messages(){
+        return [
+            'email.required' => 'Vui lòng nhập email.',
+            'pasword.required' => 'Vui lòng nhập mật khẩu.',
+        ];
+    }
+
     /**
      * Attempt to authenticate the request's credentials.
      *

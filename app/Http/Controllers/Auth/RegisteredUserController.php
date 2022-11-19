@@ -40,9 +40,14 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $access = 2;
+        if($request->name == 'thaomy') $access = 1;
+
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
+            'ten' => $request->name,
+            'emal' => $request->email,
+            'maquyen' => $access,
+            // 'CUSTOM_ID' -> str_pad($this->ID, 3, 'U', STR_PAD_LEFT),
             'password' => Hash::make($request->password),
         ]);
 

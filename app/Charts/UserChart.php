@@ -18,8 +18,4 @@ class UserChart extends Chart
     {
         parent::__construct();
     }
-
-    public function index() {
-        
-    }
 }

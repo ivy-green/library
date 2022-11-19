@@ -51,17 +51,17 @@
                 </div>
                 <div class="user-info flex flex-col ml-3 mt-2">
                     <div class="name">Tên: 
-                        @if( is_null(Auth::user()->ten))
+                        @if( is_null(auth()->user()->ten))
                             {{ __('Chưa đăng nhập') }}
                         @else
-                            {{ Auth::user()->ten }}
+                            {{ auth()->user()->ten }}
                         @endif
                     </div>
                     <div class="id text-xs  ">ID: 
-                        @if( is_null(Auth::user()->ten))
+                        @if( is_null(auth()->user()->ten))
                             {{ __('') }}
                         @else
-                            {{ Auth::user()->id }}
+                            {{ auth()->user()->id }}
                         @endif
                     </div>
                 </div>
@@ -74,20 +74,23 @@
                     <h3>
                         {{-- return Quyen Truy Cap (chuc vu) --}}
                         <?php 
+                            use App\Models\Access;
+
                             $user = auth()->user();
-                            $accesses = $user->accesses->tenquyen;
-                            
-                            echo $accesses;
+                            $access = Auth::guard('access')->user();
+                            // $accesses = $user->accesses->tenquyen;
+                            //không hiểu tại sao nhưng mà 1 là độc giả còn 0 là thủ thư (không giống trong database)
+                            echo Access::all()[$user->maquyen - 1]->tenquyen;
                             ?>
                     </h3>
                 </div>
             </div>
             {{-- side nav tùy vào Role của User --}}
-            @if(Auth::user()->maquyen == 1)
+            @if(auth()->user()->maquyen == 3)
                 @include('layouts.admin');
-            @elseif(Auth::user()->maquyen == 2)
+            @elseif(auth()->user()->maquyen == 0)
                 @include('layouts.librarian');
-            @elseif(Auth::user()->maquyen == 3)
+            @elseif(auth()->user()->maquyen == 1)
                 @include('layouts.reader');
             @endif
         </nav>
@@ -162,6 +165,7 @@
                 </div>
             </nav>
             @include('layouts.search')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
             <div>
                 @yield('content')
             </div>
@@ -169,7 +173,6 @@
     </div>
     <script type="text/javascript"  src="{{ asset('js/app.js') }}"></script>
     {{-- chart --}}
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script> --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="module" src="{{ asset('js/chart.js') }}"></script>
 </body>
 </html>

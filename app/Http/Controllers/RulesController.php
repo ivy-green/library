@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Rule;
+use App\Models\RuleType;
+
+use Carbon\Carbon;
 
 class RulesController extends Controller
 {
@@ -14,8 +17,9 @@ class RulesController extends Controller
      */
     public function index()
     {
+        $rule_types = RuleType::all();
         $rules = Rule::all();
-        return view('management.librarian.rules.index')->with("rules", $rules);
+        return view('management.rules.index', compact('rules', 'rule_types'));
     }
 
     /**
@@ -25,7 +29,9 @@ class RulesController extends Controller
      */
     public function create()
     {
-        return view('management.librarian.rules.create');
+        $rule_types = RuleType::all();
+        $rules = Rule::all();
+        return view('management.rules.create', compact('rules', 'rule_types'));
     }
 
     /**
@@ -36,7 +42,21 @@ class RulesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $currentTime = Carbon::now();
+
+        $this->validate($request, [
+            'noidung' => 'required',
+            'maloai' => 'required',
+        ]);
+        
+        $rule = new Rule;
+        $rule->noidung = $request->input('noidung');
+        $rule->maloai = $request->get('typeid');
+        $rule->created_at = $currentTime;
+
+        $rule->save();
+
+        return redirect('/rules')->with('success', 'Đã thêm thành công');
     }
 
     /**
@@ -47,7 +67,7 @@ class RulesController extends Controller
      */
     public function show($id)
     {
-        return view('management.librarian.rules.show');
+        // return view('management.rules.show');
     }
 
     /**
@@ -58,7 +78,9 @@ class RulesController extends Controller
      */
     public function edit($id)
     {
-        return view('management.librarian.rules.edit');
+        $rule_types = RuleType::all();
+        $rule = Rule::findOrFail($id);
+        return view('management.rules.edit', compact('rule', 'rule_types'));
     }
 
     /**
@@ -70,7 +92,18 @@ class RulesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $currentTime = Carbon::now();
+
+        $this->validate($request, [
+            'noidung' => 'required',
+        ]);
+
+        $rule = Rule::find($id);
+        $rule->noidung = $request->input('noidung');
+
+        $rule->save();
+
+        return redirect('/rules')->with('success', 'Đã chỉnh sửa thành công');
     }
 
     /**

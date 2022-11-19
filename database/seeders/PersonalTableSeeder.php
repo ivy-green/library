@@ -6,6 +6,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
+use Carbon\Carbon;
+
 class PersonalTableSeeder extends Seeder
 {
     /**
@@ -19,6 +21,9 @@ class PersonalTableSeeder extends Seeder
         [
             "name" => "thao my",
             "tuoi" => 2,
+            'created_at' => Carbon::now()
+                                ->subDays(rand(2,20))
+                                ->format('Y-m-d H:i:s'),
         ],
        ];
        DB::table('personals')->insert($data);

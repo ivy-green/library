@@ -35,8 +35,8 @@
         <table class="table">
             <thead>
               <tr>
-                <th scope="col">Mã sách</th>
-                <th scope="col">Tên sách</th>
+                <th scope="col">Mã tựa sách</th>
+                <th scope="col">Tựa sách</th>
                 <th scope="col">Ngày nhập</th>
                 <th scope="col">Tên tác giả</th>
                 <th scope="col">Thể loại</th>
@@ -46,38 +46,30 @@
             </thead>
             <tbody>
                 @if(count($books) > 0)
-                    @foreach($books as $book)
+                    @foreach($booktitles as $booktitle)
                     <tr>
                             <td> 
-                                <a href="./books/{{$book->id}}"> {{$book->id}}</a>
+                                <a href="./books/{{$booktitle->id}}"> {{$booktitle->id}}</a>
                             </td>
                             <td>
-                                <a href="./books/{{$book->id}}"> {{$book->tensach}}</a>
+                                <a href="./books/{{$booktitle->id}}"> {{$booktitle->tensach}}</a>
                             </td>
                             <td>
-                                <a href="./books/{{$book->id}}"> {{$book->created_at}}</a>
+                                <a href="./books/{{$booktitle->id}}"> {{$booktitle->ngaynhap}}</a>
                             </td>
                             <td>
-                                <a href="./authors/{{$book->matacgia}}"> 
-                                    {{$authors[$book->matacgia]->tentacgia}}
+                                <a href="./authors/{{$booktitle->tacgia}}"> 
+                                    {{-- {{$authors[$booktitle->tacgia - 1]->tentacgia}} --}}
                                 </a>
                             </td>
                             <td>
-                                <a href="./categories/{{$book->matheloai}}"> 
-                                    {{$categories[$book->matheloai]->tentheloai}}
+                                <a href="./categories/{{$booktitle->theloai}}"> 
+                                    {{-- {{$categories[$booktitle->theloai - 1]->tentheloai}} --}}
                                 </a>
                             </td>
                             <td>
-                                <a href="./books/{{$book->id}}"> {{$book->soluong}}</a>
+                                <a href="./books/{{$booktitle->id}}"> {{$booktitle->soluong}}</a>
                             </td>
-                            {{-- <td>
-                                <button class="btn btn-default">
-                                    <a class="btn_a" href="./book/{{$book->id}}">Chỉnh sửa</a>
-                                </button>
-                                <button class="btn btn-danger">
-                                    <a class="btn_a" href="./book/{{$book->id}}">Xóa</a>
-                                </button>
-                            </td> --}}
                     </tr>
                     @endforeach
                 @else

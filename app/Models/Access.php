@@ -11,7 +11,13 @@ class Access extends Model
 {
     use HasFactory;
 
+    protected $table = 'quyentruycap';
+
     public function users() {
         return $this->HasMany(User::class);
     }
+
+    protected $fillable = [
+        'tenquyen',
+    ];
 }

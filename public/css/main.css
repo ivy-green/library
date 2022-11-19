@@ -380,6 +380,10 @@ tr .btn {
     margin-top: 5px;
 }
 
+.form-mt-5 {
+    margin-top: 50px;
+}
+
 .form-border {
     border: var(--border-form);
     box-shadow: var(--shadow-form);
@@ -425,4 +429,15 @@ div.form-control {
     color: var(--clr-txt-primary);
     background-color: var(--clr-bg-sidenav);
     border-radius: 10px;
+}
+
+/* table */
+
+table .content {
+    word-wrap: break-word;
+    max-width: 250px;
+}
+
+table .code {
+    max-width: 60px;
 }

@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class BorrowForm extends Model
 {
     use HasFactory;
-    protected $table = 'borrowForm';
+    protected $table = 'phieumuontra';
 
 }
