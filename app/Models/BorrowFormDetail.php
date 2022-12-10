@@ -5,14 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SignForm extends Model
+class BorrowFormDetail extends Model
 {
     use HasFactory;
-    protected $table = 'phieudangky';
+
+    protected $table = 'ctphieumuontra';
 
     protected $fillable = [
+        'id',
         'maphieu',
-        'madg',
+        'masach',
+        'tinhtrang',
+        'mavp',
+        'ngaytra',
         'created_at',
         'updated_at',
     ];

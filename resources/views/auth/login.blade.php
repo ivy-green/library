@@ -4,8 +4,8 @@
 @include('inc.message')
 <div id="login-form" class="container form">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="login-title">
+        <div class="col-md-10">
+            <div class="login-title text-sm text-uppercase">
                 Đăng nhập
             </div>
             <div class="card">
@@ -39,6 +39,11 @@
                                     </span>
                                 @enderror
                             </div>
+                            @if (Route::has('password.request'))
+                                <a class="btn-link text-xs mt-1 px-0" href="{{ route('password.request') }}">
+                                    {{ __('Quên Mật Khẩu?') }}
+                                </a>
+                            @endif
                         </div>
 
                         <div class="row mb-3">
@@ -62,13 +67,10 @@
                                     {{ __('Đăng ký') }}
                                 </a></button>
 
-                                @if (Route::has('password.request'))
-                                    <a class="btn-link ml-5" href="{{ route('password.request') }}">
-                                        {{ __('Quên Mật Khẩu?') }}
-                                    </a>
-                                @endif
+                                
                             </div>
                         </div>
+                        
                     </form>
                 </div>
             </div>

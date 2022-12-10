@@ -21,7 +21,7 @@
     <!-- jQuery Custom Scroller CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> --}}
     <!-- Popper.JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
 
@@ -45,10 +45,10 @@
         <!-- Sidebar -->
         <nav id="sidebar">
             <div id="curr-user" class="flex flex-row mx-3 my-3">
-                <div class="user-img h-14 w-14 rounded-full bg-white overflow-hidden
+                <a href="/user/{{ Auth::user()->id }}" class="user-img h-14 w-14 rounded-full bg-white overflow-hidden
                  border border-spacing-2 border-black">
                     <img src="{{ asset('uploads/users/default.jpg') }}" class="" alt="">
-                </div>
+                </a>
                 <div class="user-info flex flex-col ml-3 mt-2">
                     <div class="name">Tên: 
                         @if( is_null(auth()->user()->ten))
@@ -87,11 +87,11 @@
             </div>
             {{-- side nav tùy vào Role của User --}}
             @if(auth()->user()->maquyen == 3)
-                @include('layouts.admin');
-            @elseif(auth()->user()->maquyen == 0)
-                @include('layouts.librarian');
+                @include('layouts.admin')
             @elseif(auth()->user()->maquyen == 1)
-                @include('layouts.reader');
+                @include('layouts.librarian')
+            @elseif(auth()->user()->maquyen == 2)
+                @include('layouts.reader')
             @endif
         </nav>
 
@@ -103,18 +103,18 @@
                         <span>Danh mục</span>
                     </button>
 
-                    <ul class="nav justify-content-center">
+                    <ul id="navMain" class="nav justify-content-center">
                         <li class="nav-item">
                           <a class=" active" href="/home">Trang chủ</a>
                         </li>
                         <li class="nav-item">
-                          <a class="" href="#">Quy định thư viện</a>
+                          <a class="" href="/rule">Quy định thư viện</a>
                         </li>
                         <li class="nav-item">
-                          <a class="" href="#">Thông báo</a>
+                          <a class="" href="/notify">Thông báo</a>
                         </li>
                         <li class="nav-item">
-                          <a class="" href="#">Liên hệ</a>
+                          <a class="" href="/contact">Liên hệ</a>
                         </li>
                       </ul>
                     
@@ -127,7 +127,7 @@
                     >
                         <i class="fa-solid fa-bars" style="color: white;"></i>
                     </button>
-                    <div class=" navbar-collapse" id="navbarSupportedContent">
+                    <div class="navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto">
                             @guest
                                 @if (Route::has('login'))
@@ -165,12 +165,15 @@
                 </div>
             </nav>
             @include('layouts.search')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
-            <div>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
+            <div id="yield" class="">
                 @yield('content')
             </div>
         </main>
     </div>
+    <a href="#" class="float back-to-top hidden">
+        <i class="fa-solid fa-arrow-up my-float"></i>
+    </a>
     <script type="text/javascript"  src="{{ asset('js/app.js') }}"></script>
     {{-- chart --}}
     <script type="module" src="{{ asset('js/chart.js') }}"></script>

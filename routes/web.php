@@ -20,6 +20,7 @@ use App\Http\Controllers\ViolationsController;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\RulesController;
 use App\Http\Controllers\AccessesController;
+use App\Http\Controllers\ExchangeController;
 use App\Http\Controllers\Auth\LoginController;
 
 
@@ -35,9 +36,9 @@ use App\Http\Controllers\Auth\LoginController;
 |
 */
 
-Route::get('/login', [LoginController::class, 'getLogin']);
-Route::post('/login', [LoginController::class, 'postLogin']);
-Route::get('/logout', [LoginController::class, 'getLogout']);
+// Route::get('/login', [LoginController::class, 'getLogin']);
+// Route::post('/login', [LoginController::class, 'postLogin']);
+// Route::get('/logout', [LoginController::class, 'getLogout']);
 
 Route::get('/', function () {
     return Inertia::render('home', [
@@ -62,6 +63,14 @@ Route::get('/', function() {
     return redirect('/login');
 });
 
+Route::controller(PagesController::class)->group(function () {
+    Route::get('/home', 'home');
+    Route::get('/rule', 'rule');
+    Route::get('/notify', 'notify');
+    Route::get('/contact', 'contact');
+
+});
+
 // Route::group(['middleware' => 'checkAdminLogin', 'prefix' => 'admincp', 'namespace' => 'Admin'], function() {
 // 	Route::get('/', function() {
 // 		return view('admin.home');
@@ -71,13 +80,24 @@ Route::get('/', function() {
 
 // Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
+Route::get('/books/checkExists', [BooksController::class, 'checkExists'])
+    ->name('books.checkExists');
+
 Route::resource('/books', BooksController::class)->missing(function (Request $request) {
     return Redirect::route('management.librarian.books.index');
-});
+})->names([
+    'index' => 'books'
+]);
 
 
 Route::resource('/user', UserController::class)->missing(function (Request $request) {
     return Redirect::route('management.user.index');
+})->names([
+    'index' => 'user'
+]);
+
+Route::controller(UserController::class)->group(function () {
+    Route::post('/user/import', 'import');
 });
 
 Auth::routes();
@@ -87,18 +107,43 @@ Route::get('/contact', [PagesController::class, 'contact'])->name('contact');
 
 Auth::routes();
 
-Route::get('/exchange', function(){
-    return view('management.librarian.exchange.index');
-});
+// Route::get('/exchange', function(){
+//     return view('management.librarian.exchange.index');
+// })->name('exchange');
+
+Route::resource('/exchange', ExchangeController::class)->missing(function (Request $request) {
+    return Redirect::route('management.librarian.exchange.index');
+})->names([
+    'index' => 'exchange'
+]);
+
 Route::resource('/exchange/giveback', GiveBackController::class)->missing(function (Request $request) {
-    return Redirect::route('management.librarian.giveback.index');
-});
+    return Redirect::route('management.librarian.exchange.giveback.index');
+})->names([
+    'index' => 'exchange.giveback'
+]);
+
+//
+
 Route::resource('/exchange/borrow', BorrowController::class)->missing(function (Request $request) {
-    return Redirect::route('management.librarian.borrow.index');
+    return Redirect::route('management.librarian.exchange.borrow.index');
+})->names([
+    'index' => 'borrow',
+    'create' => 'borrow.create',
+    'show' => 'borrow.show'
+]);
+
+// Route::controller(BorrowController::class)->group(function () {
+//     Route::post('/exchange/borrow/add_book', 'addBookToList');
+// });
+
+Route::controller(SignBorrowController::class)->group(function () {
+    Route::get('/exchange/signborrow', 'index');
+    Route::get('/exchange/signborrow/{id}', 'show');
+    Route::post('/exchange/signborrow/{id}', 'edit');
+    // Route::post('/exchange/signborrow', 'store');
 });
-Route::resource('/exchange/signborrow', SignBorrowController::class)->missing(function (Request $request) {
-    return Redirect::route('management.librarian.signborrow.index');
-});
+
 
 Auth::routes();
 
@@ -110,9 +155,14 @@ Route::resource('/categories', CategoriesController::class)->missing(function (R
     return Redirect::route('management.librarian.categories.index');
 });
 
+Route::get('/violations/returnfee/{id}', [BooksController::class, 'returnfee'])
+    ->name('violations.returnfee', 'id');
+
 Route::resource('/violations', ViolationsController::class)->missing(function (Request $request) {
     return Redirect::route('management.librarian.violations.index');
-});
+})->names([
+    'index' => 'violations'
+]);
 
 // admin
 //rules

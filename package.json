@@ -11,7 +11,7 @@
         "@popperjs/core": "^2.10.2",
         "@tailwindcss/forms": "^0.5.2",
         "@tailwindcss/typography": "^0.5.2",
-        "@vitejs/plugin-vue": "^3.0.0",
+        "@vitejs/plugin-vue": "^3.2.0",
         "autoprefixer": "^10.4.7",
         "axios": "^0.27",
         "bootstrap": "^5.2.1",
@@ -27,6 +27,7 @@
         "@kurkle/color": "^0.2.1",
         "chart.js": "^3.9.1",
         "chartjs-adapter-luxon": "^1.2.0",
+        "jquery": "^3.6.1",
         "luxon": "^3.1.0"
     }
 }

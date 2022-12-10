@@ -64,7 +64,7 @@
                 <div class="col">
                     <div class="form-group">
                         {{form::label('email', 'Email')}}
-                        {{form::date('email', $user->email, ['class' => 'form-control', 'placeholder' => ''])}}
+                        {{form::text('email', $user->email, ['class' => 'form-control', 'placeholder' => ''])}}
                     </div>
                 </div>
             </div>
@@ -73,7 +73,7 @@
                 <div class="col">
                     <div class="form-group">
                         {{form::label('diachi', 'Địa chỉ')}}
-                        {{form::text('diachi', $user->diachi, ['class' => 'form-control', 'placeholder' => 'Nhập tên tác giả..'])}}
+                        {{form::text('diachi', $user->diachi, ['class' => 'form-control', 'placeholder' => 'Nhập địa chỉ..'])}}
                     </div>
                 </div>
                 <div class="col">

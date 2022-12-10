@@ -40,35 +40,31 @@
                 <th scope="col">Ngày nhập</th>
                 <th scope="col">Tên tác giả</th>
                 <th scope="col">Thể loại</th>
-                <th scope="col">Số lượng</th>
                 {{-- <th scope="col">Thao tác</th> --}}
               </tr>
             </thead>
             <tbody>
-                @if(count($books) > 0)
+                @if(count($booktitles) > 0)
                     @foreach($booktitles as $booktitle)
                     <tr>
                             <td> 
                                 <a href="./books/{{$booktitle->id}}"> {{$booktitle->id}}</a>
                             </td>
                             <td>
-                                <a href="./books/{{$booktitle->id}}"> {{$booktitle->tensach}}</a>
+                                <a href="./books/{{$booktitle->id}}"  class="text-capitalize"> {{$booktitle->tents}}</a>
                             </td>
                             <td>
-                                <a href="./books/{{$booktitle->id}}"> {{$booktitle->ngaynhap}}</a>
+                                <a href="./books/{{$booktitle->id}}"> {{$booktitle->created_at}}</a>
                             </td>
                             <td>
-                                <a href="./authors/{{$booktitle->tacgia}}"> 
-                                    {{-- {{$authors[$booktitle->tacgia - 1]->tentacgia}} --}}
+                                <a href="./authors/{{$booktitle->tacgia}}"  class="text-capitalize"> 
+                                    {{$authors[$booktitle->tacgia - 1]->tentg}}
                                 </a>
                             </td>
                             <td>
-                                <a href="./categories/{{$booktitle->theloai}}"> 
-                                    {{-- {{$categories[$booktitle->theloai - 1]->tentheloai}} --}}
+                                <a href="./categories/{{$booktitle->theloai}}"  class="text-capitalize"> 
+                                    {{$categories[$booktitle->theloai - 1]->tentl}}
                                 </a>
-                            </td>
-                            <td>
-                                <a href="./books/{{$booktitle->id}}"> {{$booktitle->soluong}}</a>
                             </td>
                     </tr>
                     @endforeach

@@ -6,12 +6,20 @@
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="/user">Quản lý độc giả</a></li>
           <li class="breadcrumb-item active" aria-current="page">
-            <a href="#">Thêm độc giả mới</a>
+            @if(Auth::user()->maquyen == 1)
+                <a href="/user/create">Thêm độc giả</a>
+            @else
+                <a href="/user/create">Thêm người dùng</a>
+            @endif
           </li>
         </ol>
       </nav>
-    <div class="form-main form-border form-hover">
-        <h3 class="text-center mb-4">Thêm Độc Giả Mới</h3>
+    <div class="form-main form-border form-hover my-3">
+        @if(Auth::user()->maquyen == 1)
+            <h3 class="text-center mb-4">Thêm Độc Giả Mới</h3>
+        @else
+            <h3 class="text-center mb-4">Thêm Người Dùng Mới</h3>
+        @endif
         {!! Form::open(['action' => 'App\Http\Controllers\UserController@store', 'files' => true, 'method' => 'POST']) !!}
         <div class="row">
             <div class="col">
@@ -36,7 +44,11 @@
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                        {{form::label('ten', 'Tên độc giả')}}
+                        @if(Auth::user()->maquyen == 1)
+                            {{form::label('ten', 'Tên độc giả')}}
+                        @else
+                            {{form::label('ten', 'Tên người dùng')}}
+                        @endif
                         {{form::text('ten', '', ['class' => 'form-control', 'placeholder' => 'Nhập họ và tên..'])}}
                     </div>
                 </div>
@@ -78,7 +90,8 @@
                         {{form::text('diachi', '', ['class' => 'form-control', 'placeholder' => 'Số nhà, Đường, Phường, Quận, Tỉnh/ Thành Phố'])}}
                     </div>
                 </div>
-                @if(Auth::user()->maquyen == 1)
+                {{-- admin --}}
+                @if(Auth::user()->maquyen == 3)
                 <div class="col">
                     <div class="form-group">
                         {{form::label('dienthoai', 'Quyền truy cập')}}
@@ -102,5 +115,25 @@
             {!! Form::close() !!}
         </div>
     </div>
-
+    <div class="form-main form-border form-horver">
+        {!! Form::open(['action' => 'App\Http\Controllers\UserController@import', 'files' => true, 'method' => 'POST']) !!}
+        <div class="row">
+            <div class="col">
+                <div class="form-group  {{ $errors->has('xlsfile') ? 'has-error' : '' }}">
+                    {{form::label('xlsfile', 'Import Excel File')}}
+                    {{form::file('xlsfile', $attrs = [])}}    
+                </div>
+                <!-- Error -->
+               @if ($errors->has('xlsfile'))
+               <div class="error">
+                   {{ $errors->first('xlsfile') }}
+               </div>
+               @endif
+            </div>
+            <div class="col">
+                {{form::submit('Import', ['class' => 'btn btn-default submit'])}}
+            </div>
+        </div>
+        {!! Form::close() !!}
+    </div>
 @endsection

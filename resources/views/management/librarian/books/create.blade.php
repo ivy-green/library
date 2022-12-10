@@ -17,7 +17,9 @@
             <div class="col">
                 <div class="form-group">
                     {{form::label('mathuthu', 'Mã thủ thư')}}
-                    {{form::text('mathuthu', '', ['class' => 'form-control', 'placeholder' => 'Ngày-Tháng-Năm'])}}
+                    <div class="form-control">
+                        {{Auth::user()->id}}
+                    </div>
                 </div>
             </div>  
             <div class="col">
@@ -92,16 +94,35 @@
             </div>
             <button class="btn btn-default">Thêm</button>
         </div>
-        <div class="book-add-list">
-            Danh sách thêm
-            <textarea class="w-100">
-
-            </textarea>
+        <div class="book-add-list my-3">
+            <div class="d-flex flex-row justify-between align-middle">
+                Danh sách thêm
+                <div id="addBook" class="btn btn-default py-2 px-5 rounded-lg">Thêm</div>
+            </div>
+            <div class="table-wrapper mt-2">
+                <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">Tên tựa sách</th>
+                        <th scope="col">Bìa</th>
+                        <th scope="col">Ngôn ngữ</th>
+                        <th scope="col">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookBody">
+                    </tbody>
+                    </table>
+            </div>
         </div>
+        <script type="text/javascript">
+            let bookheads = {!! json_encode($bookheads) !!};
+            let lang = {!! json_encode($langs) !!};
+        </script>
         <div class=" text-center my-3">
             {{form::submit('Nhập', ['class' => 'btn btn-primary submit'])}}
             {!! Form::close() !!}
         </div>
     </div>
+    <script type="text/javascript" src="{{ asset('/js/addBookToList.js') }}"></script>
 
 @endsection

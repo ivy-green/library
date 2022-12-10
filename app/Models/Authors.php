@@ -10,7 +10,8 @@ class Authors extends Model
     protected $table = "tacgia"; 
     use HasFactory;
     protected $fillable = [
-        'tentacgia',
+        'matg',
+        'tentg',
         'ngaysinh',
         'gioitinh',
     ];

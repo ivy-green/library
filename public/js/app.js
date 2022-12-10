@@ -6,11 +6,14 @@ $(document).ready(function () {
     // });
     $('.container').attr('style', '');
 
-    
     openCloseSideNavigation();
     setSideNavigation();
+    setNavigation();
     // chartHandle();
     tableSortOnClick();
+    toTopButton();
+    addContanerClass();
+    console.log("app.js");
 });
 // login page
 $(window).on('resize', function(){
@@ -28,24 +31,16 @@ function setNavigation(){
         var path = root.pathname.replace("/\/$/","");
     path = decodeURIComponent(path);
 
-    $('.sidebar-header').removeClass('active-before');
-
-    $('#sidebar ul.nav-list > li').each(function(idx, li) {
+    $('#navMain > li').each(function(idx, li) {
         var element = $(li);
         var href = element.find('a').attr('href');
         element.removeClass('active-main active-after active-before');
         element.find('ul').removeClass('show');
 
+
         if((path.indexOf(href) >= 0 || href.indexOf(path) >= 0) && path != "/") {
 
-            element.addClass('active-main');
-            if(idx > 0){
-                $(this).closest('li').prev().addClass('active-before');
-                $(this).closest('li').next().addClass('active-after');
-            } else {
-                $('.sidebar-header-sub').addClass('active-before');
-                $(this).closest('li').next().addClass('active-after');
-            }
+            element.addClass('active');
         }
     });
 }
@@ -58,16 +53,20 @@ function setSideNavigation(){
     path = decodeURIComponent(path);
 
     $('.sidebar-header').removeClass('active-before');
+    console.log("\npath: " + path);
 
     $('#sidebar ul.nav-list > li').each(function(idx, li) {
         var element = $(li);
-        var href = element.find('a').attr('href');
+        //get last element of an array when split / 
+        var href = element.find('a').attr('href').split('/').pop();;
         element.removeClass('active-main active-after active-before');
         element.find('ul').removeClass('show');
 
         if((path.indexOf(href) >= 0 || href.indexOf(path) >= 0) && path != "/") {
 
             element.addClass('active-main');
+            console.log("\npath: " + path + " href: " + href);
+
             if(idx > 0){
                 $(this).closest('li').prev().addClass('active-before');
                 $(this).closest('li').next().addClass('active-after');
@@ -75,10 +74,6 @@ function setSideNavigation(){
                 $('.sidebar-header-sub').addClass('active-before');
                 $(this).closest('li').next().addClass('active-after');
             }
-           
-            // if(element.find('a').hasClass('openSubNav')){
-            //     element.find('ul').addClass('show');
-            // }
         }
     });
 }
@@ -158,4 +153,49 @@ function chartHandle (){
         document.getElementById('userChart'),
         config
     );
+}
+
+// go to top button
+function toTopButton(){
+
+    const showOnPx = 100;
+    const backToTopButton = document.querySelector(".back-to-top");
+    
+    const scrollContainer = () => {
+      return document.documentElement || document.body;
+    };
+    
+    const goToTop = () => {
+      document.body.scrollIntoView({
+        behavior: "smooth"
+      });
+    };
+    
+    document.addEventListener("scroll", () => {
+    //   console.log("Scroll Height: ", scrollContainer().scrollHeight);
+    //   console.log("Client Height: ", scrollContainer().clientHeight);
+    
+    //   const scrolledPercentage =
+    //     (scrollContainer().scrollTop /
+    //       (scrollContainer().scrollHeight - scrollContainer().clientHeight)) *
+    //     100;
+    
+      if (scrollContainer().scrollTop > showOnPx) {
+        backToTopButton.classList.remove("hidden");
+      } else {
+        backToTopButton.classList.add("hidden");
+      }
+    });
+    
+    backToTopButton.addEventListener("click", goToTop);
+    
+    
+}
+
+// add class
+function addContanerClass(){
+    $('#yield > div').each(function(idx, div) {
+        var element = $(div);
+        element.addClass('container');
+    });
 }

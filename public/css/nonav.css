@@ -19,13 +19,13 @@
 }
 
 .rule-list .advance {
-    color: var(--clr-txt);
-    background-color: rgb(183, 255, 183) !important;
+    color: var(--clr-txt-primary);
+    background-color: var(--clr-btn-dark) !important;
 }
 
 .rule-list .warning {
-    color: var(--clr-txt);
-    background-color: rgb(255, 195, 138) !important;
+    color: var(--clr-txt-primary);
+    background-color: var(--clr-bg-sidenav-hover) !important;
 
 }
 
@@ -66,17 +66,26 @@ form > div {
 }
 
 form input {
-    width: 80%;
+    width: 100%;
     padding: 15px 20px !important;
-    border-radius: 20px !important;
+    border-radius: 5px !important;
     border: none;
     cursor: pointer;
     transition: all 0.3s;
     background-color: rgb(225, 225, 225) !important;
 }
 
-form .input-wrapper input:focus {
+/* form .input-wrapper input:focus {
     width: 100%;
+} */
+
+form .row label,
+form .row div {
+    padding: 0
+}
+
+form {
+    padding: 20px 15px 60px 15px;
 }
 
 form .f-check {

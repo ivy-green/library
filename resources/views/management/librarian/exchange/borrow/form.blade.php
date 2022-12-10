@@ -10,8 +10,10 @@
     </ol>
   </nav>
     <div id="book-info">
-        <div class="d-flex flex-row h-auto mb-12 justify-between">
+        <div class="d-flex flex-row h-80 mb-12 justify-between">
             <div class="book-image ">
+                {{-- <img src="{{ asset($book->anhbia) }}" /> --}}
+                <img src="{{ asset('uploads/books/' . $book->anhbia) }}" />
             </div>
             <div class="book-content form-border form-hover ml-12 text-capitalize">
                 Tên sách: <h2 class="mb-2">{{$booktitle->tents}}</h2>
@@ -29,19 +31,14 @@
                             use Carbon\Carbon;
                             $currentTime = Carbon::now();
 
-                            if($booktitle->created_at == null){
+                            if($book->created_at == null){
                                 echo $currentTime;
                             } else {
-                                echo $booktitle->created_at;
+                                echo $book->created_at;
                             }
 
                         ?>
-                </p>
-                Số lượng sách: <p class="form-control">
-                    @if (count($book))
-                        {{count($book)}}
-                        @else {{0}}
-                    @endif
+
                 </p>
             </div>
         </div>
@@ -63,20 +60,20 @@
                 </thead>
                 <tbody>
                     @if(count($users) > 0)
-                        @for($i = 0; $i < count($users); $i++)
+                        @foreach($users as $user)
                             <tr>
                                 <td> 
-                                    <div class="">{{$users[$i][0]->id}}</div>
+                                    <div class="">{{$user[0]->id}}</div>
                                         
                                 </td>
                                 <td>
-                                    <a href="./users/{{$users[$i][0]->id}}"  class="text-capitalize"> {{ $users[$i][0]->email }}</a>
+                                    <a href="./books/{{$user[0]->masach}}"  class="text-capitalize"> {{ $user[0]->email }}</a>
                                 </td>
                                 <td>
-                                    <a href="./exchange/borrow/{{$borrowforms[$i+1]->maphieu}}" class="text-capitalize"> {{ $borrowforms[$i+1]->maphieu }}</a>
+                                    <a href="./users/{{$user[0]->id}}" class="text-capitalize"> {{ $user[0]->mavp }}</a>
                                 </td>
                                 <td class=" max-w-sm"> 
-                                    <a href="./users/{{$users[$i][0]->id}}" class="text-capitalize"> {{ $users[$i][0]->mavp }}</a>
+                                    <a href="./users/{{$user[0]->id}}" class="text-capitalize"> {{ $user[0]->mavp }}</a>
                                 </td>
                                 <td>
                                     {{-- @if( $borrow->ngaytra == null )
@@ -86,7 +83,7 @@
                                     @endif --}}
                                 </td>
                             </tr>
-                        @endfor
+                        @endforeach
                     @else
                         <div class="">Không có sách nào</div>
                     @endif
@@ -95,9 +92,9 @@
         </div>
     <hr>
     <hr>
-    <small>Written on {{$booktitle->created_at}}</small>
+    <small>Written on {{$book->created_at}}</small>
     <div class="operation d-flex flex-row mt-3">
-        <div class="update mr-3"><a href="../books/{{$booktitle->id}}/edit" class="btn btn-default">Chỉnh sửa</a></div>
+        <div class="update mr-3"><a href="../books/{{$book->id}}/edit" class="btn btn-default">Chỉnh sửa</a></div>
         <div class="delete">
             <script>
                 function confirmDelete(){
@@ -111,19 +108,19 @@
                 }
             </script>
             {{-- Gọi method destroy cho cái nút --}}
-            {{-- {!!Form::open([
-                'action' => ['App\Http\Controllers\BooksController@destroy', $booktitle->id],
+            {!!Form::open([
+                'action' => ['App\Http\Controllers\BooksController@destroy', $book->id],
                 'method' => 'book',
                 'class' => 'pull-right',
                 'onsubmit' => 'return confirmDelete()'
-                ])!!} --}}
+                ])!!}
                 
             {{-- Gọi method DELETE (ẩn) --}}
-            {{-- {{form::hidden('_method', 'DELETE')}} --}}
+            {{form::hidden('_method', 'DELETE')}}
             {{-- Tạo button Xóa --}}
-            {{-- {{form::button('<i class="fa-solid fa-trash mr-2"></i> Xóa',
+            {{form::button('<i class="fa-solid fa-trash mr-2"></i> Xóa',
                  array('type' => 'submit', 'class' => 'btn btn-danger'), )}}
-            {{form::close();}} --}}
+            {{form::close();}}
         </div>
     </div>
 @endsection

@@ -36,7 +36,7 @@
                                 <a href="./authors/{{$author->id}}#book"> {{$author->id}}</a>
                             </td>
                             <td>
-                                <a href="./authors/{{$author->id}}#book"> {{$author->tentacgia}}</a>
+                                <a href="./authors/{{$author->id}}#book" class="text-capitalize"> {{$author->tentg}}</a>
                             </td>
                             <td>
                                 <a href="./authors/{{$author->id}}#book"> {{$author->ngaysinh}}</a>

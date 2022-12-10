@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Violation;
+use App\Models\ViolationForm;
+use App\Models\User;
+use App\Models\BorrowForm;
 
 class ViolationsController extends Controller
 {
@@ -14,8 +16,10 @@ class ViolationsController extends Controller
      */
     public function index()
     {
-        $violations = Violation::all();
-        return view('management.librarian.violations.index')->with('violations', $violations);
+        $users = User::all();
+        $borrows = BorrowForm::all();
+        $violations = ViolationForm::all();
+        return view('management.librarian.violations.index', compact('violations', 'users', 'borrows'));
     }
 
     /**
@@ -34,6 +38,10 @@ class ViolationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function returnfee(){
+        
+    }
+
     public function store(Request $request)
     {
         //

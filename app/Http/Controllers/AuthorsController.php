@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Authors;
+use App\Models\BookTitle;
+use App\Models\BookHead;
+use App\Models\Category;
 
 class AuthorsController extends Controller
 {
@@ -40,14 +43,12 @@ class AuthorsController extends Controller
             'tentacgia' => 'required',
             'ngaysinh' => 'required',
             'gioitinh' => 'required',
-            'soluongsach' => 'required',
         ]);
         
         $author = new Authors;
         $author->tentacgia = $request->input('tentacgia');
         $author->ngaysinh = $request->input('ngaysinh');
         $author->gioitinh = $request->input('gioitinh');
-        $author->soluongsach = $request->input('soluongsach');
 
         // if($request->hasFile('anhbia')){
         //     $file = $request->file('anhbia');
@@ -73,7 +74,10 @@ class AuthorsController extends Controller
     public function show($id)
     {
         $author = Authors::find($id);
-        return view('management.librarian.authors.show')->with('author', $author);
+        $booktitles = BookTitle::all();
+        $bookheads = BookHead::all();
+        $categories = Category::all();
+        return view('management.librarian.authors.show', compact('booktitles', 'author', 'categories', 'bookheads' ));
     }
 
     /**

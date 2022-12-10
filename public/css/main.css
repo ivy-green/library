@@ -167,7 +167,7 @@ a, a:hover, a:focus {
 
 #sidebar ul li a{
     display: block;
-    height: 100%;
+    /* height: 100%; */
     width: 100%;
     color: var(--clr-txt-primary);
     font-size: 16px;
@@ -222,10 +222,6 @@ a, a:hover, a:focus {
     color: var(--clr-bg-sidenav);
 }
 
-#sidebar li.active{
-
-}
-
 #homeSubmenu li a.subMenuItem{
     color: var(--clr-txt-primary) !important;
     background-color: inherit !important;
@@ -255,7 +251,8 @@ li.nav-item a {
     /* box-shadow: 3px 5px 0px var(--clr-bg-sidenav-hover); */
 }
 
-li.nav-item a:not(#navbarDropdown):hover {
+li.nav-item a:not(#navbarDropdown):hover,
+#navMain li.active a {
     background-color: var(--clr-bg-sidenav);
     color: var(--clr-txt-primary);
     transform: translate(5px, -5px);
@@ -270,7 +267,7 @@ li.nav-item a:not(#navbarDropdown):hover {
 #search #search-input {
     background-color: transparent;
     border: none;   
-    width: 40rem; 
+    /* width: 40rem;  */
     padding-left: 15px;
 }
 
@@ -320,13 +317,19 @@ tr{
     background-color: aqua;
 }
 
-td a:not(.btn_a){
+td a:not(.btn_a),
+td div{
     display: block;
     width: 100%;
     padding-right: 10px;
     word-wrap: wrap;
     border-right: solid 0.2px black;
 }
+
+/* tbody tr:nth-child(odd){
+    background-color: var(--clr-txt-btn-hover);
+    color: #fff;
+  } */
 
 tr .btn {
     width: 100px;
@@ -354,9 +357,9 @@ tr .btn {
     border-radius: 10px;
 }
 
-#info > div {
+/* #info > div {
     height: 23rem;
-}
+} */
 
 .book-image{
     /* width: 100%; */
@@ -440,4 +443,57 @@ table .content {
 
 table .code {
     max-width: 60px;
+}
+
+/* float button */
+.float{
+	position:fixed;
+	width:30px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:var(--clr-bg-sidenav);
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
+
+.my-float{
+	margin-top:22px;
+}
+
+/* input */
+.valid-input{
+    position: absolute;
+    font-size: 8px;
+    left: 60px;
+    /* visibility: hidden; */
+}
+
+.invalid{
+    color: var(--clr-valid-danger);
+    visibility: hidden;
+}
+
+.valid{
+    color: var(--clr-valid-green);
+    visibility: hidden;
+}
+
+.user-image {
+    width: auto;
+    height: auto;
+    position: relative;
+}
+
+.user-image img{
+    max-width: 100%;
+    max-height: 100%;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }

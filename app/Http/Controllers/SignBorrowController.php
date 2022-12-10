@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\SignBook;
+use App\Models\SignForm;
 
 class SignBorrowController extends Controller
 {
@@ -14,7 +14,8 @@ class SignBorrowController extends Controller
      */
     public function index()
     {
-        return view('management.librarian.exchange.signborrow.index');
+        $signforms = SignForm::all();
+        return view('management.librarian.exchange.signborrow.index', compact('signforms'));
     }
 
     /**

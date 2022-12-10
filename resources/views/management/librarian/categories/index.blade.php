@@ -32,13 +32,17 @@
                     @foreach($categories as $category)
                     <tr>
                             <td> 
-                                <a href="./categories/{{$category->id}}"> {{$category->id}}</a>
+                                <a href="./categories/{{$category->id}} class="text-capitalize""> TL{{$category->id}}</a>
                             </td>
                             <td>
-                                <a href="./categories/{{$category->id}}"> {{$category->tentheloai}}</a>
+                                <a href="./categories/{{$category->id}}" class="text-capitalize"> {{$category->tentl}}</a>
                             </td>
                             <td>
-                                <a href="./categories/{{$category->id}}"> {{$category->soluongsach}}</a>
+                                <a href="./categories/{{$category->id}}"> 
+                                    {{
+                                        $booktitles->where('theloai', $category->id)->count()
+                                    }}
+                                </a>
                             </td>
                             <td>
                                 <a href="./categories/{{$category->id}}"> {{$category->created_at}}</a>

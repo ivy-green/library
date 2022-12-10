@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\BookTitle;
+use App\Models\BookHead;
+use App\Models\Authors;
 
 class CategoriesController extends Controller
 {
@@ -15,7 +18,8 @@ class CategoriesController extends Controller
     public function index()
     {
         $categories = Category::all();
-        return view('management.librarian.categories.index')->with('categories', $categories);
+        $booktitles = BookTitle::all();
+        return view('management.librarian.categories.index', compact('categories', 'booktitles'));
     }
 
     /**
@@ -61,7 +65,10 @@ class CategoriesController extends Controller
     public function show($id)
     {
         $category = Category::find($id);
-        return view('management.librarian.categories.index')->with('category', $category);
+        $booktitles = BookTitle::all();
+        $bookheads = BookHead::all();
+        $authors = Authors::all();
+        return view('management.librarian.categories.show', compact('category', 'booktitles', 'authors', 'bookheads'));
     }
 
     /**

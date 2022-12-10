@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rule extends Model
+class Lang extends Model
 {
     use HasFactory;
-    protected $table = "quydinh";
-
+    protected $table = 'ngonngu';
     protected $fillable = [
-        'tenqd',
-        'noidung',
-        'maloai',
+        'id',
+        'mann',
+        'tennn',
+        'ghichu',
     ];
 }

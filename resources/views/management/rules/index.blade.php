@@ -26,12 +26,12 @@
                         <td> 
                             <a href="./rules/{{$rule->id}}"> {{$rule->id}}</a>
                         </td>
-                        <td>
-                            <a href="./authors/{{$rule->maloai}}"> 
-                                {{$rule_types[$rule->maloai - 1]->tenloai}}
+                        <td class="text-capitalize">
+                            <a href="./rules/{{$rule->id}}"> 
+                                {{ $rule->tenqd }}
                             </a>
                         </td>
-                        <td class="content">
+                        <td class="content text-capitalize">
                             <a href="./rules/{{$rule->id}}"> {{$rule->noidung}}</a>
                         </td>
                         <td>

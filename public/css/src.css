@@ -13,6 +13,8 @@
 
     --clr-shadow: var(--clr-btn-hover);
     --clr-valid: #6ebbc4;
+    --clr-valid-green: rgb(64, 99, 64) ;
+    --clr-valid-danger: #904c4c;
     --clr-danger: #ffc2c2;
 
     --clr-bg-sidenav: #717d8b;
@@ -126,4 +128,9 @@ textarea {
     background-color: #fff !important;
     border-radius: 10px !important;
     border: solid 0.5px var(--clr-btn-dark) !important;
+}
+
+.col .card{
+    background-color: transparent;
+    border: none;
 }

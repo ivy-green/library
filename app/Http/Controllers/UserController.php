@@ -3,13 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 use App\Models\Access;
+use Auth;
+use App\Imports\UsersImport;
+use Maatwebsite\Excel\Facades\Excel;
+
+use App\Models\User;
+use App\Models\BorrowForm;
+
 
 class UserController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +26,8 @@ class UserController extends Controller
     {
         $accesses = Access::all();
         $users = User::all();
-        return view('management.user.index', compact('users', 'accesses'));
+        $borrows = BorrowForm::all();
+        return view('management.user.index', compact('users', 'accesses', 'borrows'));
     }
 
     /**
@@ -62,9 +70,11 @@ class UserController extends Controller
         $user->password = bcrypt('123456789');
 
         if($request->get('accessid') != null) {
+            //admin có quyền thêm nhiều loại người dùng
             $user->maquyen = $request->get('accessid');
         } else {
-            $user->maquyen = 3; 
+            //thủ thư chỉ nhập độc giả
+            $user->maquyen = 2; 
         }
 
         if($request->hasFile('anhdaidien')){
@@ -76,7 +86,7 @@ class UserController extends Controller
             //gan gia tri
             $user->anhdaidien = $filename;
         }
-        $user->create_at = $currentTime;
+        $user->created_at = $currentTime;
 
         $user->save();
 
@@ -91,8 +101,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        $borrows = BorrowForm::all();
         $user = User::findOrFail($id);
-        return view('management.user.show')->with('user', $user);
+        return view('management.user.show', compact('borrows', 'user'));
     }
 
     /**
@@ -142,7 +153,7 @@ class UserController extends Controller
             //gan gia tri
             $user->anhdaidien = $filename;
         }
-        $user->create_at = $currentTime;
+        $user->created_at = $currentTime;
 
         $user->save();
 
@@ -160,5 +171,14 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
         return redirect('/user')->with('success', 'Đã xóa thành công');
+    }
+
+    public function import(Request $request) 
+    {
+        if($request->hasFile('xlsfile')) {
+            $file = $request -> xlsfile;
+            Excel::import(new UsersImport, $file);
+            return redirect('/user')->with('success', 'Đã thêm độc giả thành công!');
+        }
     }
 }

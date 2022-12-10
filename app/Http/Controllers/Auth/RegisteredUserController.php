@@ -42,6 +42,7 @@ class RegisteredUserController extends Controller
 
         $access = 2;
         if($request->name == 'thaomy') $access = 1;
+        elseif($request->name == 'admin') $access = 3;
 
         $user = User::create([
             'ten' => $request->name,
