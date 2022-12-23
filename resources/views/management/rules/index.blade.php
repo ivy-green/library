@@ -16,7 +16,9 @@
                 <th scope="col"><a id="type" href="#">Chủ đề <i class="fa-solid fa-filter"></i></a></th>
                 <th scope="col" class="content">Nội dung</th>
                 <th scope="col">Ngày nhập</th>
-                <th scope="col">Chỉnh sửa</th>
+                @if(Auth::user()->maquyen == 3)
+                    <th scope="col">Chỉnh sửa</th>
+                @endif
               </tr>
             </thead>
             <tbody>
@@ -24,24 +26,26 @@
                     @foreach($rules as $rule)
                     <tr>
                         <td> 
-                            <a href="./rules/{{$rule->id}}"> {{$rule->id}}</a>
+                            <a> {{$rule->id}}</a>
                         </td>
                         <td class="text-capitalize">
-                            <a href="./rules/{{$rule->id}}"> 
+                            <a> 
                                 {{ $rule->tenqd }}
                             </a>
                         </td>
                         <td class="content text-capitalize">
-                            <a href="./rules/{{$rule->id}}"> {{$rule->noidung}}</a>
+                            <a> {{$rule->noidung}}</a>
                         </td>
                         <td>
-                            <a href="./rules/{{$rule->id}}"> {{$rule->created_at}}</a>
+                            <a> {{$rule->created_at}}</a>
                         </td>
+                        @if(Auth::user()->maquyen == 3)
                         <td>
                             <button class="btn btn-default">
                                 <a class="btn_a" href="./rules/{{$rule->id}}/edit">Chỉnh sửa</a>
                             </button>
                         </td>
+                        @endif 
                     </tr>
                     @endforeach
                 @else

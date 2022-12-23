@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\SignForm;
+use App\Models\SignFormDetail;
+use App\Models\User;
+use App\Models\Lang;
+use App\Models\BookTitle;
+use App\Models\BookHead;
+
 
 class SignBorrowController extends Controller
 {
@@ -15,7 +21,9 @@ class SignBorrowController extends Controller
     public function index()
     {
         $signforms = SignForm::all();
-        return view('management.librarian.exchange.signborrow.index', compact('signforms'));
+        $users = User::all();
+        return view('management.librarian.exchange.signborrow.index',
+         compact('signforms', 'users'));
     }
 
     /**
@@ -25,7 +33,9 @@ class SignBorrowController extends Controller
      */
     public function create()
     {
-        //
+        $signforms = SignForm::all();
+
+        return view('management.librarian.exchange.signborrow.create', compact('signforms'));
     }
 
     /**
@@ -47,7 +57,15 @@ class SignBorrowController extends Controller
      */
     public function show($id)
     {
-        return view('management.librarian.exchange.signborrow.show');
+        $signform = SignForm::find($id);
+        $signformdetails = SignFormDetail::where('maphieu', '=', $signform->id)->get();
+        $users = User::all();
+        $bhead = BookHead::all();
+        $btitle = BookTitle::all();
+        $lang = Lang::all();
+
+        return view('management.librarian.exchange.signborrow.show', 
+            compact('signform', 'signformdetails', 'users', 'btitle', 'bhead', 'lang'));
     }
 
     /**

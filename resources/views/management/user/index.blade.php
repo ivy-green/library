@@ -3,12 +3,18 @@
 @section('content')
     @include('inc.message')
     <div class="d-flex flex-row justify-content-between">
-        <h1 class="mb-4">Danh mục độc giả</h1>
-        <button class="btn btn-default btn_size">
-            @if(Auth::user()->maquyen == 1)
-                <a href="/user/create">Thêm độc giả</a>
+        <h1 class="mb-4">
+            @if (Auth::user()->maquyen === 3)
+                Danh mục người dùng
             @else
-                <a href="/user/create">Thêm người dùng</a>
+                Danh mục độc giả
+            @endif
+        </h1>
+        <button class="btn btn-default btn_size">
+            @if(Auth::user()->maquyen == 3)
+                <a href={{ URL::route('user.create') }}>Thêm người dùng</a>
+            @else
+                <a href={{ URL::route('user.create') }}>Thêm độc giả</a>
             @endif
         </button>
     </div>
@@ -21,6 +27,9 @@
                 <th scope="col">Email</th>
                 <th scope="col">Giới tính</th>
                 <th scope="col">Ngày đăng ký</th>
+                @if(Auth::user()->maquyen == 3)
+                    <th scope="col">Quyền</th>
+                @endif
                 {{-- <th scope="col">Thao tác</th> --}}
               </tr>
             </thead>
@@ -33,16 +42,16 @@
                             @if($user->maquyen == 2 )
                                 <tr>
                                     <td> 
-                                        <a href="/user/{{$user->id}}"> {{$user->id}}</a>
+                                        <a href={{ URL::route('user.show', $user->id) }}> {{$user->id}}</a>
                                     </td>
                                     <td>
-                                        <a href="/user/{{$user->id}}"> {{$user->ten}}</a>
+                                        <a href={{ URL::route('user.show', $user->id) }}> {{$user->ten}}</a>
                                     </td>
                                     <td>
-                                        <a href="/user/{{$user->id}}"> {{$user->email}}</a>
+                                        <a href={{ URL::route('user.show', $user->id) }}> {{$user->email}}</a>
                                     </td>
                                     <td>
-                                        <a href="/user/{{$user->id}}"> 
+                                        <a href={{ URL::route('user.show', $user->id) }}> 
                                         <?php 
                                             if($user->gioitinh == 1){
                                                 echo 'Nữ';
@@ -54,14 +63,14 @@
                                         {{-- <small>Written on {{$user->created_at}}</small> --}}
                                     </td>
                                     <td>
-                                        <a href="/user/{{$user->id}}"> {{$user->created_at}}</a>
+                                        <a href={{ URL::route('user.show', $user->id) }}> {{$user->created_at}}</a>
                                     </td>
                                     {{-- <td>
                                         <button class="btn btn-default">
-                                            <a class="btn_a" href="/user/{{$user->id}}">Chỉnh sửa</a>
+                                            <a class="btn_a" href={{ URL::route('user.show', $user->id) }}>Chỉnh sửa</a>
                                         </button>
                                         <button class="btn btn-danger">
-                                            <a class="btn_a" href="/user/{{$user->id}}">Xóa</a>
+                                            <a class="btn_a" href={{ URL::route('user.show', $user->id) }}>Xóa</a>
                                         </button>
                                     </td> --}}
                                 </tr>
@@ -72,16 +81,16 @@
                         @foreach($users as $user)
                         <tr>
                             <td> 
-                                <a href="/user/{{$user->id}}"> {{$user->id}}</a>
+                                <a href={{ URL::route('user.show', $user->id) }}> {{$user->id}}</a>
                             </td>
                             <td>
-                                <a href="/user/{{$user->id}}"> {{$user->ten}}</a>
+                                <a href={{ URL::route('user.show', $user->id) }}> {{$user->ten}}</a>
                             </td>
                             <td>
-                                <a href="/user/{{$user->id}}"> {{$user->email}}</a>
+                                <a href={{ URL::route('user.show', $user->id) }}> {{$user->email}}</a>
                             </td>
                             <td>
-                                <a href="/user/{{$user->id}}"> 
+                                <a href={{ URL::route('user.show', $user->id) }}> 
                                 <?php 
                                     if($user->gioitinh == 1){
                                         echo 'Nữ';
@@ -93,16 +102,15 @@
                                 {{-- <small>Written on {{$user->created_at}}</small> --}}
                             </td>
                             <td>
-                                <a href="/user/{{$user->id}}"> {{$user->created_at}}</a>
+                                <a href={{ URL::route('user.show', $user->id) }}> {{$user->created_at}}</a>
                             </td>
-                            {{-- <td>
-                                <button class="btn btn-default">
-                                    <a class="btn_a" href="/user/{{$user->id}}">Chỉnh sửa</a>
-                                </button>
-                                <button class="btn btn-danger">
-                                    <a class="btn_a" href="/user/{{$user->id}}">Xóa</a>
-                                </button>
-                            </td> --}}
+                            @if(Auth::user()->maquyen == 3)
+                                <td>
+                                    <div class="">
+                                        {{ $roles[$user->maquyen - 1]->tenquyen }}
+                                        </div>
+                                </td>
+                            @endif
                         </tr>
                         @endforeach
                     @endif

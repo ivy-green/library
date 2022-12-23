@@ -27,9 +27,12 @@
     </div>
     <div class="d-flex flex-row justify-content-between">
         <h1 class="mb-4">Danh mục sách</h1>
-        <button class="btn btn-default btn_size">
-            <a href="/books/create">Thêm sách mới</a>
-        </button>
+        @if(Auth::user()->maquyen == 1)
+        {{-- thủ thư --}}
+            <button class="btn btn-default btn_size">
+                <a href="/books/create">Thêm sách mới</a>
+            </button>
+        @endif
     </div>
     <div class="table-wrapper form-border form-hover">
         <table class="table">
@@ -48,16 +51,16 @@
                     @foreach($booktitles as $booktitle)
                     <tr>
                             <td> 
-                                <a href="./books/{{$booktitle->id}}"> {{$booktitle->id}}</a>
+                                <a href="{{ URL::route('books.show', $booktitle->id) }}"> {{$booktitle->id}}</a>
                             </td>
                             <td>
-                                <a href="./books/{{$booktitle->id}}"  class="text-capitalize"> {{$booktitle->tents}}</a>
+                                <a href={{ URL::route('books.show', $booktitle->id) }}  class="text-capitalize"> {{$booktitle->tents}}</a>
                             </td>
                             <td>
-                                <a href="./books/{{$booktitle->id}}"> {{$booktitle->created_at}}</a>
+                                <a href={{ URL::route('books.show', $booktitle->id) }}> {{$booktitle->created_at}}</a>
                             </td>
                             <td>
-                                <a href="./authors/{{$booktitle->tacgia}}"  class="text-capitalize"> 
+                                <a href={{ URL::route('authors.show', $booktitle->tacgia) }}  class="text-capitalize"> 
                                     {{$authors[$booktitle->tacgia - 1]->tentg}}
                                 </a>
                             </td>

@@ -5,14 +5,14 @@
     @if(Auth::user()->maquyen != 2)
         <div class="row mb-4">
             <div class="col card-wrapper">
-                <a class="card px-4 py-4 rounded-lg form-border form-hover" href="/exchange/borrow">
+                <a class="card px-4 py-4 rounded-lg form-border form-hover" href="{{ URL::Route('borrow', ['parent'=>'exchange']) }}">
                     <h5 class="">
                         Danh mục phiếu mượn trả sách
                     </h5>
                 </a>
             </div>
             <div class="col card-wrapper">
-                <a class="card px-4 py-4 rounded-lg form-border form-hover" href="/exchange/signborrow">
+                <a class="card px-4 py-4 rounded-lg form-border form-hover" href={{ URL::Route('signborrow', ['parent'=>'exchange']) }}>
                     <h5 class="">
                         Phiếu Đăng Ký Mượn Sách
                     </h5>
@@ -40,6 +40,6 @@
             var violateCount = Object.values(@json($violateCount));
         </script>
     @else
-    
+        
     @endif
 @endsection 

@@ -2,18 +2,20 @@
 
 @section('content')
     @include('inc.message')
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/user">Quản lý độc giả</a></li>
-          <li class="breadcrumb-item active" aria-current="page">
-            @if(Auth::user()->maquyen == 1)
-                <a href="/user/create">Thêm độc giả</a>
-            @else
-                <a href="/user/create">Thêm người dùng</a>
-            @endif
-          </li>
-        </ol>
-      </nav>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/user">Quản lý độc giả</a></li>
+            <li class="breadcrumb-item active" aria-current="page">
+                @if(Auth::user()->maquyen == 1)
+                {{-- thủ thư --}}
+                    <a href="/user/create">Thêm độc giả</a>
+                @else
+                {{-- admin --}}
+                    <a href="/user/create">Thêm người dùng</a>
+                @endif
+            </li>
+            </ol>
+        </nav>
     <div class="form-main form-border form-hover my-3">
         @if(Auth::user()->maquyen == 1)
             <h3 class="text-center mb-4">Thêm Độc Giả Mới</h3>

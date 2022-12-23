@@ -3,8 +3,8 @@
 @section('nonav-content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
+        <div class="col-md-8 w-3/4">
+            <div class="card form-border form-hover border border-2">
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">

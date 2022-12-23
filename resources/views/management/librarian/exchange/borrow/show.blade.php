@@ -4,7 +4,7 @@
 <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="/exchange">Quản lý mượn-trả sách</a></li>
-      <li class="breadcrumb-item"><a href="/exchange/borrow">Danh mục phiếu mượn trả sách</a></li>
+      <li class="breadcrumb-item"><a href="{{ URL::route('borrow') }}">Danh mục phiếu mượn trả sách</a></li>
       <li class="breadcrumb-item active" aria-current="page">
         <a href="#">Thông tin chi tiết phiếu</a>
       </li>
@@ -32,7 +32,7 @@
             <table class="table">
                 <thead>
                     <tr class="text-capitalize">
-                    <th scope="col">Mã Tựa Sách</th>
+                    <th scope="col">Tên sách</th>
                     <th scope="col">Mã sách</th>
                     <th scope="col">Mã vi phạm</th>
                     <th scope="col">Ngày trả</th>
@@ -44,16 +44,24 @@
                     @if(count($details) > 0)
                         @foreach($details as $detail)
                             @if($borrow->id == $detail->maphieu)
-                                <tr>
+                                <tr class="text-capitalize">
                                     <td> 
-                                        <div class="">{{$detail->maphieu}}</div>
+                                        <a href={{ URL::route('books.show', $detail->maphieu) }} class="">
+                                            {{$btitles[$bheads[$detail->masach]->mats]->tents}}
+                                        </a>
                                          
                                     </td>
                                     <td>
-                                        <a href="./books/{{$detail->masach}}"  class="text-capitalize"> {{ $detail->masach }}</a>
+                                        <a href="/books/{{$detail->masach}}"  class="text-capitalize"> {{ $detail->masach }}</a>
                                     </td>
                                     <td>
-                                        <a href="./users/{{$borrow->matt}}" class="text-capitalize"> {{ $detail->mavp }}</a>
+                                        <div class="text-capitalize"> 
+                                            @if( $detail->mavp == null )
+                                                <div class="alert alert-danger text-center py-2 px-1 mb-0">Chưa trả</div>
+                                            @else 
+                                                <a href={{ URL::route('violations.show', $detail->mavp) }} class="alert alert-success text-center py-2 px-1 mb-0">{{ $detail->mavp }}</a>
+                                            @endif
+                                        </div>
                                     </td>
                                     <td class=" max-w-sm"> 
                                         @if( $borrow->ngaytra == null )
@@ -79,8 +87,10 @@
             </table>
         </div>
     </div>
-    
-
+    {{-- <script type="">
+        var bookheads = @json($bookheads);
+        var booktitles = @json($booktitles);
+    </script> --}}
     <hr>
     <hr>
     <small>Written on {{$borrow->created_at}}</small>

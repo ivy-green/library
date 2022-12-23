@@ -45,13 +45,13 @@ class RulesController extends Controller
         $currentTime = Carbon::now();
 
         $this->validate($request, [
+            'tenqd' => 'required',
             'noidung' => 'required',
-            'maloai' => 'required',
         ]);
         
         $rule = new Rule;
+        $rule->tenqd = $request->input('tenqd');
         $rule->noidung = $request->input('noidung');
-        $rule->maloai = $request->get('typeid');
         $rule->created_at = $currentTime;
 
         $rule->save();

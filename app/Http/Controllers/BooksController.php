@@ -73,53 +73,86 @@ class BooksController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'madg' => 'required',
-            'matt' => 'required',
+            'tensach' => 'required',
         ]);
 
         $book = new Book;
         $booktitle = new BookTitle;
+        $bookhead = new BookHead;
         $currentTime = Carbon::now();
         //kiểm tra có sách nào hợp lệ và đưuọc lưu trong chi tiết phiếu
         $hasBook = false;
+        $bookName = $request->input('tensach');
 
-        //add to book detail
-        foreach($request->all() as $key => $value){
+        $btitleID = BookTitle::where('tents', '=', strtolower($bookName))
+            ->where('theloai', '=', $request->matl[0])
+            ->where('tacgia', '=', $request->matg[0])
+            ->pluck('id')->first();
+        if($request->bia[0] == "0"){
+            $bia = "bìa mềm";
+        } else $bia = "bìa cứng";
+        //sách chưa tồn tại -> thêm tựa sách
+        if($btitleID) {
+            
+            //kiểm tra xem đầu sách đó có tồn tại chưa 
+            $bheadID = BookHead::where('mats', '=', $btitleID)
+                ->where('ngonngu', '=', '2')
+                ->where('bia', '=', $bia)
+                ->where('nhaxb', '=', strtolower($request->input('nhaxb')))
+                ->pluck('id')->first();
+                // dd($btitleID, $bheadID);
+            if($bheadID) {
+                //có tồn tại
+                //tạo sách mới là xong
+                echo 'do not create book head';
+            } else {
+                //không tồn tại => tạo mới
+                $bookhead->nhaxb = $request->input('nhaxb');
+                $bookhead->bia = $bia;
+                $bookhead->ngonngu = $request->ngonngu[0];
+                $bookhead->mats = $btitleID;
 
-            //với mỗi cuốn sách
-            if($key == "booknames") {
-                // dd($value[0]['BN'], $value[0]['bia'], $value[0]['ngonngu']);
+                $bookhead->save();
 
-                //kiểm tra xem sách có tồn tại trong bảng tựa sách hay không
-                $btitleID = BookTitle::where('tents', '=', $value[0]['BN'])->pluck('id')->first();
-                
-                //sách chưa tồn tại -> thêm tựa sách
-                if(!$btitleID) {
-
-
-                    //check if dausach exists (ngonngu along with tuasach)
-                    //kiểm tra ngôn ngữ và tựa sách có hợp lệ trong bảng đầu sách hay không
-                    $bheadID = BookHead::where('ngonngu', '=', $value[0]['ngonngu'] + 1)
-                        ->pluck('id')->first();
-
-                    $book = Book::where('mads', '=', $bheadID + 1)
-                        ->where('tinhtrang', '=', 0)
-                        ->first();
-                    
-                    //kiểm tra đầu sách coi có hong
-                    if($bheadID) {
-                        
-                    }
-
-                }
-
+                $bheadID = $bookhead->id;
             }
+
+        } else {
+            //tạo mới tựa sách
+            $booktitle->theloai = $request->matl[0];
+            $booktitle->tacgia = $request->matg[0];
+            $booktitle->tents = strtolower($request->input('tensach'));
+
+            $booktitle->save();
+            //tạo mới đầu sách
+            $bookhead->nhaxb = $request->input('nhaxb');
+
+            $bookhead->bia = $bia;
+            $bookhead->ngonngu = $request->ngonngu[0];
+            $bookhead->mats = $booktitle->id;
+
+            $bookhead->save();
+
+            //define booktitleID and bookheadID
+            $btitleID = $booktitle->id;
+            $bheadID = $bookhead->id;
+
         }
 
-        // return redirect()->route('borrow.book');
-        $id = $book->id;
+        //tạo sách mới
+        if(isset($btitleID)){
+            if(isset($bheadID)){
+                // dd($btitleID, $bheadID);
+                $book->mads = $bheadID;
+                $book->tinhtrang = 0;
 
-        return redirect()->route('borrow.show', ['borrow' => $id])->with('success', 'Đã thêm thành công');
+                $book->save();
+
+                $book->masach = 's'. $book->id;
+            }
+        }
+        // dd($btitleID);
+        return redirect()->route('books.show', $btitleID)->with('success', 'Đã thêm thành công');
     }
 
     /**
@@ -130,28 +163,33 @@ class BooksController extends Controller
      */
     public function show($id)
     {
+        $categories = Category::all();
         $booktitle = BookTitle::find($id);
         $bookhead = BookHead::where('mats', '=', $id)->first();
-        $book = Book::where('mads', '=', $bookhead->id)->get();
-        // dd(count($book));
-        $authors = Authors::find($id);
-        $categories = Category::find($id);
-
-        //đọc giả đang mượn tựa sách này
-        // $users = User::all();
-        $users = [];
-        $idx = 0;
-        $borrowbooks = BorrowFormDetail::where('mads', '=', $bookhead->id);
-        foreach($borrowbooks as $borrowbook){
-            $userid = BorrowForm::where('id', '=', $borrowbook->maphieu)->pluck('madg');
-            if(!in_array($userid, $users)) {
-                $users[] = User::where('id', '=', $userid)->get();
+        if($bookhead){
+            $book = Book::where('mads', '=', $bookhead->id)->get();
+            $authors = Authors::find($id);
+            // $category = Category::find($id);
+    
+            //đọc giả đang mượn tựa sách này
+            // $users = User::all();
+            $users = [];
+            $idx = 0;
+            $borrowbooks = BorrowFormDetail::where('mads', '=', $bookhead->id);
+            foreach($borrowbooks as $borrowbook){
+                $userid = BorrowForm::where('id', '=', $borrowbook->maphieu)->pluck('madg');
+                if(!in_array($userid, $users)) {
+                    $users[] = User::where('id', '=', $userid)->get();
+                }
             }
+            // echo $users[0];
+    
+            return view('management.librarian.books.show',
+             compact('book', 'categories', 'authors', 'bookhead', 'booktitle', 'users', 'borrowbooks'));
         }
-        // echo $users[0];
-
-        return view('management.librarian.books.show',
-         compact('book', 'categories', 'authors', 'bookhead', 'booktitle', 'users', 'borrowbooks'));
+        else {
+            return view('management.librarian.books.show', compact('booktitle', 'categories'));
+        }
     }
 
     /**

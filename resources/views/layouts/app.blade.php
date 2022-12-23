@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -33,7 +33,7 @@
 
     {{-- links --}}
     @push('css')
-        <link rel="stylesheet" href="path to your css">
+        {{-- <link rel="stylesheet" href="path to your css"> --}}
     @endpush
     <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">   
     <!-- Scrollbar Custom CSS -->
@@ -45,7 +45,7 @@
         <!-- Sidebar -->
         <nav id="sidebar">
             <div id="curr-user" class="flex flex-row mx-3 my-3">
-                <a href="/user/{{ Auth::user()->id }}" class="user-img h-14 w-14 rounded-full bg-white overflow-hidden
+                <a href={{ URL::route('user.show', Auth::user()->id) }} class="user-img h-14 w-14 rounded-full bg-white overflow-hidden
                  border border-spacing-2 border-black">
                     <img src="{{ asset('uploads/users/default.jpg') }}" class="" alt="">
                 </a>
@@ -65,9 +65,12 @@
                         @endif
                     </div>
                 </div>
-                <div class="edit-user ml-auto mt-2">
+                <a href="/user/{{ Auth::user()->id }}/edit" class="edit-user ml-auto mt-2">
                     <i class="fa-solid fa-pen"></i>
-                </div>
+                </a>
+            </div>
+            <div class="">
+                {{-- <img src={{ asset('uploads/general/logo_truong.png') }} alt=""> --}}
             </div>
             <div class="sidebar-header">
                 <div class="sidebar-header-sub ">
@@ -116,7 +119,7 @@
                         <li class="nav-item">
                           <a class="" href="/contact">Liên hệ</a>
                         </li>
-                      </ul>
+                    </ul>
                     
                     <button
                     id="btn_navbarSupportedContent"
@@ -150,7 +153,7 @@
                                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                            onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
+                                            document.getElementById('logout-form').submit();">
                                             {{ __('Đăng xuất') }}
                                         </a>
     

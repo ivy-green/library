@@ -21,6 +21,7 @@ use App\Http\Controllers\PagesController;
 use App\Http\Controllers\RulesController;
 use App\Http\Controllers\AccessesController;
 use App\Http\Controllers\ExchangeController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\Auth\LoginController;
 
 
@@ -93,7 +94,9 @@ Route::resource('/books', BooksController::class)->missing(function (Request $re
 Route::resource('/user', UserController::class)->missing(function (Request $request) {
     return Redirect::route('management.user.index');
 })->names([
-    'index' => 'user'
+    'index' => 'user',
+    'show' => 'user.show',
+    'create' => 'user.create',
 ]);
 
 Route::controller(UserController::class)->group(function () {
@@ -120,12 +123,15 @@ Route::resource('/exchange', ExchangeController::class)->missing(function (Reque
 Route::resource('/exchange/giveback', GiveBackController::class)->missing(function (Request $request) {
     return Redirect::route('management.librarian.exchange.giveback.index');
 })->names([
-    'index' => 'exchange.giveback'
+    'index' => 'giveback'
 ]);
 
 //
 
-Route::resource('/exchange/borrow', BorrowController::class)->missing(function (Request $request) {
+// Route::get('/exchange/borrow', [BorrowController::class, 'index'])
+//     ->name('borrow');
+
+Route::resource('/borrow', BorrowController::class)->missing(function (Request $request) {
     return Redirect::route('management.librarian.exchange.borrow.index');
 })->names([
     'index' => 'borrow',
@@ -133,35 +139,47 @@ Route::resource('/exchange/borrow', BorrowController::class)->missing(function (
     'show' => 'borrow.show'
 ]);
 
-// Route::controller(BorrowController::class)->group(function () {
-//     Route::post('/exchange/borrow/add_book', 'addBookToList');
-// });
+Route::resource('/signborrow', SignBorrowController::class)->missing(function (Request $request) {
+    return Redirect::route('management.librarian.exchange.signborrow.index');
+})->names([
+    'index' => 'signborrow',
+    'create' => 'signborrow.create',
+    'show' => 'signborrow.show'
+]);
 
-Route::controller(SignBorrowController::class)->group(function () {
-    Route::get('/exchange/signborrow', 'index');
-    Route::get('/exchange/signborrow/{id}', 'show');
-    Route::post('/exchange/signborrow/{id}', 'edit');
-    // Route::post('/exchange/signborrow', 'store');
-});
-
+Route::resource('/report', ReportController::class)->missing(function (Request $request) {
+    return Redirect::route('management.librarian.report.index');
+})->names([
+    'index' => 'report',
+    'show' => 'report.show',
+    'create' => 'report.create',
+    'edit' => 'report.edit'
+]);
 
 Auth::routes();
 
 Route::resource('/authors', AuthorsController::class)->missing(function (Request $request) {
     return Redirect::route('management.librarian.authors.index');
-});
+})->names([
+    'index' => 'authors',
+    'show' => 'authors.show',
+]);
 
 Route::resource('/categories', CategoriesController::class)->missing(function (Request $request) {
     return Redirect::route('management.librarian.categories.index');
-});
-
-Route::get('/violations/returnfee/{id}', [BooksController::class, 'returnfee'])
-    ->name('violations.returnfee', 'id');
+})->names([
+    'index' => 'categories',
+    'show' => 'categories.show',
+    'create' => 'categories.create',
+]);
 
 Route::resource('/violations', ViolationsController::class)->missing(function (Request $request) {
     return Redirect::route('management.librarian.violations.index');
 })->names([
-    'index' => 'violations'
+    'index' => 'violations',
+    'show' => 'violations.show',
+    'create' => 'violations.create',
+    'edit' => 'violations.edit',
 ]);
 
 // admin

@@ -4,7 +4,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/exchange">Quản lý mượn trả sách</a></li>
-        <li class="breadcrumb-item"><a href="/exchange/borrow">Danh mục phiếu mượn trả sách</a></li>
+        <li class="breadcrumb-item"><a href="{{ URL::route('borrow') }}">Danh mục phiếu mượn trả sách</a></li>
         <li class="breadcrumb-item active" aria-current="page">
             <a href="#">Phiếu mượn trả sách</a>
             

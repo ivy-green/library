@@ -497,3 +497,9 @@ table .code {
     right: 0;
     bottom: 0;
 }
+
+#search{
+    background-color: transparent;
+    border: var(--clr-main);
+    border-radius: 5px !important;
+}

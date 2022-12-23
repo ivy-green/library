@@ -5,29 +5,34 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
-use App\Models\Access;
 use Auth;
 use App\Imports\UsersImport;
 use Maatwebsite\Excel\Facades\Excel;
 
 use App\Models\User;
 use App\Models\BorrowForm;
-
+use App\Models\Access;
 
 class UserController extends Controller
 {
-    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $accesses = Access::all();
-        $users = User::all();
+        // $users = User::all();
+        // dd(request('search'));
+        if($request->input('search') != null){
+            $users = User::search($request->input('search'))->paginate();
+        } else {
+            $users = User::all();
+        }
         $borrows = BorrowForm::all();
-        return view('management.user.index', compact('users', 'accesses', 'borrows'));
+        $roles = Access::all();
+        return view('management.user.index', compact('users', 'accesses', 'borrows', 'roles'));
     }
 
     /**
@@ -157,7 +162,7 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect('/user')->with('success', 'Đã chỉnh sửa thành công');
+        return redirect('/user/' . $user->id)->with('success', 'Đã chỉnh sửa thành công');
     }
 
     /**

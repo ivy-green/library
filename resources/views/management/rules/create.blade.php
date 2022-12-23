@@ -37,16 +37,8 @@
             </div>    
         </div>
         <div class="form-group">
-            {{form::label('maloai', 'Quy Định Về: ')}}
-            <select class="form-select form-select-sm mt-1" name="typeid">
-                @if(count($rule_types) > 0)
-                    @foreach ($rule_types as $type)
-                        <option value="{{ $type->id }}"> {{ $type->tenloai }}</option>
-                    @endforeach
-                @else
-                    <option>Không có dữ liệu</option>
-                @endif
-            </select>
+            {{form::label('tenqd', 'Quy Định Về: ')}}
+            {{form::text('tenqd', '', ['class' => 'form-control', 'placeholder' => 'Nhập tên quy định..'])}}
         </div>
         <div class="form-group">
             {{form::label('noidung', 'Nội dung:')}}

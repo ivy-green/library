@@ -11,9 +11,18 @@ class SignForm extends Model
     protected $table = 'phieudangky';
 
     protected $fillable = [
+        'id',
         'maphieu',
         'madg',
+        'ngaylapphieu',
         'created_at',
         'updated_at',
     ];
+
+    protected $with = ['phieuvp'];
+
+    public function phieuvp()
+    {
+        return $this->hasMany(SignFormDetail::class, 'maphieu', 'id');
+    }
 }

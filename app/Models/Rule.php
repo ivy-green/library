@@ -13,6 +13,5 @@ class Rule extends Model
     protected $fillable = [
         'tenqd',
         'noidung',
-        'maloai',
     ];
 }

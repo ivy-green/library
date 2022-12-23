@@ -10,6 +10,11 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
+use Laravel\Scout\Searchable;
+use Laravel\Scout\Attributes\SearchUsingFullText;
+use Laravel\Scout\Attributes\SearchUsingPrefix;
+
+
 use App\Models\Access;
 
 class User extends Authenticatable
@@ -19,6 +24,7 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use Searchable;
 
     protected $table = 'users';
 
@@ -40,6 +46,16 @@ class User extends Authenticatable
         'create_at',
         'update_at',
     ];
+
+    // search
+    #[SearchUsingPrefix(['ten', 'email'])]
+    public function toSearchableArray()
+    {
+        return [
+            'ten' => $this->ten,
+            'email' => $this->email,
+        ];
+    }
 
     /**
      * The attributes that should be hidden for serialization.

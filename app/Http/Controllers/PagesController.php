@@ -14,6 +14,8 @@ use App\Models\BookHead;
 use App\Models\Category;
 use App\Models\Authors;
 use App\Models\Notify;
+use App\Models\Rule;
+use App\Models\RuleType;    
 
 class PagesController extends Controller
 {
@@ -114,7 +116,9 @@ class PagesController extends Controller
 
     public function rule()
     {
-        return view('pages.rule');
+        $rule_types = RuleType::all();
+        $rules = Rule::all();
+        return view('management.rules.index', compact('rule_types', 'rules'));
     }
 
     public function notify()

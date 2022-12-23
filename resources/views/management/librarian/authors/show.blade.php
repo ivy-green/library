@@ -68,10 +68,10 @@
                             @if($booktitle->tacgia == $author->id)
                                 <tr>
                                         <td> 
-                                            <a href="./books/{{$booktitle->id}}"  class="text-uppercase"> {{$booktitle->mats}}</a>
+                                            <a href="{{ URL::route('books.show', $booktitle->id) }}"  class="text-uppercase"> {{$booktitle->mats}}</a>
                                         </td>
                                         <td>
-                                            <a href="./books/{{$booktitle->id}}"  class="text-capitalize"> {{$booktitle->tents}}</a>
+                                            <a href="{{ URL::route('books.show', $booktitle->id) }}"  class="text-capitalize"> {{$booktitle->tents}}</a>
                                         </td>
                                         <td>
                                             <a href="./users/{{$booktitle->matt}}" class="text-capitalize"> {{ $categories[$booktitle->theloai - 1]->tentl }}</a>

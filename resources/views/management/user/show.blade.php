@@ -13,6 +13,7 @@
     @else
     <h3>Thông tin cá nhân</h3>
 @endif
+    @include('inc.message')
     <div id="user-info">
         <div class="row h-80 mb-12 justify-between">
             <div class="user-image col">
@@ -104,13 +105,13 @@
                             @if($borrow->madg == $user->id)
                                 <tr>
                                     <td> 
-                                        <a href="./borrow/{{$borrow->id}}"  class="text-uppercase"> {{$borrow->maphieu}}</a>
+                                        <a href="/exchange/borrow/{{$borrow->id}}"  class="text-uppercase"> {{$borrow->maphieu}}</a>
                                     </td>
                                     <td>
-                                        <a href="./borrow/{{$borrow->id}}"  class="text-capitalize"> {{$borrow->ngaylapphieu}}</a>
+                                        <a href="/exchange/borrow/{{$borrow->id}}"  class="text-capitalize"> {{$borrow->ngaylapphieu}}</a>
                                     </td>
                                     <td>
-                                        <a href="./users/{{$borrow->matt}}" class="text-capitalize"> {{ $borrow->ngaytradukien }}</a>
+                                        <a href="/users/{{$borrow->matt}}" class="text-capitalize"> {{ $borrow->ngaytradukien }}</a>
                                     </td>
                                     <td>
                                         @if ($borrow->ngaytra != null) 

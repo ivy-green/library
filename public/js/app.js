@@ -13,6 +13,7 @@ $(document).ready(function () {
     tableSortOnClick();
     toTopButton();
     addContanerClass();
+    checkIfBookNameExists();
     console.log("app.js");
 });
 // login page
@@ -97,7 +98,6 @@ function openCloseSideNavigation (){
 }
 
 function tableSortOnClick(){
-    
     $('th').click(function(){
         if($(this).find('a').length) {
             var table = $(this).parents('table').eq(0)
@@ -198,4 +198,15 @@ function addContanerClass(){
         var element = $(div);
         element.addClass('container');
     });
+}
+
+function checkIfBookNameExists(){
+    if(typeof bookheads !== 'undefined' && typeof booktitles !== 'undefined'){
+        $('.bookrow input').on('change', function(){
+            var values = $("input[name='booknames[][BN]']").map(function(){return $(this).val();}).get();
+
+            console.log(values);
+        });
+        
+    }
 }

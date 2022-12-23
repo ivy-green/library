@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ViolationForm;
 use App\Models\User;
+use App\Models\Book;
 use App\Models\BorrowForm;
+use App\Models\BorrowFormDetail;
 
 class ViolationsController extends Controller
 {
@@ -17,9 +19,9 @@ class ViolationsController extends Controller
     public function index()
     {
         $users = User::all();
-        $borrows = BorrowForm::all();
+        $bforms = BorrowForm::all();
         $violations = ViolationForm::all();
-        return view('management.librarian.violations.index', compact('violations', 'users', 'borrows'));
+        return view('management.librarian.violations.index', compact('violations', 'users', 'bforms'));
     }
 
     /**
@@ -38,10 +40,6 @@ class ViolationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function returnfee(){
-        
-    }
-
     public function store(Request $request)
     {
         //
@@ -53,9 +51,17 @@ class ViolationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id)   
     {
-        return view('management.librarian.violations.show');
+        $violation = ViolationForm::find($id);
+        $bform = BorrowForm::where('id', '=', $violation->maphieu)->first();
+        $details = BorrowFormDetail::where('maphieu', '=', $bform->id)->get();
+        // dd($bform->phieuvp);
+        $user = User::where('id', '=', $bform->madg)->first();
+        $books = Book::all();
+
+        return view('management.librarian.violations.show',
+         compact('violation', 'bform', 'user', 'details'));
     }
 
     /**
@@ -66,7 +72,13 @@ class ViolationsController extends Controller
      */
     public function edit($id)
     {
-        return view('management.librarian.violations.edit');
+        $violation = ViolationForm::find($id);
+        $bform = BorrowForm::where('id', '=', $violation->maphieu)->first();
+        $books = Book::all();
+        $user = User::where('id', '=', $bform->madg)->first();
+
+        return view('management.librarian.violations.edit', 
+        compact('books', 'violation', 'bform', 'user'));
     }
 
     /**
@@ -78,7 +90,23 @@ class ViolationsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'tientra' => 'numeric|between:100,10000000'
+        ]);
+
+        $violation = ViolationForm::find($id);
+        $tienvp = $violation->tienvipham;
+        $dathanhtoan = $violation->dathanhtoan;
+        $tientra = $request->input('tientra');
+
+        // dd($tientra + $dathanhtoan > $tienvp);
+        if($tientra + $dathanhtoan <= $tienvp) {
+            $violation->dathanhtoan = $dathanhtoan + $tientra;
+            $violation->save();
+            return redirect()->route('violations')->with('success', 'Đã cập nhật thành công');
+        }
+        
+        else return redirect()->route('violations.edit', $id)->with('error', 'Tổng tiền thu không được lớn hơn tiền vi phạm');
     }
 
     /**

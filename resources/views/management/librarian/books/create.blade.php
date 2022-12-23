@@ -15,10 +15,12 @@
         {!! Form::open(['action' => 'App\Http\Controllers\BooksController@store', 'files' => true, 'method' => 'POST']) !!}
         <div class="row">
             <div class="col">
-                <div class="form-group">
-                    {{form::label('mathuthu', 'Mã thủ thư')}}
-                    <div class="form-control">
-                        {{Auth::user()->id}}
+                <div class="row">
+                    <div class="form-group col">
+                        {{form::label('matt', 'Mã thủ thư')}}
+                        <div class="form-control" id="matt">
+                            {{Auth::user()->id}}
+                        </div>
                     </div>
                 </div>
             </div>  
@@ -42,11 +44,11 @@
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                        {{form::label('matheloai', 'Thể loại')}}</br>
-                        <select class="form-select form-select-sm mt-1" name="categoryid">
+                        {{form::label('matl', 'Thể loại')}}</br>
+                        <select class="form-select form-select-sm mt-1" name="matl">
                             @if(count($categories) > 0)
                                 @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}"> {{ $category->tentheloai }}</option>
+                                    <option value="{{ $category->id }}"> {{ $category->tentl }}</option>
                                 @endforeach
                             @else
                                 <option>Không có dữ liệu</option>
@@ -57,10 +59,10 @@
                 <div class="col">
                     <div class="form-group">
                         {{form::label('matacgia', 'Tác giả')}}</br>
-                        <select class="form-select form-select-sm mt-1" name="authorid">
+                        <select class="form-select form-select-sm mt-1" name="matg">
                             @if(count($authors) > 0)
                                 @foreach ($authors as $author)
-                                    <option value="{{ $author->id }}"> {{ $author->tentacgia }}</option>
+                                    <option value="{{ $author->id }}"> {{ $author->tentg }}</option>
                                 @endforeach
                             @else
                                 <option>Không có dữ liệu</option>
@@ -88,13 +90,45 @@
                 </div>
                 
             </div>
-            <div class="form-group  {{ $errors->has('anhbia') ? 'has-error' : '' }}">
+            <div class="row">
+                <div class="col">
+                    {{-- bia --}}
+                    {{form::label('bia', 'Bìa')}}
+                    <select class="form-select form-select-sm mt-1 text-capitalize" name="bia">
+                        <option value="0"> Bìa mềm </option>
+                        <option value="1"> Bìa cứng </option>
+                    </select>
+                </div>
+                <div class="col">
+                    {{-- bia --}}
+                    {{form::label('nhaxb', 'Nhà xuất bản')}}
+                    {{form::text('nhaxb', '', ['class' => 'form-control', 'placeholder' => 'Nhập tên nhà xuất bản..'])}}
+                </div>
+                <div class="col">
+                    {{-- ngonngu --}}
+                    {{form::label('ngonngu', 'Ngôn ngữ')}}
+                    <select class="form-select form-select-sm mt-1 text-capitalize" name="ngonngu">
+                        @if(count($langs) > 0)
+                                @foreach ($langs as $lang)
+                                    <option class=" text-capitalize" value="{{ $lang->id }}"> {{ $lang->tennn }}</option>
+                                @endforeach
+                            @else
+                                <option>Không có dữ liệu</option>
+                            @endif
+                    </select>
+                </div>
+            </div>
+            <div class="form-group my-3  {{ $errors->has('anhbia') ? 'has-error' : '' }}">
                 {{form::label('anhbia', 'Ảnh')}}
                 {{form::file('anhbia', $attrs = [])}}    
             </div>
-            <button class="btn btn-default">Thêm</button>
+            {{-- <button class="btn btn-default">Thêm</button> --}}
+            <div class=" text-center my-3">
+                {{form::submit('Nhập', ['class' => 'btn btn-primary submit'])}}
+                {!! Form::close() !!}
+            </div>
         </div>
-        <div class="book-add-list my-3">
+        {{-- <div class="book-add-list my-3">
             <div class="d-flex flex-row justify-between align-middle">
                 Danh sách thêm
                 <div id="addBook" class="btn btn-default py-2 px-5 rounded-lg">Thêm</div>
@@ -121,7 +155,7 @@
         <div class=" text-center my-3">
             {{form::submit('Nhập', ['class' => 'btn btn-primary submit'])}}
             {!! Form::close() !!}
-        </div>
+        </div> --}}
     </div>
     <script type="text/javascript" src="{{ asset('/js/addBookToList.js') }}"></script>
 

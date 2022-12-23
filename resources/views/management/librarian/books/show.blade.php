@@ -12,18 +12,30 @@
     <div id="book-info">
         <div class="d-flex flex-row h-auto mb-12 justify-between">
             <div class="book-image ">
+                <img class="py-auto" src="
+                @if(!empty($booktitle->anhbia))
+                    {{ asset('uploads/books/' . $booktitle->anhbia) }}
+                @else
+                    {{ asset('uploads/books/dafault.png') }}
+                @endif
+                " />
             </div>
             <div class="book-content form-border form-hover ml-12 text-capitalize">
                 Tên sách: <h2 class="mb-2">{{$booktitle->tents}}</h2>
                 <div class="row">
                     <div class="col">
-                        Thể loại: <p class="form-control"> {{$booktitle->theloai}}</p>
+                        Thể loại: <a href={{ URL::route('categories.show', $booktitle->theloai) }} class="form-control"> {{$categories[$booktitle->theloai - 1]->tentl}}</a>
                     </div>
                     <div class="col">
                         Tác giả: <p class="form-control"> {{$booktitle->tacgia}}</p>
                     </div>
                 </div>
-                Nhà Xuất Bản: <p class="form-control">{{$bookhead->nhaxb}}</p>
+                Nhà Xuất Bản: <p class="form-control">
+                    @if(!empty($bookhead))
+                        {{$bookhead->nhaxb}}
+                    @else {{ __('Không có') }}
+                    @endif
+                </p>
                 Ngày nhập: <p  class="form-control">
                         <?php 
                             use Carbon\Carbon;
@@ -38,7 +50,7 @@
                         ?>
                 </p>
                 Số lượng sách: <p class="form-control">
-                    @if (count($book))
+                    @if (!empty($book) && count($book))
                         {{count($book)}}
                         @else {{0}}
                     @endif
@@ -62,7 +74,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @if(count($users) > 0)
+                    @if(!empty($users) && count($users) > 0)
                         @for($i = 0; $i < count($users); $i++)
                             <tr>
                                 <td> 

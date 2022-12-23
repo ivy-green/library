@@ -26,7 +26,7 @@
                 <th scope="col">Mail độc giả</th>
                 <th scope="col">Tiền vi phạm</th>
                 <th scope="col">Đã trả</th>
-                <th scope="col">Còn nợ</th>
+                <th scope="col">Chưa trả</th>
                 <th scope="col">Thao tác</th>
                 {{-- <th scope="col">Thao tác</th> --}}
               </tr>
@@ -36,16 +36,21 @@
                     @foreach($violations as $violation)
                     <tr>
                         <td> 
-                            <a href="/exchange/borrow/{{$violation->maphieu}}"> {{$violation->maphieu}}</a>
+                            <a href={{ URL::route('violations.show', $violation->id) }}> {{$violation->maphieu}}</a>
                         </td>
                         <td>
-                            <a href="/violations/{{$violation->id}}">
-                                {{ $users[$borrows[$violation->maphieu-1]->madg-1]->email}}
+                            {{-- <a href={{ URL::route('user.show', $bforms[$violation->maphieu]->madg) }}>
+                                {{ $users[$bforms[$violation->maphieu-1]->madg-1]->email}}
+                            </a> --}}
+                            <a href={{ URL::route('violations.show', $violation->id) }}>
+                                {{ $users[$bforms[$violation->maphieu-1]->madg-1]->email}}
                             </a>
                         </td>
                         
                         <td>
-                            <a href="/violations/{{$violation->id}}"> {{$violation->tienvipham}}</a>
+                            {{-- <a href={{ URL::route('borrow.show', $violation->maphieu) }}> {{$violation->tienvipham}}</a> --}}
+                            <a href={{ URL::route('violations.show', $violation->id) }}> {{$violation->tienvipham}}</a>
+
                         </td>
                         <td>
                             @if($violation->dathanhtoan == $violation->tienvipham)
@@ -54,14 +59,14 @@
                             @endif
                         </td>
                         <td>
-                            <a href="/violations/{{$violation->id}}"> {{
+                            <a href={{ URL::route('violations.show', $violation->id) }}> {{
                                 $violation->tienvipham - $violation->dathanhtoan
                             }}</a>
                         </td>
                         <td>
                             @if($violation->dathanhtoan < $violation->tienvipham)
-                                <a href="/violations/{{$violation->id}}" class="btn btn-default"> 
-                                    Trả nợ
+                                <a href={{ URL::route('violations.edit', $violation->id) }} class="btn btn-default"> 
+                                    Thanh toán
                                 </a>
                             @endif
                         </td>

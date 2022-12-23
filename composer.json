@@ -6,18 +6,21 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "binshops/laravel-blog": "^9.2",
         "consoletvs/charts": "6.*",
         "guzzlehttp/guzzle": "^7.2",
         "inertiajs/inertia-laravel": "^0.6.3",
         "laravel/framework": "^9.19",
         "laravel/jetstream": "^2.12",
         "laravel/sanctum": "^2.8",
+        "laravel/scout": "^9.6",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
         "laravelcollective/html": "^6.3",
         "maatwebsite/excel": "^3.1",
         "phpoffice/phpword": "^1.0",
         "psr/simple-cache": "2.0",
+        "spatie/laravel-searchable": "^1.11",
         "tightenco/ziggy": "^1.0"
     },
     "require-dev": {

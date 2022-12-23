@@ -30,7 +30,10 @@ class BorrowController extends Controller
         $bookforms = BorrowForm::all();
         $users = User::all();
         return view('management.librarian.exchange.borrow.index', compact('bookforms', 'users'));
-
+        // return redirect()->route('borrow')->with([
+        //     'bookforms' => $bookforms,
+        //     'users' => $users,
+        // ]);
     }
 
     /**
@@ -129,12 +132,16 @@ class BorrowController extends Controller
             }
         }
         // form details has data inside
-        if(!$hasBook) $form->delete();
+        if(!$hasBook) {
+            $form->delete();
+            return redirect()->route('borrow')->with('error', 'Vui lòng nhập sách hợp lệ');
+        }
 
         // return redirect()->route('borrow.form');
         $id = $form->id;
 
-        return redirect()->route('borrow.show', ['borrow' => $id])->with('success', 'Đã thêm thành công');
+        return redirect()->route('borrow.show', ['borrow' => $id])
+            ->with('success', 'Đã thêm thành công');
     }
 
 
@@ -149,7 +156,11 @@ class BorrowController extends Controller
         $users = User::all();
         $borrow = BorrowForm::find($id);
         $details = DB::table('ctphieumuontra')->where('maphieu', $id)->get();
-        return view('management.librarian.exchange.borrow.show', compact('details', 'borrow', 'users'));
+        $btitles = BookTitle::all();
+        $bheads = BookHead::all();
+
+        return view('management.librarian.exchange.borrow.show',
+         compact('details', 'borrow', 'users', 'btitles', 'bheads'));
     }
 
     /**
