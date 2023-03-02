@@ -32,15 +32,24 @@
             </div>
             <div class="user-content form-border form-hover ml-12 col-3">
                 Tên độc giả: <h2 class="mb-2">{{$user -> ten}}</h2>
-                Ngày tạo: <div class="py-2 px-3 rounded-lg border border-dark my-2 bg-white">
-                    @if($user -> created_at != null)
-                        {{ $user -> created_at }}
-                    @else
-                        @php
-                            $currentTime = Carbon::now();
-                            echo $currentTime;
-                        @endphp
-                    @endif
+                <div class="row">
+                    <div class="col">
+                        Ngày tạo: <div class="py-2 px-3 rounded-lg border border-dark my-2 bg-white">
+                            @if($user -> created_at != null)
+                                {{ $user->created_at }}
+                            @else
+                                @php
+                                    $currentTime = Carbon::now();
+                                    echo $currentTime;
+                                @endphp
+                            @endif
+                        </div>
+                    </div>
+                    <div class="col">
+                        Ngày tạo: <div class="py-2 px-3 rounded-lg border border-dark my-2 bg-white">
+                            {{ $user->updated_at }}
+                        </div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col">

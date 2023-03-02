@@ -15,17 +15,31 @@
             <div class="author-image ">
                 {{-- <img src="{{ asset($author->anhbia) }}" /> --}}
                 <img src="<?php
-                $str = 'uploads/authors/' . $author->anhdaidien;
-                if(substr($str, -5) == "authors"){
-                    asset('uploads/authors/default.jpg');
-                }else {
-                    asset($str);
-                }
-                ?>" />
+                // $str = 'uploads/authors/' . $author->anhdaidien;
+                // if(substr($str, -5) == "authors"){
+                //     asset('uploads/users/default.jpg');
+                // }else {
+                //     asset($str);
+                // }
+                ?>
+                {{ asset('uploads/users/default.jpg') }}
+                " />
             </div>
             <div class="content form-border form-hover ml-12">
                 Tên tác giả: <h2 class="mb-2">{{$author -> tentg}}</h2>
-                Ngày tạo: <div class="py-2 px-3 rounded-lg border border-dark my-2 bg-white">{{$author -> created_at}}</div>
+                Ngày tạo: <div class="py-2 px-3 rounded-lg border border-dark my-2 bg-white">
+                    <?php 
+                            use Carbon\Carbon;
+                            $currentTime = Carbon::now();
+
+                            if($author->created_at == null){
+                                echo $currentTime;
+                            } else {
+                                echo $booktitle->created_at;
+                            }
+
+                        ?>
+                </div>
                 <div class="row">
                     <div class="col">
                         Giới tính: <div class="py-2 px-3 rounded-lg border border-dark my-2 bg-white">
@@ -80,10 +94,10 @@
                                             {{$booktitle->tomtat}}
                                         </td>
                                         <td>
-                                                @if ($bookheads[$booktitle->id - 1]->tinhtrang == 1) 
+                                                {{-- @if ($bookheads[$booktitle->id - 1]->tinhtrang == 1) 
                                                     <div class="alert alert-success py-1 px-2 text-center">Còn</div>
                                                     @else <div class="alert alert-danger py-1 px-2 text-center">Đã hết</div>
-                                                    @endif
+                                                    @endif --}}
                                         </td>
                                 </tr>
                             @endif

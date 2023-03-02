@@ -32,27 +32,27 @@
                     @foreach($categories as $category)
                     <tr>
                             <td> 
-                                <a href="./categories/{{$category->id}} class="text-capitalize""> TL{{$category->id}}</a>
+                                <a href="/categories/{{$category->id}}" class="text-capitalize""> TL{{$category->id}}</a>
                             </td>
                             <td>
-                                <a href="./categories/{{$category->id}}" class="text-capitalize"> {{$category->tentl}}</a>
+                                <a href="/categories/{{$category->id}}" class="text-capitalize"> {{$category->tentl}}</a>
                             </td>
                             <td>
-                                <a href="./categories/{{$category->id}}"> 
+                                <a href="/categories/{{$category->id}}"> 
                                     {{
                                         $booktitles->where('theloai', $category->id)->count()
                                     }}
                                 </a>
                             </td>
                             <td>
-                                <a href="./categories/{{$category->id}}"> {{$category->created_at}}</a>
+                                <a href="/categories/{{$category->id}}"> {{$category->created_at}}</a>
                             </td>
                             {{-- <td>
                                 <button class="btn btn-default">
-                                    <a class="btn_a" href="./category/{{$category->id}}">Chỉnh sửa</a>
+                                    <a class="btn_a" href="/category/{{$category->id}}">Chỉnh sửa</a>
                                 </button>
                                 <button class="btn btn-danger">
-                                    <a class="btn_a" href="./category/{{$category->id}}">Xóa</a>
+                                    <a class="btn_a" href="/category/{{$category->id}}">Xóa</a>
                                 </button>
                             </td> --}}
                     </tr>

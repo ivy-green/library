@@ -5,7 +5,10 @@
     @if(Auth::user()->maquyen != 2)
         <div class="row w-2/3">
             <div class="col card-wrapper">
-                <a class="card d-flex flex-row justify-between px-4 py-3 rounded-lg form-border form-hover" data-go="giveback" href="/user/">
+                <a class="card d-flex flex-row justify-content-sm-between
+                 px-4 py-3 rounded-lg
+                form-border form-hover"
+                 data-go="giveback" href="/user/">
                     
                     <div class="mt-3 align-content-center
                     ">
@@ -23,7 +26,10 @@
                 </a>
             </div>
             <div class="col card-wrapper">
-                <a class="card d-flex flex-row justify-between px-4 py-3 rounded-lg form-border form-hover" data-go="giveback" href="/book/">
+                <a class="card d-flex flex-row justify-content-sm-between
+                 px-4 py-3 rounded-lg
+                  form-border form-hover"
+                  data-go="giveback" href="/book/">
                     
                     <div class="mt-3 align-content-center
                     ">

@@ -9,6 +9,7 @@
       </li>
     </ol>
   </nav>
+  @include('inc.message')
     <div id="book-info">
         <div class="d-flex flex-row h-auto mb-12 justify-between">
             <div class="book-image ">

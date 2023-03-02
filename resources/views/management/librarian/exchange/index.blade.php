@@ -24,13 +24,13 @@
             <div class="col">
                 <div class="card">
                     <h4 class="pb-3 pt-4">Lượt vi phạm trên lượt mượn trả</h4>
-                    <canvas id="violate_on_borow" class="form-border form-hover rounded-lg py-3 px-2" width="300" height="400"></canvas> 
+                    <canvas id="violate_on_borow" class="form-border form-hover rounded-lg py-3 px-2" width="300" height="250"></canvas> 
                 </div>
             </div>
             <div class="col">
                 <div class="card">
                     <h4 class="pb-3 pt-4">Lượt mượn sách theo tháng</h4>
-                    <canvas id="book_in_months" class="form-border form-hover rounded-lg py-3 px-2" width="300" height="400"></canvas> 
+                    <canvas id="book_in_months" class="form-border form-hover rounded-lg py-3 px-2" width="300" height="250"></canvas> 
                 </div>
             </div>
         </div>

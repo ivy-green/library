@@ -64,9 +64,15 @@
                 <div class="col">
                     <div class="form-group">
                         {{form::label('email', 'Email')}}
-                        {{form::text('email', $user->email, ['class' => 'form-control', 'placeholder' => ''])}}
+                        {{form::text('email', $user->email, ['class' => 'form-control', 'placeholder' => 'Nhập email..'])}}
                     </div>
                 </div>
+                {{-- <div class="col">
+                    <div class="form-group">
+                        {{form::label('password', 'Mật khẩu mới')}}
+                        {{form::text('password', '', ['class' => 'form-control', 'placeholder' => 'Nhập mật khẩu mới..'])}}
+                    </div>
+                </div> --}}
             </div>
             
             <div class="row">
@@ -101,7 +107,7 @@
             </div>
         </div>
         <div class=" text-center my-3">
-            {{form::submit('Thêm', ['class' => 'btn btn-primary submit'])}}
+            {{form::submit('Cập nhật', ['class' => 'btn btn-primary submit'])}}
             {!! Form::close() !!}
         </div>
     </div>

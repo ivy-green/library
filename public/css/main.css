@@ -61,11 +61,12 @@
 }
 /* toggling */
 #content.active {
-    margin-left: calc(100% - (100% - 250px));
+    margin-left: calc(100vw - (100vw - 250px));
+    width: calc(100vw - 250px);
 }
 
 #content {
-    width: 100vw !important; 
+    width: 100vw; 
     padding: 40px;
     margin-left: 5%;
     transition: all 0.3s;
@@ -150,7 +151,7 @@ a, a:hover, a:focus {
 
 #sidebar ul.components {
     /* padding: 20px 0; */
-    background: var(--clr-bg-sidenav);
+    /* background: var(--clr-bg-sidenav); */
     cursor: pointer;
 }
 
@@ -159,9 +160,10 @@ a, a:hover, a:focus {
     padding: 10px;
 }
 
-#sidebar ul li {
+#sidebar .nav-list > li {
     width: 100%;
     background: var(--clr-bg-sidenav);
+    color: var(--clr-txt-primary);
     transition: all 0.3s;
 }
 
@@ -169,7 +171,6 @@ a, a:hover, a:focus {
     display: block;
     /* height: 100%; */
     width: 100%;
-    color: var(--clr-txt-primary);
     font-size: 16px;
     padding: 13px 30px;
 
@@ -180,8 +181,8 @@ a, a:hover, a:focus {
     border-radius: 0 0 30px 0; 
 }
 
-#sidebar li.active-before a {
-    background-color: var(--clr-bg-sidenav);
+#sidebar li.active-before a{
+    /* background-color: black; */
     border-radius: 0 0 20px 0;
 }
 
@@ -195,7 +196,7 @@ a, a:hover, a:focus {
     border-radius: 0 20px 0 0;
 }
 
-#sidebar ul li.active-main {
+#sidebar ul li.active-main div {
     height: 65px;
     background-color: var(--clr-bg-sidenav);
 }
@@ -503,3 +504,45 @@ table .code {
     border: var(--clr-main);
     border-radius: 5px !important;
 }
+
+/* side navigation */
+#sidebar .navlink{
+    transition: var(--transition);
+}
+
+.openSubNav,
+#sidebar .navlink:hover {
+    background-color: white;
+    color: var(--clr-bg-sidenav) !important;
+    margin: 5px 10px;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+#sidenav .sub-menu{
+    transition: var(--transition);
+
+}
+
+/* sub nav */
+.sub-nav-list {
+    margin: 10px 10px;
+    padding: 10px 10px;
+
+    background-color: var(--clr-bg-sidenav-dark);
+    border-radius: 10px;
+}
+
+.sub-nav-list > li {
+    background-color: var(--clr-bg-sidenav-dark);
+    border-radius: 10px;
+    transition: var(--transition);
+}
+
+.sub-nav-list > li:hover,
+.sub-nav-list .onSelected
+{
+    background-color: var(--clr-txt-primary);
+    color: var(--clr-bg-sidenav);    
+}
+

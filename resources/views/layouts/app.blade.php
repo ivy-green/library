@@ -16,6 +16,8 @@
     {{-- FontAwesome --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    {{-- bootstrap 5 --}}
+    {{-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous"> --}}
     {{-- JQuery --}}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- jQuery Custom Scroller CDN -->
@@ -26,6 +28,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
 
     <!-- Scripts -->
+    @viteReactRefresh
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
     {{-- css --}}
@@ -35,7 +38,7 @@
     @push('css')
         {{-- <link rel="stylesheet" href="path to your css"> --}}
     @endpush
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">   
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}" rel="stylesheet">   
     <!-- Scrollbar Custom CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
 
@@ -44,10 +47,11 @@
     <div id="app" class="wrapper">
         <!-- Sidebar -->
         <nav id="sidebar">
-            <div id="curr-user" class="flex flex-row mx-3 my-3">
-                <a href={{ URL::route('user.show', Auth::user()->id) }} class="user-img h-14 w-14 rounded-full bg-white overflow-hidden
-                 border border-spacing-2 border-black">
-                    <img src="{{ asset('uploads/users/default.jpg') }}" class="" alt="">
+            <div id="curr-user" class="d-flex flex-row gap-3  px-md-3 py-3">
+                <a href={{ URL::route('user.show', Auth::user()->id) }}
+                     class="user-img d-inline-block h-25 w-25 rounded-pill bg-white overflow-hidden
+                     border border-spacing-2 border-black">
+                    <img src="{{ asset('uploads/users/default.jpg') }}" class="w-100 " alt="">
                 </a>
                 <div class="user-info flex flex-col ml-3 mt-2">
                     <div class="name">Tên: 
@@ -89,85 +93,32 @@
                 </div>
             </div>
             {{-- side nav tùy vào Role của User --}}
-            @if(auth()->user()->maquyen == 3)
+            {{-- @if(auth()->user()->maquyen == 3)
                 @include('layouts.admin')
             @elseif(auth()->user()->maquyen == 1)
                 @include('layouts.librarian')
             @elseif(auth()->user()->maquyen == 2)
                 @include('layouts.reader')
-            @endif
-        </nav>
+            @endif --}}
+            @include('layouts.side-nav')
 
+        </nav>
         <main class="py-4 active" id="content">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light py-3 px-1">
-                <div class="container-fluid " >
-                    <button type="button" id="sidebarCollapse" class="btn btn-dark">
+            <div class="title">
+                
+            </div>
+            <div class="row py-2">
+                <div class="col">
+                    <button type="button" id="sidebarCollapse" 
+                    class=" text-white py-2 px-4 rounded-3 form-border btn-dark">
                         <i class="fas fa-align-left"></i>
                         <span>Danh mục</span>
                     </button>
-
-                    <ul id="navMain" class="nav justify-content-center">
-                        <li class="nav-item">
-                          <a class=" active" href="/home">Trang chủ</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="" href="/rule">Quy định thư viện</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="" href="/notify">Thông báo</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="" href="/contact">Liên hệ</a>
-                        </li>
-                    </ul>
-                    
-                    <button
-                    id="btn_navbarSupportedContent"
-                    class="btn btn-dark d-inline-block d-lg-none ml-auto" 
-                    type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false"
-                    aria-label="Toggle navigation"
-                    >
-                        <i class="fa-solid fa-bars" style="color: white;"></i>
-                    </button>
-                    <div class="navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto">
-                            @guest
-                                @if (Route::has('login'))
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('login') }}">{{ __('Đăng nhập') }}</a>
-                                    </li>
-                                @endif
-    
-                                @if (Route::has('register'))
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="{{ route('register') }}">{{ __('Đăng ký') }}</a>
-                                    </li>
-                                @endif
-                            @else
-                                <li class="nav-item dropdown">
-                                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                        {{ Auth::user()->ten }}
-                                    </a>
-    
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                           onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();">
-                                            {{ __('Đăng xuất') }}
-                                        </a>
-    
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                            @csrf
-                                        </form>
-                                    </div>
-                                </li>
-                            @endguest
-                        </ul>
-                    </div>
                 </div>
-            </nav>
-            @include('layouts.search')
+                <div class="col-10">
+                    @include('layouts.search')
+                </div>
+            </div>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
             <div id="yield" class="">
                 @yield('content')

@@ -18,6 +18,7 @@
     --clr-danger: #ffc2c2;
 
     --clr-bg-sidenav: #717d8b;
+    --clr-bg-sidenav-dark: #59616a;
     --clr-bg-sidenav-hover: #a1aac7;
     --clr-bg-sidenav-header: var(--clr-bg-sidenav);
     --clr-navitem-active: #f8fafc;
@@ -48,8 +49,11 @@
 .btn a:not(.btn_a) {
     text-decoration: none;
     font-weight: 800;
+    font-size: 12px;
+    padding: 2px 5px !important;
     text-transform: uppercase;
-    color: var(--clr-txt-btn-valid) !important;
+    /* color: var(--clr-txt-btn-valid) !important; */
+    color: white;
 }
 
 h1 {
@@ -80,7 +84,7 @@ ul ul a {
     width: 100%;
     font-size: 0.9em !important;
     padding-left: 30px !important;
-    background-color: #6d7fcc;
+    /* background-color: #6d7fcc; */
 }
 
 .btn {
@@ -94,11 +98,12 @@ ul ul a {
 }
 
 .btn.btn_size {
-    height: 50px;
+    height: 40px;
 }
 
 .btn:hover {
     background-color: var(--clr-btn-hover) !important;
+    color: white !important;
 }
 
 .btn-dark {
@@ -115,7 +120,7 @@ ul ul a {
 }
 
 .btn-default {
-    background-color: var(--clr-valid) !important;
+    background-color: var(--clr-bg-sidenav) !important;
 }
 
 .btn-danger {

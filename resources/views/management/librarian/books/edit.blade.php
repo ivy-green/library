@@ -37,7 +37,7 @@
                 <div class="col">
                     <div class="form-group">
                         {{form::label('tensach', 'Tên sách')}}
-                        {{form::text('tensach', $book->tensach, ['class' => 'form-control', 'placeholder' => 'Nhập tên sách..'])}}
+                        {{form::text('tensach', $booktitle->tensach, ['class' => 'form-control', 'placeholder' => 'Nhập tên sách..'])}}
                     </div>
                 </div>
                 <div class="col">

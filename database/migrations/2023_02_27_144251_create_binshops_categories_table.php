@@ -15,18 +15,13 @@ class CreateBinshopsCategoriesTable extends Migration
     {
         Schema::create('binshops_categories', function (Blueprint $table) {
             $table->increments('id');
-
-            $table->unsignedInteger("created_by")->nullable()->index()->comment("user id");
-
-            //columns related to multi-level categories
+            $table->unsignedInteger('created_by')->nullable()->index()->comment('user id');
             $table->integer('parent_id')->nullable();
             $table->integer('lft')->nullable();
             $table->integer('rgt')->nullable();
             $table->integer('depth')->nullable();
-
             $table->timestamps();
         });
-
     }
 
     /**

@@ -12,20 +12,21 @@
   </nav>
     <div id="info">
         <div class="d-flex flex-row mb-12 justify-between">
-            <div class="category-image ">
-                {{-- <img src="{{ asset($category->anhbia) }}" /> --}}
-                <img src="<?php
-                $str = 'uploads/categories/' . $category->anhdaidien;
-                if(substr($str, -5) == "categories"){
-                    asset('uploads/categories/default.jpg');
-                }else {
-                    asset($str);
-                }
-                ?>" />
-            </div>
             <div class="content form-border form-hover ml-12">
                 Tên thể loại: <h2 class="mb-2">{{$category -> tentl}}</h2>
-                Ngày tạo: <div class="py-2 px-3 rounded-lg border border-dark my-2 bg-white">{{$category -> created_at}}</div>
+                Ngày tạo: <div class="py-2 px-3 rounded-lg border border-dark my-2 bg-white">
+                    <?php 
+                            use Carbon\Carbon;
+                            $currentTime = Carbon::now();
+
+                            if($category->created_at == null){
+                                echo $currentTime;
+                            } else {
+                                echo $booktitle->created_at;
+                            }
+
+                        ?>
+                </div>
             </div>
         </div>
         <h3>Danh mục tựa sách</h3>
@@ -47,22 +48,22 @@
                             @if($booktitle->theloai == $category->id)
                                 <tr>
                                         <td> 
-                                            <a href="/books/{{$booktitle->mats}}"  class="text-uppercase"> {{$booktitle->mats}}</a>
+                                            <a href="/books/{{$booktitle->mats}}"  class="text-uppercase"> TS{{$booktitle->id}}</a>
                                         </td>
                                         <td>
                                             <a href="/books/{{$booktitle->tents}}"  class="text-capitalize"> {{$booktitle->tents}}</a>
                                         </td>
                                         <td>
-                                            <a href="/users/{{$booktitle->tacgia}}" class="text-capitalize"> {{ $authors[$booktitle->tacgia - 1]->tentg }}</a>
+                                            <a href="/users/{{$booktitle->tacgia-1}}" class="text-capitalize"> {{ $authors[$booktitle->tacgia - 1]->tentg }}</a>
                                         </td>
                                         <td class=" max-w-sm"> 
                                             {{$booktitle->tomtat}}
                                         </td>
                                         <td>
-                                                @if ($bookheads[$booktitle->id - 1]->tinhtrang == 1) 
+                                                {{-- @if ($bookheads[$booktitle->id - 1]->tinhtrang == 1) 
                                                     <div class="alert alert-success py-1 px-2 text-center">Còn</div>
                                                     @else <div class="alert alert-danger py-1 px-2 text-center">Đã hết</div>
-                                                    @endif
+                                                    @endif --}}
                                         </td>
                                 </tr>
                             @endif

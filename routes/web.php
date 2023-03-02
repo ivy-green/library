@@ -48,7 +48,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');
 
 Route::middleware([
     'auth:sanctum',
@@ -60,16 +60,19 @@ Route::middleware([
     })->name('dashboard');
 });
 
-Route::get('/', function() {
+Route::get('/', function () {
     return redirect('/login');
+});
+
+Route::get('/manage', function () {
+    return view('management.index');
 });
 
 Route::controller(PagesController::class)->group(function () {
     Route::get('/home', 'home');
     Route::get('/rule', 'rule');
-    Route::get('/notify', 'notify');
+    Route::get('/notify', 'pages.notify')->name('notify');
     Route::get('/contact', 'contact');
-
 });
 
 // Route::group(['middleware' => 'checkAdminLogin', 'prefix' => 'admincp', 'namespace' => 'Admin'], function() {
@@ -84,14 +87,14 @@ Route::controller(PagesController::class)->group(function () {
 Route::get('/books/checkExists', [BooksController::class, 'checkExists'])
     ->name('books.checkExists');
 
-Route::resource('/books', BooksController::class)->missing(function (Request $request) {
+Route::resource('/manage/books', BooksController::class)->missing(function (Request $request) {
     return Redirect::route('management.librarian.books.index');
 })->names([
     'index' => 'books'
 ]);
 
 
-Route::resource('/user', UserController::class)->missing(function (Request $request) {
+Route::resource('/manage/user', UserController::class)->missing(function (Request $request) {
     return Redirect::route('management.user.index');
 })->names([
     'index' => 'user',
@@ -114,7 +117,7 @@ Auth::routes();
 //     return view('management.librarian.exchange.index');
 // })->name('exchange');
 
-Route::resource('/exchange', ExchangeController::class)->missing(function (Request $request) {
+Route::resource('/manage/exchange', ExchangeController::class)->missing(function (Request $request) {
     return Redirect::route('management.librarian.exchange.index');
 })->names([
     'index' => 'exchange'
@@ -147,7 +150,7 @@ Route::resource('/signborrow', SignBorrowController::class)->missing(function (R
     'show' => 'signborrow.show'
 ]);
 
-Route::resource('/report', ReportController::class)->missing(function (Request $request) {
+Route::resource('/manage/report', ReportController::class)->missing(function (Request $request) {
     return Redirect::route('management.librarian.report.index');
 })->names([
     'index' => 'report',
@@ -158,14 +161,14 @@ Route::resource('/report', ReportController::class)->missing(function (Request $
 
 Auth::routes();
 
-Route::resource('/authors', AuthorsController::class)->missing(function (Request $request) {
+Route::resource('/manage/authors', AuthorsController::class)->missing(function (Request $request) {
     return Redirect::route('management.librarian.authors.index');
 })->names([
     'index' => 'authors',
     'show' => 'authors.show',
 ]);
 
-Route::resource('/categories', CategoriesController::class)->missing(function (Request $request) {
+Route::resource('/manage/categories', CategoriesController::class)->missing(function (Request $request) {
     return Redirect::route('management.librarian.categories.index');
 })->names([
     'index' => 'categories',
@@ -173,7 +176,7 @@ Route::resource('/categories', CategoriesController::class)->missing(function (R
     'create' => 'categories.create',
 ]);
 
-Route::resource('/violations', ViolationsController::class)->missing(function (Request $request) {
+Route::resource('/manage/violations', ViolationsController::class)->missing(function (Request $request) {
     return Redirect::route('management.librarian.violations.index');
 })->names([
     'index' => 'violations',
@@ -186,7 +189,9 @@ Route::resource('/violations', ViolationsController::class)->missing(function (R
 //rules
 Route::resource('/rules', RulesController::class)->missing(function (Request $request) {
     return Redirect::route('management.rules.index');
-});
+})->names([
+    'index' => 'rules'
+]);
 
 Route::resource('/accesses', AccessesController::class)->missing(function (Request $request) {
     return Redirect::route('management.admin.accesses.index');
@@ -194,10 +199,10 @@ Route::resource('/accesses', AccessesController::class)->missing(function (Reque
 
 
 // reader
-Route::get('/personal/edit', function(){
+Route::get('/personal/edit', function () {
     return view('personal.edit');
 });
 
-Route::get('/personal/infor', function(){
+Route::get('/personal/infor', function () {
     return view('personal.infor');
 });

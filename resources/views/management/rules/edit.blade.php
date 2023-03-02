@@ -4,14 +4,14 @@
     @include('inc.message')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/rules">Quản lý sách</a></li>
+          <li class="breadcrumb-item"><a href="/rules">Quản lý quy định</a></li>
           <li class="breadcrumb-item active" aria-current="page">
-            <a href="#">Chỉnh sửa thông tin sách</a>
+            <a href="#">Chỉnh sửa thông tin quy định</a>
           </li>
         </ol>
       </nav>
     <div class="form-main form-border form-hover">
-        <h3 class="text-center mb-4">Chỉnh sửa Sách</h3>
+        <h3 class="text-center mb-4">Chỉnh sửa Quy định</h3>
         {!! Form::open(['action' => ['App\Http\Controllers\RulesController@update', $rule->id], 'files' => true, 'method' => 'PUT']) !!}
         <div class="row">
             <div class="col">

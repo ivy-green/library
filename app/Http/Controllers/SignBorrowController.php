@@ -33,9 +33,10 @@ class SignBorrowController extends Controller
      */
     public function create()
     {
-        $signforms = SignForm::all();
-
-        return view('management.librarian.exchange.signborrow.create', compact('signforms'));
+        $bookheads = BookHead::all();
+        $langs = Lang::all(); 
+        return view('management.librarian.exchange.signborrow.create', 
+    compact('bookheads', 'langs'));
     }
 
     /**

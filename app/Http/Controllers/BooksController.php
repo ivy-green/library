@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+
 use App\Models\BookTitle;
 use App\Models\BookHead;
 use App\Models\Book;
@@ -201,12 +202,18 @@ class BooksController extends Controller
     public function edit($id)
     {
         $book = Book::find($id);
-        $authors = Authors::all();
         $categories = Category::all();
-        return view('management.librarian.books.edit')
-            ->with('book', $book)
-            ->with('categories', $categories)
-            ->with('authors', $authors);
+        $bookhead = BookHead::where('mats', '=', $book->mads)->first();
+        $booktitle = BookTitle::find($bookhead->mats);
+
+        // $book = Book::where('mads', '=', $bookhead->id)->get();
+        $author = Authors::find($booktitle->tacgia);
+        $authors = Authors::all();
+        $category = Category::find($booktitle->tacgia);
+        $categories = Category::all();
+
+        return view('management.librarian.books.edit', 
+        compact('book', 'bookhead', 'booktitle', 'category', 'author', 'authors', 'categories'));
     }
 
     /**

@@ -72,7 +72,7 @@ class UserController extends Controller
         $user->ngaysinh = $request->input('ngaysinh');
         $user->dienthoai = $request->input('dienthoai');
         $user->diachi = $request->input('diachi');
-        $user->password = bcrypt('123456789');
+        $user->password = bcrypt('12345678');
 
         if($request->get('accessid') != null) {
             //admin có quyền thêm nhiều loại người dùng

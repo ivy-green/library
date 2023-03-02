@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBinshopsConfigurationsTable extends Migration
+class CreatePasswordResetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateBinshopsConfigurationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('binshops_configurations', function (Blueprint $table) {
-            $table->string("key")->primary();
-            $table->string("value");
-            $table->timestamps();
+        Schema::create('password_resets', function (Blueprint $table) {
+            $table->string('email')->index();
+            $table->string('token');
+            $table->timestamp('created_at')->nullable();
         });
     }
 
@@ -27,6 +27,6 @@ class CreateBinshopsConfigurationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('binshops_configurations');
+        Schema::dropIfExists('password_resets');
     }
 }
