@@ -64,6 +64,10 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
+Route::get('/register', function () {
+    return view('auth.register');
+}) -> name('register');
+
 Route::get('/manage', function () {
     return view('management.index');
 });

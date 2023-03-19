@@ -63,7 +63,7 @@
                                 <button type="submit" class="btn btn-primary text-nowrap text-capitalize">
                                     {{ __('Đăng nhập') }}
                                 </button>
-                                <button class="btn btn-default ml-2 text-nowrap"><a href="/register" class="signin text-capitalize">
+                                <button class="btn btn-default ml-2 text-nowrap"><a href="{{ URL::route('register') }}" class="signin text-capitalize">
                                     {{ __('Đăng ký') }}
                                 </a></button>
 
