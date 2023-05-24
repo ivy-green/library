@@ -15,6 +15,7 @@ $(document).ready(function () {
     toTopButton();
     addContanerClass();
     checkIfBookNameExists();
+    handleRender();
     console.log("app.js");
 });
 // login page
@@ -25,6 +26,20 @@ $(window).on("resize", function () {
         $("#rule").removeClass("show");
     }
 });
+
+function handleRender() {
+    let title;
+    let mySubMenuOpened = document.querySelector(
+        "#sidebar li.has-submenu #submenu.show"
+    );
+    console.log(mySubMenuOpened);
+    if (mySubMenuOpened) {
+        title = $("#sidebar li.has-submenu #submenu .onSelected").text();
+    } else title = $("#sidebar .openSubNav a").text();
+
+    console.log("render handler: \n" + title);
+    $("#content .title h2").html(title);
+}
 
 function setNavigation() {
     var root = window.location;
@@ -117,7 +132,7 @@ function setSideNavigation() {
             subitem.each(function (idx, li) {
                 var href = $(li).find("a").attr("href").split("/").pop();
                 if (path.indexOf(href) > 0) {
-                    console.log(li);
+                    // console.log(li);
                     $(this).addClass("onSelected");
                 }
             });

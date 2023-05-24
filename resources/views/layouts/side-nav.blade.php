@@ -25,9 +25,9 @@
         <div class="selector d-flex flex-row openSubNav navlink">
             <i class="fa-solid fa-folder h-50 my-auto ms-3"></i>
             <a class="" 
-            href="/manage">{{ __('Quản lý') }}</a>
+            href="#">{{ __('Quản lý') }}</a>
         </div>
-        <div class="submenu collapse">
+        <div id="submenu" class=" collapse">
             @include('layouts.librarian')    
         </div>            
     </li>   
