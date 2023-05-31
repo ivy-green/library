@@ -1,4 +1,4 @@
-@import './src.css';
+@import "./src.css";
 
 /* colors */
 .ic::before {
@@ -11,22 +11,21 @@
     transition: all 0.3s;
 }
 .ic_book::before {
-    font-weight: 900; 
+    font-weight: 900;
     content: "\f02d";
     font-size: 40px;
     color: var(--clr-bg-sidenav);
-    
-  }
+}
 
 .ic_user::before {
-    font-weight: 900; 
+    font-weight: 900;
     content: "\f0c0";
     font-size: 40px;
     color: var(--clr-bg-sidenav);
 }
 
 .card i {
-    font-weight: 900; 
+    font-weight: 900;
     font-size: 40px;
     color: var(--clr-bg-sidenav);
     margin: 12px 0px;
@@ -40,7 +39,7 @@
 
 /* sidebar */
 
-.wrapper{
+.wrapper {
     display: flex;
     width: 100%;
     align-items: stretch;
@@ -66,7 +65,7 @@
 }
 
 #content {
-    width: 100vw; 
+    width: 100vw;
     padding: 40px;
     margin-left: 5%;
     transition: all 0.3s;
@@ -82,7 +81,7 @@ a[data-toggle="collapse"] {
     position: absolute;
     top: 50%;
     right: -10px;
-    transform: translateY(-50%)
+    transform: translateY(-50%);
 }
 
 .show {
@@ -94,7 +93,7 @@ a[data-toggle="collapse"] {
         margin-left: -250px;
     }
     #sidebar.active {
-        margin-left:-250px;
+        margin-left: -250px;
     }
     #content {
         margin-left: 5%;
@@ -105,21 +104,19 @@ a[data-toggle="collapse"] {
     #navbarSupportedContent.show li {
         width: 100px;
     }
-    
 }
 
-@media(max-width: 992px){
+@media (max-width: 992px) {
     #sidebarCollapse span {
         display: none !important;
     }
     .navbar-collapse:not(.show) {
         display: none;
     }
-    
 }
 /* styling */
 #navbarSupportedContent,
-#navbarSupportedContent ul{
+#navbarSupportedContent ul {
     margin-top: 10px;
     transition: all 0.3s;
 }
@@ -128,7 +125,9 @@ a[data-toggle="collapse"] {
     transition: all 0.3s;
 }
 
-a, a:hover, a:focus {
+a,
+a:hover,
+a:focus {
     color: inherit;
     text-decoration: none;
     transition: all 0.3s;
@@ -167,7 +166,7 @@ a, a:hover, a:focus {
     transition: all 0.3s;
 }
 
-#sidebar ul li a{
+#sidebar ul li a {
     display: block;
     /* height: 100%; */
     width: 100%;
@@ -178,10 +177,10 @@ a, a:hover, a:focus {
 }
 
 #sidebar div.active-before {
-    border-radius: 0 0 30px 0; 
+    border-radius: 0 0 30px 0;
 }
 
-#sidebar li.active-before a{
+#sidebar li.active-before a {
     /* background-color: black; */
     border-radius: 0 0 20px 0;
 }
@@ -209,7 +208,7 @@ a, a:hover, a:focus {
     border-radius: 30px 0 0 30px;
     box-shadow: inset 5px -3px 0px rgb(73, 69, 96);
     padding-top: 20px;
-    padding-bottom: 20px; 
+    padding-bottom: 20px;
     color: var(--clr-bg-sidenav) !important;
 }
 
@@ -218,12 +217,12 @@ a, a:hover, a:focus {
     padding-bottom: 5px; */
 }
 
-#sidebar ul.nav-list > li:not(.active-main):not(.dropdown-item) > a:hover  {
+#sidebar ul.nav-list > li:not(.active-main):not(.dropdown-item) > a:hover {
     background-color: var(--clr-txt-primary);
     color: var(--clr-bg-sidenav);
 }
 
-#homeSubmenu li a.subMenuItem{
+#homeSubmenu li a.subMenuItem {
     color: var(--clr-txt-primary) !important;
     background-color: inherit !important;
 }
@@ -233,7 +232,6 @@ a, a:hover, a:focus {
 }
 
 #navbarSupportedContent .nav-item a#navbarDropdown:hover {
-
 }
 
 /* nav */
@@ -267,7 +265,7 @@ li.nav-item a:not(#navbarDropdown):hover,
 
 #search #search-input {
     background-color: transparent;
-    border: none;   
+    border: none;
     /* width: 40rem;  */
     padding-left: 15px;
 }
@@ -310,7 +308,7 @@ li.nav-item a:not(#navbarDropdown):hover,
 table {
 }
 
-tr{
+tr {
     vertical-align: middle;
 }
 
@@ -319,7 +317,7 @@ tr{
 }
 
 td a:not(.btn_a),
-td div{
+td div {
     display: block;
     width: 100%;
     padding-right: 10px;
@@ -341,7 +339,7 @@ tr .btn {
     padding: 0 !important;
 }
 
-.dropdown-menu a.dropdown-item{
+.dropdown-menu a.dropdown-item {
     height: 100%;
     width: 100%;
     padding: 5px 15px;
@@ -362,7 +360,7 @@ tr .btn {
     height: 23rem;
 } */
 
-.book-image{
+.book-image {
     /* width: 100%; */
     height: 320px;
 }
@@ -394,14 +392,12 @@ tr .btn {
     transform: var(--transition);
 }
 
-.form-hover:hover{
+.form-hover:hover {
     box-shadow: none;
     transform: translate(1px, 1px);
 }
 
-#search #search-btn:hover 
-
-div.form-control {
+#search #search-btn:hover div.form-control {
     border: solid 1px var(--clr-valid);
     padding: 9px 20px;
     background-color: #fff;
@@ -447,37 +443,37 @@ table .code {
 }
 
 /* float button */
-.float{
-	position:fixed;
-	width:30px;
-	height:60px;
-	bottom:40px;
-	right:40px;
-	background-color:var(--clr-bg-sidenav);
-	color:#FFF;
-	border-radius:50px;
-	text-align:center;
-	box-shadow: 2px 2px 3px #999;
+.float {
+    position: fixed;
+    width: 30px;
+    height: 60px;
+    bottom: 40px;
+    right: 40px;
+    background-color: var(--clr-bg-sidenav);
+    color: #fff;
+    border-radius: 50px;
+    text-align: center;
+    box-shadow: 2px 2px 3px #999;
 }
 
-.my-float{
-	margin-top:22px;
+.my-float {
+    margin-top: 22px;
 }
 
 /* input */
-.valid-input{
+.valid-input {
     position: absolute;
     font-size: 8px;
     left: 60px;
     /* visibility: hidden; */
 }
 
-.invalid{
+.invalid {
     color: var(--clr-valid-danger);
     visibility: hidden;
 }
 
-.valid{
+.valid {
     color: var(--clr-valid-green);
     visibility: hidden;
 }
@@ -488,7 +484,7 @@ table .code {
     position: relative;
 }
 
-.user-image img{
+.user-image img {
     max-width: 100%;
     max-height: 100%;
     position: absolute;
@@ -499,18 +495,19 @@ table .code {
     bottom: 0;
 }
 
-#search{
+#search {
     background-color: transparent;
     border: var(--clr-main);
     border-radius: 5px !important;
 }
 
 /* side navigation */
-#sidebar .navlink{
+#sidebar .navlink {
     transition: var(--transition);
 }
 
 .openSubNav,
+#sidebar .selector.active,
 #sidebar .navlink:hover {
     background-color: white;
     color: var(--clr-bg-sidenav) !important;
@@ -519,9 +516,8 @@ table .code {
     overflow: hidden;
 }
 
-#sidenav .sub-menu{
+#sidenav .sub-menu {
     transition: var(--transition);
-
 }
 
 /* sub nav */
@@ -540,9 +536,7 @@ table .code {
 }
 
 .sub-nav-list > li:hover,
-.sub-nav-list .onSelected
-{
+.sub-nav-list .onSelected {
     background-color: var(--clr-txt-primary);
-    color: var(--clr-bg-sidenav);    
+    color: var(--clr-bg-sidenav);
 }
-

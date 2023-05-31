@@ -123,7 +123,8 @@ function setSideNavigation() {
 
         if (
             (path.indexOf(href) >= 0 || href.indexOf(path) >= 0) &&
-            path != "/"
+            path != "/" &&
+            path != "/user/books"
         ) {
             element.eq(0).addClass("openSubNav");
             element.eq(1).addClass("show");
@@ -139,6 +140,11 @@ function setSideNavigation() {
             // console.log("\npath: " + path + " href: " + href);
             // console.log("\nsiblings:" + element.getElementsByClassName("submenu"));
             element.siblings(0).addClass("show");
+        } else if (
+            path.indexOf(href) >= 0 ||
+            (href.indexOf(path) >= 0 && path != "/" && path == "/user/books")
+        ) {
+            element.eq(0).addClass("active");
         }
     });
 }

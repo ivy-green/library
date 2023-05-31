@@ -8,7 +8,7 @@
                 <a class="card d-flex flex-row justify-content-sm-between
                  px-4 py-3 rounded-lg
                 form-border form-hover"
-                 data-go="giveback" href="/user/">
+                 data-go="giveback" href="{{ URL::route('user') }}">
                     
                     <div class="mt-3 align-content-center
                     ">
@@ -29,7 +29,7 @@
                 <a class="card d-flex flex-row justify-content-sm-between
                  px-4 py-3 rounded-lg
                   form-border form-hover"
-                  data-go="giveback" href="/book/">
+                  data-go="giveback" href="{{ URL::route('books') }}">
                     
                     <div class="mt-3 align-content-center
                     ">

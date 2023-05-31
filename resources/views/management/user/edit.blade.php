@@ -4,7 +4,7 @@
     @include('inc.message')
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/user">Quản lý độc giả</a></li>
+          <li class="breadcrumb-item"><a href="{{ URL::route('user.show', $user->id) }}">Quản lý độc giả</a></li>
           <li class="breadcrumb-item active" aria-current="page">
             <a href="#">Chỉnh sửa thông tin độc giả</a>
           </li>

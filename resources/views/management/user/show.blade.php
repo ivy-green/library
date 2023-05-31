@@ -95,7 +95,7 @@
             </div>
         </div>
     </div>
-    <h3>Lịch sử mượn trả sách</h3>
+    <h3 class="mt-5">Lịch sử mượn trả sách</h3>
         <div class="table-wrapper form-border form-hover">
             <table class="table">
                 <thead>

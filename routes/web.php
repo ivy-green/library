@@ -66,11 +66,11 @@ Route::get('/', function () {
 
 Route::get('/register', function () {
     return view('auth.register');
-}) -> name('register');
+})->name('register');
 
 Route::get('/manage', function () {
     return view('management.index');
-});
+})->name('manage');
 
 Route::controller(PagesController::class)->group(function () {
     Route::get('/home', 'home');
@@ -95,6 +95,12 @@ Route::resource('/manage/books', BooksController::class)->missing(function (Requ
     return Redirect::route('management.librarian.books.index');
 })->names([
     'index' => 'books'
+]);
+
+Route::resource('/user/books', BooksController::class)->missing(function (Request $request) {
+    return Redirect::route('management.librarian.books.index');
+})->names([
+    'index' => 'userbooks'
 ]);
 
 
@@ -138,7 +144,7 @@ Route::resource('/exchange/giveback', GiveBackController::class)->missing(functi
 // Route::get('/exchange/borrow', [BorrowController::class, 'index'])
 //     ->name('borrow');
 
-Route::resource('/borrow', BorrowController::class)->missing(function (Request $request) {
+Route::resource('/manage/borrow', BorrowController::class)->missing(function (Request $request) {
     return Redirect::route('management.librarian.exchange.borrow.index');
 })->names([
     'index' => 'borrow',
@@ -146,7 +152,7 @@ Route::resource('/borrow', BorrowController::class)->missing(function (Request $
     'show' => 'borrow.show'
 ]);
 
-Route::resource('/signborrow', SignBorrowController::class)->missing(function (Request $request) {
+Route::resource('/manage/signborrow', SignBorrowController::class)->missing(function (Request $request) {
     return Redirect::route('management.librarian.exchange.signborrow.index');
 })->names([
     'index' => 'signborrow',
